@@ -1,0 +1,66 @@
+.theme-layout::before {
+  background-repeat: repeat;
+  content: "";
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 99;
+  transition: all 0.5s linear 0s;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.theme-layout.active::before {
+  opacity: 1;
+  visibility: visible;
+}
+.error-page {
+  float: left;
+  height: 100vh;
+  position: relative;
+  width: 100%;
+}
+
+.bg-image {
+  float: left;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -1;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.error-meta {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.error-meta > h1 {
+  font-size: 100px;
+  margin-bottom: 0;
+  text-transform: capitalize;
+  font-weight: bold;
+  color: #222;
+}
+
+.error-meta span {
+  display: inline-block;
+  font-size: 17px;
+  text-align: center;
+  width: 100%;
+  text-transform: capitalize;
+}
+
+.error-meta > a {
+  border-radius: 3px;
+  color: #fff;
+  display: inline-block;
+  margin-top: 30px;
+  padding: 6px 30px;
+}

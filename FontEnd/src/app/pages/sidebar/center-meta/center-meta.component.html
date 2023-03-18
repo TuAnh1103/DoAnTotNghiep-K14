@@ -1,0 +1,49 @@
+<div class="central-meta">
+    <div class="new-postbox">
+        <figure>
+            <img src="assets/images/resources/admin2.jpg" alt="">
+        </figure>
+        <div class="newpst-input">
+            <form method="post" [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div>
+                  <input type="radio" formControlName="privacy" value="1">Public
+                  <input type="radio" formControlName="privacy" value="2">Friend
+                  <input type="radio" formControlName="privacy" value="3">Private
+                </div>
+                <textarea rows="2" placeholder="write something" formControlName="content" [(ngModel)]="content">
+                </textarea>
+                <div class="attachments">
+                    <ul>
+                        <li>
+                            <i class="fa fa-music"></i>
+                            <label class="fileContainer">
+                                <input type="file">
+                            </label>
+                        </li>
+                        <li>
+                            <i class="fa fa-image"></i>
+                            <label class="fileContainer">
+                                <input type="file" multiple (change)="selectFiles($event)">
+                            </label>
+                        </li>
+                        <!-- <li>
+                            <i class="fa fa-video-camera"></i>
+                            <label class="fileContainer">
+                                <input type="file">
+                            </label>
+                        </li>
+                        <li>
+                            <i class="fa fa-camera"></i>
+                            <label class="fileContainer">
+                                <input type="file">
+                            </label>
+                        </li> -->
+                        <li>
+                            <button type="submit">Post</button>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </div>
+</div><!-- add post new box -->

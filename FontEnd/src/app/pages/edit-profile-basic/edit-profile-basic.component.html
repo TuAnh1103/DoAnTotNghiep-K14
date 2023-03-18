@@ -1,0 +1,157 @@
+<div class="container" style="width: 60%">
+  <main class="has-dflex-center">
+    <section>
+      <div class="lx-container-70">
+        <div class="lx-row" style="margin-left: 40%">
+          <h1 class="title" style="font-weight: bolder; font-size: 30px">
+            Edit your profile
+          </h1>
+        </div>
+        <div class="lx-row" style="margin-left: 5%">
+          <div class="lx-column column-user-pic">
+            <div class="profile-pic bs-md">
+              <h1 class="pic-label">Profile picture</h1>
+              <div class="pic bs-md">
+                <img
+                  src="https://bit.ly/3jRbrbp"
+                  alt=""
+                  width="4024"
+                  height="6048"
+                  loading="lazy"
+                />
+                <p class="lx-btn">
+                  <i class="fas fa-camera-retro"></i>&nbsp;&nbsp;
+                  <label class="fileContainer">
+                    Edit Display Photo
+                    <input type="file" (change)="selectFile($event)" />
+                  </label>
+                </p>
+              </div>
+              <div class="pic-info">
+                <p>
+                  <i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp;This
+                  photo will appear on the platform, in your contributions or
+                  where it is mentioned.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="lx-column">
+            <form action="post" [formGroup]="form" (ngSubmit)="updateProfile()">
+              <div class="fieldset">
+                <label>Last name:</label>
+                <div class="input-wrapper">
+                  <span class="icon"><i class="fas fa-user"></i></span>
+                  <input
+                    type="text"
+                    formControlName="last_name"
+                    [(ngModel)]="last_name"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="fieldset">
+                <label for="user-id">First name:</label>
+                <div class="input-wrapper">
+                  <span class="icon"><i class="fas fa-address-card"></i></span>
+                  <input
+                    type="text"
+                    formControlName="first_name"
+                    [(ngModel)]="first_name"
+                    required
+                  />
+                </div>
+                <div id="user-id-helper" class="helper"></div>
+              </div>
+              <div class="fieldset">
+                <label for="email">Date of birthday</label>
+                <div class="input-wrapper">
+                  <span class="icon"><i class="fas fa-envelope"></i></span>
+                  <input type="date" formControlName="dob" [(ngModel)]="dob" />
+                </div>
+                <div id="email-helper" class="helper"></div>
+              </div>
+              <div class="fieldset">
+                <label for="pass">Introduce yourself:</label>
+                <div class="input-wrapper">
+                  <span class="icon"><i class="fas fa-key"></i></span>
+                  <textarea formControlName="bio" [(ngModel)]="bio"></textarea>
+                </div>
+                <div id="pass-helper" class="helper"></div>
+              </div>
+              <div class="fieldset">
+                <label for="pass">Gender:</label>
+                <div class="form-radio" stype="font-size:14px;font-weight:italic;">
+                  <div class="radio" style="margin-right: 50px">
+                    <label>
+                      <input
+                        type="radio"
+                        name="gender"
+                        checked="checked"
+                        formControlName="gender"
+                        [(ngModel)]="gender"
+                        value="true"
+                      /><i class="check-box"></i>Male
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input
+                        type="radio"
+                        name="gender"
+                        formControlName="gender"
+                        [(ngModel)]="gender"
+                        value="false"
+                      /><i class="check-box"></i>Female
+                    </label>
+                  </div>
+                </div>
+                <div id="pass-helper" class="helper"></div>
+              </div>
+              <div class="fieldset">
+                <label for="user-name">Hometown:</label>
+                <div class="input-wrapper">
+                  <span class="icon"><i class="fas fa-user"></i></span>
+                  <input
+                    type="text"
+                    formControlName="hometown"
+                    [(ngModel)]="hometown"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="fieldset">
+                <label for="user-name">City:</label>
+                <div class="input-wrapper">
+                  <span class="icon"><i class="fas fa-user"></i></span>
+                  <input
+                    type="text"
+                    formControlName="current_city"
+                    [(ngModel)]="current_city"
+                    required
+                  />
+                </div>
+                <div id="user-name-helper" class="helper">
+                  <p *ngIf="status==0" style="color:green">
+                     Update your profile successfull
+                  </p>
+                  <p *ngIf="status==1" style="color:red">
+                    Update your profile failed
+                  </p>
+                </div>
+              </div>
+              <div class="actions">
+                <a id="cancel" class="lx-btn" routerLink="/home"
+                  ><i class="fas fa-ban"></i>&nbsp;&nbsp;Back</a
+                >
+                <button type="submit" id="save" class="lx-btn">
+                  <i class="fas fa-save"></i>&nbsp;&nbsp;Save
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>

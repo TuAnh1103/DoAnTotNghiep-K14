@@ -1,0 +1,36 @@
+span.status {
+  background: #bebebe none repeat scroll 0 0;
+  border-radius: 50%;
+  bottom: 0;
+  display: inline-block;
+  height: 12px;
+  padding: 2px;
+  position: absolute;
+  right: 0;
+  width: 12px;
+}
+
+span.status::after {
+  background: white none repeat scroll 0 0;
+  border-radius: 100%;
+  content: "";
+  height: 6px;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+}
+
+span.status.f-online {
+  background: #7FBA00;
+}
+
+
+span.status.f-away {
+  background: #ffd300;
+}
+
+span.status.f-off {
+  background: #a9a9a9;
+}

@@ -1,0 +1,318 @@
+.your-page > figure {
+  display: inline-block;
+  margin-bottom: 0;
+  max-width: 55px;
+  vertical-align: middle;
+  width: 55px;
+}
+
+.page-meta {
+  display: inline-block;
+  padding-left: 10px;
+  vertical-align: middle;
+  width: 69.8%;
+}
+
+.your-page {
+  display: inline-block;
+  padding: 0 20px 10px;
+  width: 100%;
+}
+
+.page-meta > a {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: capitalize;
+  width: auto;
+}
+
+.page-meta > span {
+  display: inline-block;
+  font-size: 13px;
+  width: 100%;
+}
+
+.page-meta > span i {
+  margin-right: 5px;
+  vertical-align: sub;
+}
+
+.page-meta > span em {
+  border: 1px solid #cecece;
+  display: inline-block;
+  line-height: 8px;
+  margin-left: 3px;
+  padding: 3px;
+}
+
+.page-likes {
+  float: left;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.nav.nav-tabs.likes-btn {
+  border-bottom: medium none;
+  display: inline-block;
+  width: 100%;
+}
+
+.nav.nav-tabs.likes-btn > li {
+  float: left;
+  margin-bottom: 10px;
+  text-align: center;
+  width: 50%;
+}
+
+.nav.nav-tabs.likes-btn > li a {
+  background: #eeeeee none repeat scroll 0 0;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  padding: 5px 0;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.nav.nav-tabs.likes-btn > li a.active {
+  color: #fff;
+}
+
+.page-likes .tab-content .tab-pane > span {
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  text-align: center;
+  float: left;
+  width: 100%;
+}
+
+.page-likes .tab-content .tab-pane > span i {
+  color: green;
+  font-size: 15px;
+  margin-right: 6px;
+}
+
+.users-thumb-list {
+  float: left;
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.users-thumb-list > a {
+  display: inline-block;
+  margin-left: -17px;
+}
+
+.users-thumb-list > a:first-child {
+  margin-left: 0;
+}
+
+.users-thumb-list > a img {
+  border: 2px solid #fff;
+  border-radius: 50%;
+}
+
+.page-likes .tab-content .tab-pane > a {
+  color: green;
+  float: left;
+  font-size: 13px;
+  text-align: center;
+  text-transform: capitalize;
+  width: 100%;
+}
+
+.page-likes .tab-content .tab-pane > a:hover {
+  text-decoration: underline;
+}
+
+.nav.nav-tabs {
+  border: medium none;
+}
+
+.frnds {
+  float: left;
+  width: 100%;
+}
+
+.frnds .nav-tabs .nav-item {
+  margin-right: 50px;
+}
+
+.frnds .nav-tabs .nav-item:last-child {
+  margin-right: 0;
+}
+
+.frnds .nav-tabs .nav-item a.active {
+  border-bottom: 1px solid;
+}
+
+.frnds .nav-tabs .nav-item a {
+  font-weight: bold;
+}
+
+.frnds .nav-tabs .nav-item > span {
+  border: 1px solid #ccc;
+  border-radius: 30%;
+  display: inline-block;
+  font-size: 14px;
+  line-height: initial;
+  margin-left: 5px;
+  text-align: center;
+  width: 25px;
+  color: #8d8d8d;
+}
+
+a.add-butn.more-action {
+  background: lightslategray none repeat scroll 0 0;
+  right: 74px;
+}
+
+#frends a.add-butn.more-action {
+  right: 89px;
+}
+
+.nav-tabs--vertical {
+  border-bottom: none;
+  border-right: 1px solid #ddd;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.nav-tabs--left .nav-item + .nav-item {
+  text-transform: capitalize;
+}
+
+.nav-tabs--left .nav-link {
+  transition: border-color .125s ease-in;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.nav-tabs--left .nav-link:hover {
+  border-color: transparent;
+}
+
+.nav-tabs--left .nav-link.active {
+  color: #fff;
+  border-radius: 0;
+  border: none;
+}
+
+.nav-tabs--left .nav-link.active:hover {
+  color: #fff;
+  border-color: #dee2e6 #fff #dee2e6 #dee2e6;
+}
+
+.mt-2,
+.my-2 {
+  margin-top: 0;
+  border: 1px solid #efefef;
+}
+
+.d-flex .tab-content {
+  background: #f7f7f7 none repeat scroll 0 0;
+  display: inline-block;
+  width: 100%;
+}
+
+.basics,
+.education {
+  padding-left: 30px;
+  padding-top: 20px;
+}
+
+.education {
+  list-style: none;
+}
+
+.basics > li,
+.education > li {
+  color: #999;
+  font-size: 14px;
+  margin-bottom: 20px;
+  text-transform: capitalize;
+}
+
+.basics > li i,
+.education > li i {
+  margin-right: 30px;
+}
+
+.location-map #map-canvas {
+  height: 290px;
+}
+
+#work > div {
+  color: #909090;
+  font-size: 14px;
+  margin-bottom: 0;
+}
+
+#work > div a {
+  margin-bottom: 5px;
+}
+
+.personal > p {
+  color: #7c7c7c;
+  font-size: 14px;
+}
+
+.about .personal {
+  display: inline-block;
+  width: 100%;
+}
+
+#work > p a {
+  display: inline-block;
+  text-decoration: underline;
+}
+
+#work > p img {
+  margin-right: 10px;
+}
+
+#work {
+  padding: 20px;
+}
+
+.f-title {
+  font-size: 17.5px;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: #000;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  position: relative;
+  display: inline-block;
+}
+
+.f-title::before {
+  bottom: 8px;
+  content: "";
+  height: 2px;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.f-title.ext-margin {
+  margin-bottom: 20px;
+  margin-top: 40px;
+}
+
+.f-title i {
+  font-size: 14px;
+  margin-right: 5px;
+}
+
+.groups > span i {
+  margin-right: 5px;
+}
+
+.groups > span {
+  font-size: 20px;
+  font-weight: 400;
+}

@@ -1,0 +1,146 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.rotater:nth-child(1) {
+  -webkit-transform: rotate(-22.5deg);
+  -ms-transform: rotate(-22.5deg);
+  transform: rotate(-22.5deg);
+}
+
+.menu.active .rotater:nth-child(1) .btn-icon {
+  -webkit-transform: translateX(-4em) rotate(22.5deg);
+  -ms-transform: translateX(-4em) rotate(22.5deg);
+  transform: translateX(-4em) rotate(22.5deg);
+}
+
+.rotater:nth-child(2) {
+  -webkit-transform: rotate(22.5deg);
+  -ms-transform: rotate(22.5deg);
+  transform: rotate(22.5deg);
+}
+
+.menu.active .rotater:nth-child(2) .btn-icon {
+  -webkit-transform: translateX(-4em) rotate(-22.5deg);
+  -ms-transform: translateX(-4em) rotate(-22.5deg);
+  transform: translateX(-4em) rotate(-22.5deg);
+}
+
+.rotater:nth-child(3) {
+  -webkit-transform: rotate(67.5deg);
+  -ms-transform: rotate(67.5deg);
+  transform: rotate(67.5deg);
+}
+
+.menu.active .rotater:nth-child(3) .btn-icon {
+  -webkit-transform: translateX(-4em) rotate(-67.5deg);
+  -ms-transform: translateX(-4em) rotate(-67.5deg);
+  transform: translateX(-4em) rotate(-67.5deg);
+}
+
+.rotater:nth-child(4) {
+  -webkit-transform: rotate(112.5deg);
+  -ms-transform: rotate(112.5deg);
+  transform: rotate(112.5deg);
+}
+
+.menu.active .rotater:nth-child(4) .btn-icon {
+  -webkit-transform: translateX(-4em) rotate(-112.5deg);
+  -ms-transform: translateX(-4em) rotate(-112.5deg);
+  transform: translateX(-4em) rotate(-112.5deg);
+}
+
+.rotater:nth-child(5) {
+  -webkit-transform: rotate(157.5deg);
+  -ms-transform: rotate(157.5deg);
+  transform: rotate(157.5deg);
+}
+
+.menu.active .rotater:nth-child(5) .btn-icon {
+  -webkit-transform: translateX(-4em) rotate(-157.5deg);
+  -ms-transform: translateX(-4em) rotate(-157.5deg);
+  transform: translateX(-4em) rotate(-157.5deg);
+}
+
+.rotater:nth-child(6) {
+  -webkit-transform: rotate(202.5deg);
+  -ms-transform: rotate(202.5deg);
+  transform: rotate(202.5deg);
+}
+
+.menu.active .rotater:nth-child(6) .btn-icon {
+  -webkit-transform: translateX(-4em) rotate(-202.5deg);
+  -ms-transform: translateX(-4em) rotate(-202.5deg);
+  transform: translateX(-4em) rotate(-202.5deg);
+}
+
+.rotater:nth-child(7) {
+  -webkit-transform: rotate(247.5deg);
+  -ms-transform: rotate(247.5deg);
+  transform: rotate(247.5deg);
+}
+
+.menu.active .rotater:nth-child(7) .btn-icon {
+  -webkit-transform: translateX(-4em) rotate(-247.5deg);
+  -ms-transform: translateX(-4em) rotate(-247.5deg);
+  transform: translateX(-4em) rotate(-247.5deg);
+}
+
+.rotater:nth-child(8) {
+  -webkit-transform: rotate(292.5deg);
+  -ms-transform: rotate(292.5deg);
+  transform: rotate(292.5deg);
+}
+
+.menu.active .rotater:nth-child(8) .btn-icon {
+  -webkit-transform: translateX(-4em) rotate(-292.5deg);
+  -ms-transform: translateX(-4em) rotate(-292.5deg);
+  transform: translateX(-4em) rotate(-292.5deg);
+}
+
+.rotater:nth-child(9) {
+  -webkit-transform: rotate(337.5deg);
+  -ms-transform: rotate(337.5deg);
+  transform: rotate(337.5deg);
+}
+
+.menu.active .rotater:nth-child(9) .btn-icon {
+  -webkit-transform: translateX(-4em) rotate(-337.5deg);
+  -ms-transform: translateX(-4em) rotate(-337.5deg);
+  transform: translateX(-4em) rotate(-337.5deg);
+}
+@keyframes spin {
+  to {
+      transform: rotate(360deg);
+  }
+}
+
+.stroke-solid {
+  stroke-dashoffset: 0;
+  stroke-dashArray: 300;
+  stroke-width: 4px;
+  transition: stroke-dashoffset 1s ease, opacity 1s ease;
+}
+
+.icon {
+  transform: scale(0.8);
+  transform-origin: 50% 50%;
+  transition: transform 200ms ease-out;
+}
+
+.play:hover .stroke-solid {
+  opacity: 1;
+  stroke-dashoffset: 300;
+}
+
+.play:hover .icon {
+  transform: scale(0.9);
+}
+
+.play {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+}

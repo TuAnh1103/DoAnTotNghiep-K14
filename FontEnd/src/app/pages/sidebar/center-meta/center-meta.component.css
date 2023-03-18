@@ -1,0 +1,9 @@
+.central-meta {
+  background: #fdfdfd none repeat scroll 0 0;
+  border: 1px solid #ede9e9;
+  border-radius: 3px;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 25px;
+}

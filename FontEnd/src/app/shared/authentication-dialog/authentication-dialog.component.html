@@ -1,0 +1,11 @@
+<h2 class="log-title">Authentication</h2>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <input type="text" id="input" formControlName="code"/>
+        <label class="control-label" for="input">Please enter the verification code</label><i class="mtrl-select"></i>
+      </div>
+      <div class="submit-btns">
+        <button class="mtr-btn" type="submit"><span>Send</span></button>
+        <button class="mtr-btn" type="button" (click)="close()"><span>Cancel</span></button>
+      </div>
+    </form>

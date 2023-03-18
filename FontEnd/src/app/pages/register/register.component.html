@@ -1,0 +1,123 @@
+<div class="theme-layout">
+	<div class="container-fluid pdng0">
+		<div class="row merged">
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<div class="land-featurearea">
+					<div class="land-meta">
+						<h1>Tú Anh</h1>
+						<p>
+							Let's create an account
+						</p>
+						<div class="friend-logo">
+							<span><img src="assets/images/wink.png" alt=""></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+				<div class="login-reg-bg">
+					<div class="log-reg-area sign">
+						<h2 class="log-title">Register</h2>
+							<form [formGroup]="form" (ngSubmit)="onSubmit()">
+								<div class="row">
+									<div class="col-md-6 mb-6">
+										<div class="form-group">
+											<input type="text" formControlName="firstName" name="firstName"[(ngModel)]="firstName" id="first_name"/>
+											<label class="control-label" for="input">Firstname :</label><i class="mtrl-select"></i>
+											<span class="text-danger"
+											*ngIf="(form.get('firstName').touched || form.get('firstName').dirty) && form.get('firstName').invalid">
+											First name is required
+											</span>
+										</div>
+									</div>
+									<div class="col-md-6 mb-6">
+										<div class="form-group">
+											<input type="text" formControlName="lastName" name="lastName" [(ngModel)]="lastName" id="lastName"/>
+											<label class="control-label" for="input">Lastname :</label><i class="mtrl-select"></i>
+											<span class="text-danger"
+											*ngIf="(form.get('lastName').touched || form.get('lastName').dirty) && form.get('lastName').invalid">
+											Last name is required
+											</span>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6 mb-6">
+										<div class="form-group">
+											<input type="date" formControlName="dob" [(ngModel)]="dob" name="dob" id="dob" />
+											<label class="control-label" for="input">Date of birth :</label><i class="mtrl-select"></i>
+											<span class="text-danger"
+											*ngIf="(form.get('dob').touched || form.get('dob').dirty) && form.get('dob').invalid">
+											dob is required
+											</span>
+										</div>
+									</div>
+                  <div class="col-md-6 mb-6">
+										<div class="form-group">
+											<input type="text" formControlName="email" [(ngModel)]="email" name="email" id="email"/>
+											<label class="control-label" for="input">Email :</label><i class="mtrl-select"></i>
+											<span class="text-danger"
+											*ngIf="(form.get('email').touched || form.get('email').dirty) && form.get('email').invalid">
+											email is required
+											</span>
+									  </div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group">
+										<div class="form-radio">
+											<div class="radio">
+											  <label>
+												<input type="radio" name="gender" checked="checked" formControlName="gender" [(ngModel)]="gender" value="true"/><i class="check-box"></i>Male
+											  </label>
+											</div>
+											<div class="radio">
+											  <label>
+												<input type="radio" name="gender" formControlName="gender" [(ngModel)]="gender" value="false"/><i class="check-box"></i>Female
+											  </label>
+											</div>
+										</div>
+										<div></div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group">
+										<input type="text" formControlName="username" [(ngModel)]="username" name="username" id="username" />
+										<label class="control-label" for="input">Username :</label><i class="mtrl-select"></i>
+										<span class="text-danger"
+											*ngIf="(form.get('username').touched || form.get('username').dirty) && form.get('username').invalid">
+											Username is not available
+											</span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group">
+										<input type="password" formControlName="password" [(ngModel)]="password" name="password" id="password" />
+										<label class="control-label" for="input">Password:</label><i class="mtrl-select"></i>
+										<span class="text-danger"
+											*ngIf="(form.get('password').touched || form.get('password').dirty) && form.get('password').invalid">
+											Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter and 1 number
+											</span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group">
+										<input type="password" formControlName="password_confirmation" [(ngModel)]="password_confirmation" name="password_confirmation" id="password_confirmation"/>
+										<label class="control-label" for="input">Password confirmation :</label><i class="mtrl-select"></i>
+										<span class="text-danger"
+											*ngIf="(form.get('password_confirmation').touched || form.get('password_confirmation').dirty) && form.get('password_confirmation').invalid">
+											Passwords doesn't match
+										</span>
+									</div>
+								</div>
+								<div class="submit-btns">
+									<button class="mtr-btn signin" type="submit"><span>Register</span></button>
+									<a [routerLink]="['/login']"><button class="mtr-btn signin"><span>login</span></button></a>
+								</div>
+							</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
