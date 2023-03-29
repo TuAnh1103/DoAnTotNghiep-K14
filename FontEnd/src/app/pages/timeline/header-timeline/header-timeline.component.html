@@ -1,0 +1,103 @@
+<div class="feature-photo">
+  <figure>
+    <img
+      id="cover_image"
+      [src]="
+        !user.cover_image
+          ? 'https://res.cloudinary.com/viuni/image/upload/v1679934770/rjpo6ypg65rwpzd5zlxo.jpg'
+          : user.cover_image.link_image
+      "
+    />
+  </figure>
+  <div class="add-btn">
+    <span>1205 followers</span>
+    <a
+      href="#"
+      title=""
+      data-ripple=""
+      [hidden]="checkUser"
+      (click)="addFriend()"
+      >Add Friend</a
+    >
+  </div>
+  <form class="edit-phto" [hidden]="!checkUser">
+    <i class="fa fa-camera-retro"></i>
+    <label class="fileContainer">
+      Edit Cover Photo
+      <input type="file" (change)="selectFileCover($event)" />
+    </label>
+  </form>
+  <div class="container-fluid">
+    <div class="row merged">
+      <div class="col-lg-2 col-sm-3">
+        <div class="user-avatar">
+          <figure>
+            <img
+              [src]="
+                !user.avatar_image
+                  ? 'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg'
+                  : user.avatar_image.link_image
+              "
+              alt=""
+              id="avatar"
+            />
+            <form [ngClass]="{ 'edit-phto': checkUser }" [hidden]="!checkUser">
+              <i class="fa fa-camera-retro"></i>
+              <label class="fileContainer">
+                Edit Display Photo
+                <input type="file" (change)="selectFileAvatar($event)" />
+              </label>
+            </form>
+          </figure>
+        </div>
+      </div>
+      <div class="col-lg-10 col-sm-9">
+        <div class="timeline-info">
+          <ul>
+            <li class="admin-name">
+              <h5>{{ user.last_name }} {{ user.first_name }}</h5>
+              <span>Group Admin</span>
+            </li>
+            <li>
+              <a
+                class="active"
+                [routerLink]="['/timeline', id]"
+                title=""
+                data-ripple=""
+                >time line</a
+              >
+              <a
+                class=""
+                [routerLink]="['/timeline', id, 'photos']"
+                title=""
+                data-ripple=""
+                >Photos</a
+              >
+              <a
+                class=""
+                [routerLink]="['/timeline', id, 'friends']"
+                title=""
+                data-ripple=""
+                >Friends</a
+              >
+              <a
+                class=""
+                [routerLink]="['/timeline', id, 'followers']"
+                title=""
+                data-ripple=""
+                >Follower</a
+              >
+              <a
+                class=""
+                [routerLink]="['/timeline', id, 'following']"
+                title=""
+                data-ripple=""
+                >Following</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

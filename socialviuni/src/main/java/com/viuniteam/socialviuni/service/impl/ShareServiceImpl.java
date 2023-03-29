@@ -54,10 +54,10 @@
                         .build();
                 Share shareSuccess = shareRepository.save(share);
                 ShareResponse shareResponse = shareResponseUtils.convert(shareSuccess);
-                createNotification(post,user,NotificationSeenType.NOT_SEEN);
+//                createNotification(post,user,NotificationSeenType.NOT_SEEN);
                 //create notification to follower
-                List<Follower> followers = user.getFollowers();
-                followers.stream().forEach(follower -> createNotificationToFollower(follower.getUser(),shareSuccess));
+//                List<Follower> followers = user.getFollowers();
+//                followers.stream().forEach(follower -> createNotificationToFollower(follower.getUser(),shareSuccess));
                 return shareResponse;
             }
             @Override

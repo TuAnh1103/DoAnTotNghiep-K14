@@ -1,0 +1,87 @@
+<div class="central-meta">
+  <div class="frnds">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="active" href="#frends" data-toggle="tab">Following</a>
+        <span>55</span>
+      </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div class="tab-pane active fade show" id="frends">
+        <ul class="nearby-contct">
+          <li *ngFor="let following of listFollowing">
+            <div class="nearly-pepls">
+              <figure>
+                <a href="#" title=""
+                  ><img
+                    [src]="
+                      !following.user_info.avatar_image
+                        ? 'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg'
+                        : following.user_info.avatar_image.link_image
+                    "
+                    alt=""
+                /></a>
+              </figure>
+              <div class="pepl-info">
+                <h4>
+                  <a
+                    [routerLink]="['/timeline', following.user_info.id]"
+                    title=""
+                    >{{ following.user_info.last_name }}
+                    {{ following.user_info.first_name }}</a
+                  >
+                </h4>
+                <a
+                  title=""
+                  style="
+                    background-color: rgb(92, 92, 237);
+                    border-radius: 20px;
+                    color: white;
+                  "
+                  class="add-butn more-action"
+                  data-ripple=""
+                  [hidden]="!checkUser"
+                  (click)="unfollow(following.user_info.id)"
+                  >unfollow</a
+                >
+                <a
+                  class="add-butn more-action"
+                  style="
+                    background-color: rgb(92, 92, 237);
+                    border-radius: 20px;
+                    color: white;
+                  "
+                  data-ripple=""
+                  (click)="follow(following.user_info.id)"
+                  [hidden]="
+                    !checkUser && following.user_info.id.toString() != myId
+                      ? false
+                      : true
+                  "
+                  >follow</a
+                >
+                <a
+                  title=""
+                  class="add-butn"
+                  style="
+                    background-color: rgb(220, 92, 237);
+                    border-radius: 20px;
+                    color: white;
+                  "
+                  data-ripple=""
+                  (click)="addFriend(following.user_info.id)"
+                  [hidden]="
+                    following.user_info.id.toString() != myId ? false : true
+                  "
+                  >add friend</a
+                >
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

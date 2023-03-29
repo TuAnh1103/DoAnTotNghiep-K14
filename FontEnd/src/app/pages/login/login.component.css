@@ -139,3 +139,11 @@
   opacity: 1;
   visibility: visible;
 }
+::ng-deep .custom-style{
+  background-color:green;
+  color:white;
+}
+::ng-deep .custom-style2{
+  background-color:red;
+  color:white;
+}

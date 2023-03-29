@@ -12,8 +12,7 @@
             <div class="profile-pic bs-md">
               <h1 class="pic-label">Profile picture</h1>
               <div class="pic bs-md">
-                <img
-                  src="https://bit.ly/3jRbrbp"
+                <img [src]="!image?'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg':image.link_image"
                   alt=""
                   width="4024"
                   height="6048"

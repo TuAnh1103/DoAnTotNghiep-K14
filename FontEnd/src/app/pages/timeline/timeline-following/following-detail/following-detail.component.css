@@ -1,0 +1,13 @@
+::ng-deep .custom-style {
+  background-color: green;
+  color: white;
+}
+
+::ng-deep .error-custom-style {
+  background-color: #CC9966;
+  color: white;
+}
+a:hover{
+  color: #367AF6;
+}
+

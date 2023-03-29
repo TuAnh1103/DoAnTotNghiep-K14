@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { CommonService } from 'src/app/shared/common.service';
 import { first } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { AlertDialogComponent } from 'src/app/shared/alert-dialog/alert-dialog.component';
+import { AlertDialogComponent } from 'src/app/shared/components/alert-dialog/alert-dialog.component';
 
 @Component({
   selector: 'app-change-password',

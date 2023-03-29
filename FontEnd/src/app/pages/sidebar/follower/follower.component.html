@@ -1,39 +1,14 @@
 
-    <h4 class="widget-title">Who's follownig</h4>
+    <h4 class="widget-title">Follower</h4>
     <ul class="followers">
-        <li>
-            <figure><img src="./assets/images/resources/friend-avatar2.jpg" alt=""></figure>
+        <li *ngFor="let follower of listFollower">
+            <figure> <img [src]="!follower.user_info.avatar_image?'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg':follower.user_info.avatar_image.link_image" alt="" id="avatar"></figure>
             <div class="friend-meta">
-                <h4><a href="time-line.html" title="">Kelly Bill</a></h4>
-                <a href="#" title="" class="underline">Add Friend</a>
-            </div>
-        </li>
-        <li>
-            <figure><img src="assets/images/resources/friend-avatar4.jpg" alt=""></figure>
-            <div class="friend-meta">
-                <h4><a href="time-line.html" title="">Issabel</a></h4>
-                <a href="#" title="" class="underline">Add Friend</a>
-            </div>
-        </li>
-        <li>
-            <figure><img src="assets/images/resources/friend-avatar6.jpg" alt=""></figure>
-            <div class="friend-meta">
-                <h4><a href="time-line.html" title="">Andrew</a></h4>
-                <a href="#" title="" class="underline">Add Friend</a>
-            </div>
-        </li>
-        <li>
-            <figure><img src="assets/images/resources/friend-avatar8.jpg" alt=""></figure>
-            <div class="friend-meta">
-                <h4><a href="time-line.html" title="">Sophia</a></h4>
-                <a href="#" title="" class="underline">Add Friend</a>
-            </div>
-        </li>
-        <li>
-            <figure><img src="assets/images/resources/friend-avatar3.jpg" alt=""></figure>
-            <div class="friend-meta">
-                <h4><a href="time-line.html" title="">Allen</a></h4>
-                <a href="#" title="" class="underline">Add Friend</a>
+                <h4><a [routerLink]="['/timeline', follower.user_info.id]">{{follower.user_info.last_name}} {{follower.user_info.first_name}}</a></h4>
+                <div style="display: flex;">
+                  <button class="button-10" role="button" (click)="addFriend(follower.user_info.id)">Add Friend</button>
+                  <button class="button-11" role="button" (click)="follow(follower.user_info.id)">Follow</button>
+                </div>
             </div>
         </li>
     </ul>

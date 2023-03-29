@@ -1,107 +1,148 @@
-header.stick {
+.topbar {
+  background: #fff;
+  display: block;
+  height: 60px;
+  padding: 0 48px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  z-index: 99;
+  position: relative;
+}
+
+.logo {
+  display: inline-block;
+  vertical-align: inherit;
+  width: 15%;
+  position: relative;
+  z-index: 10;
+}
+
+.topbar > form {
+  display: inline-block;
+  vertical-align: sub;
+  width: 26%;
+  position: relative;
+}
+
+.top-area {
+  display: inline-block;
+  text-align: right;
+  vertical-align: middle;
+  width: 84%;
+}
+
+.top-area > ul {
+  display: inline-block;
+  list-style: outside none none;
+  margin-bottom: 0;
+  padding-left: 0;
+  vertical-align: middle;
+}
+
+.top-area > ul > li {
+  display: inline-block;
+  margin-right: 25px;
+  position: relative;
+  vertical-align: top;
+  z-index: 2;
+}
+
+.top-area > ul > li > a {
+  color: #999;
+}
+
+.top-area .user-img {
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  line-height: 60px;
+}
+
+.top-area .user-img > span.status {
+  bottom: 10px;
+  right: 5px;
+}
+
+.top-area > span.main-menu {
+  cursor: pointer;
+  display: inline-block;
+  font-size: 20px;
+  margin-left: 20px;
+  margin-right: -10px;
+  vertical-align: inherit;
+}
+
+.top-area .user-img > img {
+  border-radius: 50%;
+  display: inline-block;
+  transform: scale(0.7);
+  vertical-align: inherit;
+}
+
+.form-search {
+  position: absolute;
+  right: -15px;
+  top: 42px;
+  width: 300px;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.searched.active .form-search {
+  opacity: 1;
+  visibility: visible;
+}
+
+.form-search input {
+  border-style: none none solid;
+  border-width: medium medium 1px;
+  color: #999999;
+  font-size: 15px;
+  padding: 9px 18px;
+  width: 100%;
+}
+
+.form-search button {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  border: medium none;
+  color: #999;
+  position: absolute;
+  right: 5px;
+  top: 9px;
+}
+
+.top-area > ul > li > a > span {
+  bottom: -10px;
+  font-size: 11px;
+  position: absolute;
+  right: -4px;
+}
+
+.top-area.stick {
   z-index: 99;
   position: absolute;
   top: 0;
   left: 0;
 }
 
-header.sticky {
+.sticky {
   position: fixed;
+  width:100%;
+  height:50px;
 }
-.user-setting > a {
-  display: inline-block;
-  font-size: 13px;
-  padding: 10px 15px;
-  text-transform: capitalize;
-  width: 100%;
-  background: #fafafa;
-  position: relative;
+#header{
+  position: fixed;
+  width:100%;
+  height:60px;
+  background-color: #fffcf9;
 }
-
-.user-setting .status {
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
+#avatar{
+    height:50px;
+    max-width: 50px;
+    clip-path: circle(22px at 50% 50%);
 }
-
-.user-setting > a i {
-  color: #999;
-  font-size: 12px;
-  margin-right: 8px;
-}
-
-.user-setting > a:hover {
-  background: #f1f1f1;
-}
-.top-area > ul.main-menu > li ul {
-  left: 0;
-  list-style: outside none none;
-  padding-left: 0;
-  position: absolute;
-  text-align: left;
-  top: 100%;
-  background: #fff;
-  width: 200px;
-  opacity: 0;
-  visibility: hidden;
-  box-shadow: 4px 7px 20px 0 rgba(0, 0, 0, 0.09);
-  transition: all 0.2s linear 0s;
-  border-radius: 0 0 5px 5px;
-  border-top: 2px solid;
-}
-
-.top-area > ul.main-menu > li:hover > ul {
-  opacity: 1;
-  visibility: visible;
-}
-
-.top-area > ul.main-menu {
-  float: left;
-  margin-left: 0px;
-  line-height: 60px;
-}
-
-.top-area > ul.main-menu > li {
-  line-height: 59px;
-  margin-right: 30px;
-  padding-right: 30px;
-  position: relative;
-}
-
-.top-area > ul.main-menu > li a {
-  color: #575b5f;
-  font-size: 14px;
-  font-weight: 700;
-  text-transform: capitalize;
-  letter-spacing: 0.3px;
-}
-
-.top-area > ul.main-menu > li::after {
-  content: "";
-  font-family: fontawesome;
-  font-size: 13px;
-  position: absolute;
-  right: 10px;
-  top: 0;
-}
-
-.top-area > ul.main-menu > li > ul li {
-  line-height: initial;
-}
-
-.top-area > ul.main-menu > li > ul li a {
-  color: #5f5f5f;
-  display: inline-block;
-  font-size: 13.5px;
-  font-weight: normal;
-  padding: 10px 15px;
-  width: 100%;
-  text-transform: capitalize;
-  transition: all 0.2s linear 0s;
-  border-radius: 0 0 5px 5px;
-}
-
-.top-area > ul.main-menu > li > ul li a:hover {
-  background: #f5f5f5 none repeat scroll 0 0;
-  padding-left: 17px;
+#logo{
+  height: 70px;
+  max-width: 100%;
+  margin-top: -15px;
 }

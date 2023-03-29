@@ -1,50 +1,14 @@
-
-<div class="topbar stick">
+<div class="topbar stick" id="header">
             <div class="logo">
-                <a title="" href="newsfeed.html"><img src="assets/images/logo.png" alt=""></a>
+                <a title="" href="newsfeed.html"><img id="logo" src="https://res.cloudinary.com/viuni/image/upload/v1679768150/nhv31ihenh1sbvbiktwm.jpg" alt=""></a>
             </div>
-
             <div class="top-area">
                 <ul class="main-menu">
                     <li>
-                        <a [routerLink]="['/home']" >Home</a>
+                        <a [routerLink]="['/home']" style="color: black;font-size: 15px;">Home</a>
                     </li>
                     <li>
-                        <a [routerLink]="['/timeline']">timeline</a>
-                        <ul>
-                            <li><a [routerLink]="['/timeline/abouts']" title="">abouts</a></li>
-                            <li><a [routerLink]="['/timeline/friends']" href="timeline-friends.html" title="">timeline friends</a></li>
-                            <li><a [routerLink]="['/timeline/groups']" title="">timeline groups</a></li>
-                            <li><a [routerLink]="['/timeline/pages']" title="">timeline pages</a></li>
-                            <li><a [routerLink]="['/timeline/photos']" title="">timeline photos</a></li>
-                            <li><a [routerLink]="['/timeline/videos']" title="">timeline videos</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" title="">account settings</a>
-                        <ul>
-                            <li><a href="create-fav-page.html" title="">create fav page</a></li>
-                            <li><a href="edit-account-setting.html" title="">edit account setting</a></li>
-                            <li><a href="edit-interest.html" title="">edit-interest</a></li>
-                            <li><a [routerLink]="['/account/changePassword']">Change password</a></li>
-                            <li><a [routerLink]="['/account/editProfile']" title="">edit profile basics</a></li>
-                            <li><a href="edit-work-eductation.html" title="">edit work educations</a></li>
-                            <li><a href="messages.html" title="">message box</a></li>
-                            <li><a href="inbox.html" title="">Inbox</a></li>
-                            <li><a [routerLink]="['/notifications']" title="">notifications page</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#" title="">more pages</a>
-                        <ul>
-                            <li><a href="404.html" title="">404 error page</a></li>
-                            <li><a href="about.html" title="">about</a></li>
-                            <li><a href="contact.html" title="">contact</a></li>
-                            <li><a href="faq.html" title="">faq's page</a></li>
-                            <li><a href="insights.html" title="">insights</a></li>
-                            <li><a href="knowledge-base.html" title="">knowledge base</a></li>
-                            <li><a href="widgets.html" title="">Widgts</a></li>
-                        </ul>
+                        <a [routerLink]="['/timeline',id]" style="color:black;font-size: 15px;">timeline</a>
                     </li>
                 </ul>
                 <ul class="setting-area">
@@ -191,24 +155,21 @@
                     <li><a href="#" title="Languages" data-ripple=""><i class="fa fa-globe"></i></a>
                         <div class="dropdowns languages">
                             <a href="#" title=""><i class="ti-check"></i>English</a>
-                            <a href="#" title="">Arabic</a>
-                            <a href="#" title="">Dutch</a>
-                            <a href="#" title="">French</a>
                         </div>
                     </li>
                 </ul>
                 <div class="user-img">
-                    <img src="assets/images/resources/admin.jpg" alt="">
+                    <img [src]="!user.avatar_image?'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg':user.avatar_image.link_image" alt="" id="avatar">
                     <span class="status f-online"></span>
                     <div class="user-setting">
                         <a href="#" title=""><span class="status f-online"></span>online</a>
                         <a href="#" title=""><span class="status f-away"></span>away</a>
                         <a href="#" title=""><span class="status f-off"></span>offline</a>
-                        <a href="#" title=""><i class="ti-user"></i> view profile</a>
-                        <a href="#" title=""><i class="ti-pencil-alt"></i>edit profile</a>
+                        <a [routerLink]="['/account/editProfile']" title=""><i class="ti-user"></i> view profile</a>
+                        <a [routerLink]="['/account/editProfile']" title=""><i class="ti-pencil-alt"></i>edit profile</a>
                         <a href="#" title=""><i class="ti-target"></i>activity log</a>
-                        <a href="#" title=""><i class="ti-settings"></i>account setting</a>
-                        <a href="#" [routerLink]="['/login']"  title=""><i class="ti-power-off"></i>log out</a>
+                        <a [routerLink]="['/account/changePassword']" title=""><i class="ti-settings"></i>account setting</a>
+                        <a href="#" [routerLink]="['/login']"  title="" (click)="logout()"><i class="ti-power-off"></i>log out</a>
                     </div>
                 </div>
                 <span class="ti-menu main-menu" data-ripple=""></span>

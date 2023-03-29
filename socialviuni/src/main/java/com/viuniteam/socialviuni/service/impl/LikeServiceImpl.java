@@ -40,7 +40,7 @@
                         Like like = likeRepository.findOneByPostAndUser(post,user);
                         like.setStatus(true);
                         likeRepository.save(like);
-                        createNotification(post,user,NotificationSeenType.SEEN);
+//                        createNotification(post,user,NotificationSeenType.SEEN);
                         throw new OKException("Đã like");
                     }
                     // if not liked and disliked then create notification like
@@ -51,14 +51,14 @@
                             .build();
                     likeRepository.save(like);
                     // create notification like
-                    createNotification(post,user,NotificationSeenType.NOT_SEEN);
+//                    createNotification(post,user,NotificationSeenType.NOT_SEEN);
                     throw new OKException("Đã like");
                 }
                 //dislike
                 Like like = likeRepository.findOneByPostAndUser(post,user);
                 like.setStatus(false);
                 likeRepository.save(like);
-                createNotification(post,user,NotificationSeenType.SEEN);
+//                createNotification(post,user,NotificationSeenType.SEEN);
                 throw new OKException("Đã hủy like");
             }
             private void createNotificationLike(Post post,User user){

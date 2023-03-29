@@ -1,0 +1,106 @@
+ <div class="user-post">
+    <div class="friend-info">
+      <figure>
+        <img  [src]="
+        !post.author.avatar_image
+          ? 'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg'
+          : post.author.avatar_image.link_image
+      " alt="" />
+      </figure>
+      <div class="friend-name">
+        <ins><a href="" title="">{{post.author.first_name}} {{post.author.last_name}} </a></ins>
+        <span>published: {{post.created_date | date}}</span>
+      </div>
+      <div class="description">
+        <p style="color:black;font-size:16px;font-weight: bold;">
+          {{post.content}}
+        </p>
+    </div>
+      <div class="post-meta">
+        <div style="width: 100%; height: 500px; margin: 0 auto" [hidden]="slides.length==0?true:false">
+          <app-image-slider [slides]="slides" *ngIf="slides.length>0"></app-image-slider>
+        </div>
+        <div class="we-video-info">
+          <ul>
+            <li>
+              <span class="views" data-toggle="tooltip" title="views">
+                <i class="fa fa-eye"></i>
+                <ins>1.2k</ins>
+              </span>
+            </li>
+            <li>
+              <span class="comment" data-toggle="tooltip" title="Comments">
+                <i class="fa fa-comments-o"></i>
+                <ins>52</ins>
+              </span>
+            </li>
+            <li>
+              <span class="like" data-toggle="tooltip" title="like">
+                <i class="ti-heart"></i>
+                <ins>2.2k</ins>
+              </span>
+            </li>
+            <li>
+              <span class="dislike" data-toggle="tooltip" title="dislike">
+                <i class="ti-heart-broken"></i>
+                <ins>200</ins>
+              </span>
+            </li>
+            <li class="social-media">
+              <div class="menu">
+                <div class="btn trigger"><i class="fa fa-share-alt"></i></div>
+                <div class="rotater">
+                  <div class="btn btn-icon">
+                    <a href="#" title=""><i class="fa fa-html5"></i></a>
+                  </div>
+                </div>
+                <div class="rotater">
+                  <div class="btn btn-icon">
+                    <a href="#" title=""><i class="fa fa-facebook"></i></a>
+                  </div>
+                </div>
+                <div class="rotater">
+                  <div class="btn btn-icon">
+                    <a href="#" title=""><i class="fa fa-google-plus"></i></a>
+                  </div>
+                </div>
+                <div class="rotater">
+                  <div class="btn btn-icon">
+                    <a href="#" title=""><i class="fa fa-twitter"></i></a>
+                  </div>
+                </div>
+                <div class="rotater">
+                  <div class="btn btn-icon">
+                    <a href="#" title=""><i class="fa fa-css3"></i></a>
+                  </div>
+                </div>
+                <div class="rotater">
+                  <div class="btn btn-icon">
+                    <a href="#" title=""><i class="fa fa-instagram"></i></a>
+                  </div>
+                </div>
+                <div class="rotater">
+                  <div class="btn btn-icon">
+                    <a href="#" title=""><i class="fa fa-dribbble"></i></a>
+                  </div>
+                </div>
+                <div class="rotater">
+                  <div class="btn btn-icon">
+                    <a href="#" title=""><i class="fa fa-pinterest"></i></a>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <!-- <div class="description">
+          <p>
+            {{post.content}}
+          </p>
+        </div> -->
+      </div>
+    </div>
+    <div class="coment-area">
+      <app-comment-post [postId]="postId"></app-comment-post>
+    </div>
+  </div>

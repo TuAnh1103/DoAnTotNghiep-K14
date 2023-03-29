@@ -231,3 +231,12 @@ main {
     }
   }
 }
+::ng-deep .custom-style {
+  background-color: green;
+  color: white;
+}
+
+::ng-deep .error-custom-style {
+  background-color: red;
+  color: white;
+}

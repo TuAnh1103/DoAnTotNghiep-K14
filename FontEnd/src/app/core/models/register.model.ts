@@ -1,4 +1,5 @@
 export class RegisterModel{
+  id:number;
   firstName:string;
   lastName:string;
   gender:boolean;

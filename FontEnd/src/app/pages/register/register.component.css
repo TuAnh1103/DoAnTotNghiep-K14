@@ -262,3 +262,11 @@
   opacity: 1;
   visibility: visible;
 }
+::ng-deep .custom-style{
+  background-color:green;
+  color:white;
+}
+::ng-deep .error-custom-style{
+  background-color:brown;
+  color:white;
+}

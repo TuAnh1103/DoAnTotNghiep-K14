@@ -1,3 +1,7 @@
+import { FollowerDetailComponent } from './pages/timeline/timeline-follower/follower-detail/follower-detail.component';
+import { TimelineFollowingComponent } from './pages/timeline/timeline-following/timeline-following.component';
+import { TimelineFollowerComponent } from './pages/timeline/timeline-follower/timeline-follower.component';
+import { PageComponent } from './pages/timeline/timeline-page/page/page.component';
 import { AuthService } from './core/auth/auth.service';
 import { NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -28,10 +32,8 @@ import { EditProfileBasicComponent } from './pages/edit-profile-basic/edit-profi
 import { TimelineGroupComponent } from './pages/timeline/timeline-group/timeline-group.component';
 import { TimelinePageComponent } from './pages/timeline/timeline-page/timeline-page.component';
 import { TimelinePhotosComponent } from './pages/timeline/timeline-photos/timeline-photos.component';
-import { TimelineVideosComponent } from './pages/timeline/timeline-videos/timeline-videos.component';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
 import { ErrorComponent } from './pages/error/error.component';
-import { AboutComponent } from './pages/timeline/about/about.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -46,10 +48,23 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTreeModule } from '@angular/material/tree';
 import { HttpClientModule} from '@angular/common/http';
 import { RegisterComponent } from './pages/register/register.component';
-import { AuthenticationDialogComponent } from './shared/authentication-dialog/authentication-dialog.component';
+import { AuthenticationDialogComponent } from './shared/components/authentication-dialog/authentication-dialog.component';
 import { NotificationDialogComponent } from './shared/shared/notification-dialog/notification-dialog.component';
 import { AuthGuardService } from './core/auth/auth-guard.service';
 import { JwtModule } from '@auth0/angular-jwt';
+import { PhotosComponent } from './pages/timeline/timeline-photos/photos/photos.component';
+import { GroupComponent } from './pages/timeline/timeline-group/group/group.component';
+import { FriendsComponent } from './pages/timeline/timeline-friends/friends/friends.component';
+import { FollowingComponent } from './pages/sidebar/following/following.component';
+import { FriendRequestComponent } from './pages/timeline/timeline-friends/friend-request/friend-request.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { NavTimelineComponent } from './pages/timeline/nav-timeline/nav-timeline.component';
+import { FollowingDetailComponent } from './pages/timeline/timeline-following/following-detail/following-detail.component';
+import { HeaderTimelineComponent } from './pages/timeline/header-timeline/header-timeline.component';
+import { NewsTimelineComponent } from './pages/timeline/news-timeline/news-timeline.component';
+import { UserPostComponent } from './pages/timeline/news-timeline/user-post/user-post.component';
+import { ImageSliderComponent } from './shared/components/image-slider/image-slider.component';
+import { CommentPostComponent } from './pages/timeline/news-timeline/comment-post/comment-post.component';
 
 export function getToken() {
   return localStorage.getItem('token');
@@ -80,13 +95,28 @@ export function getToken() {
     TimelineGroupComponent,
     TimelinePageComponent,
     TimelinePhotosComponent,
-    TimelineVideosComponent,
     NotificationsComponent,
     ErrorComponent,
-    AboutComponent,
     RegisterComponent,
     AuthenticationDialogComponent,
-    NotificationDialogComponent
+    NotificationDialogComponent,
+    PhotosComponent,
+    PageComponent,
+    GroupComponent,
+    FriendsComponent,
+    FollowingComponent,
+    FriendRequestComponent,
+    NavTimelineComponent,
+    TimelineFollowerComponent,
+    TimelineFollowingComponent,
+    FollowerComponent,
+    FollowerDetailComponent,
+    FollowingDetailComponent,
+    HeaderTimelineComponent,
+    NewsTimelineComponent,
+    UserPostComponent,
+    ImageSliderComponent,
+    CommentPostComponent
   ],
   imports: [
     BrowserModule,
@@ -109,6 +139,7 @@ export function getToken() {
     MatTabsModule,
     MatTreeModule,
     ReactiveFormsModule,
+    MatSnackBarModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: getToken

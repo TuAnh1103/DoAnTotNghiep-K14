@@ -1,0 +1,109 @@
+<div class="central-meta">
+  <div class="frnds">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a
+          class="active"
+          href="#frends"
+          data-toggle="tab"
+          (click)="loadDataFriend()"
+          >My Friends</a
+        >
+        <span>55</span>
+      </li>
+      <li class="nav-item">
+        <a
+          class=""
+          href="#frends-req"
+          data-toggle="tab"
+          [hidden]="!checkUser"
+          (click)="loadDataFriendRequest()"
+          >Friend Requests</a
+        ><span [hidden]="!checkUser">60</span>
+      </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div class="tab-pane active fade show" id="frends">
+        <ul class="nearby-contct">
+          <li *ngFor="let friend of listFriend">
+            <div class="nearly-pepls">
+              <figure>
+                <a [routerLink]="['/timeline', friend.user_info.id]" title=""
+                  ><img
+                    [src]="
+                      !friend.user_info.avatar_image
+                        ? 'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg'
+                        : friend.user_info.avatar_image.link_image
+                    "
+                    alt=""
+                /></a>
+              </figure>
+              <div class="pepl-info">
+                <h4>
+                  <a [routerLink]="['/timeline', friend.user_info.id]" title=""
+                    >{{ friend.user_info.last_name }}
+                    {{ friend.user_info.first_name }}</a
+                  >
+                </h4>
+                <a
+                  class="add-butn more-action"
+                  style="
+                    background-color: rgb(220, 92, 237);
+                    border-radius: 20px;
+                    color: white;
+                  "
+                  data-ripple=""
+                  (click)="follow(friend.user_info.id)"
+                  [hidden]="
+                    friend.user_info.id.toString() != myId ? false : true
+                  "
+                  >follow</a
+                >
+                <a
+                  title=""
+                  class="add-butn"
+                  style="
+                    background-color: rgb(92, 92, 237);
+                    border-radius: 20px;
+                    color: white;
+                  "
+                  data-ripple=""
+                  (click)="unfriend(friend.user_info.id)"
+                  [hidden]="checkUser ? false : true"
+                  >unfriend</a
+                >
+                <a
+                  title=""
+                  class="add-butn"
+                  style="
+                    background-color: rgb(220, 92, 237);
+                    border-radius: 20px;
+                    color: white;
+                  "
+                  data-ripple=""
+                  (click)="addFriend(friend.user_info.id)"
+                  [hidden]="
+                    !checkUser && friend.user_info.id.toString() != myId
+                      ? false
+                      : true
+                  "
+                  >add friend</a
+                >
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="lodmore">
+          <button class="btn-view btn-load-more"></button>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="frends-req" [hidden]="!checkUser">
+        <app-friend-request></app-friend-request>
+        <button class="btn-view btn-load-more"></button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- centerl meta -->

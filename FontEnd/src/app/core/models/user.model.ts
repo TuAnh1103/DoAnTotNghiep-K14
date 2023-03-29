@@ -1,4 +1,5 @@
 export class User{
+    id:number;
     firstName:string;
     lastName:string;
     gender:boolean;
@@ -7,6 +8,7 @@ export class User{
     username:string;
     password:string;
 }
+
 export class changePassword{
     password:string;
     password_information:string;

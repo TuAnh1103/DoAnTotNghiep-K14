@@ -1,0 +1,29 @@
+#avatar{
+    height: 200px;
+    width: 100%;
+}
+.user-avatar {
+  border: 8px solid rgba(255, 255, 255, 0.8);
+  border-radius: 3px 25px 0;
+  box-shadow: 0 1px 0 #e1e8ed;
+  float: right;
+  margin-top: -168px;
+  overflow: hidden;
+  position: relative;
+  width: 180px;
+}
+#cover_image{
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  object-position: 100% 20%;
+}
+::ng-deep .custom-style {
+  background-color: green;
+  color: white;
+}
+
+::ng-deep .error-custom-style {
+  background-color: #CC9966;
+  color: white;
+}
