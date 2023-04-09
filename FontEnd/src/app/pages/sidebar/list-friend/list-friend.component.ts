@@ -16,6 +16,8 @@ export class ListFriendComponent implements OnInit {
   listFriend: Friend[];
   page: any;
   data:Friends;
+  item:any;
+  show:boolean=true;
   constructor(private http: HttpClient, private commonService: CommonService) {
     this.baseUrl = this.commonService.webApiUrl;
     this.headers = this.commonService.createHeadersOption(
@@ -43,5 +45,8 @@ export class ListFriendComponent implements OnInit {
     return this.http.post(`${this.baseUrl}/friends/getall/me`, this.page, {
       headers: this.headers
     });
+  }
+  showChat(friend:any){
+    $('.chat-box').addClass('show');
   }
 }

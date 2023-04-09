@@ -3,18 +3,22 @@
 <ul class="naves">
     <li>
         <i class="ti-user"></i>
-        <a href="timeline-friends.html" title="">friends</a>
+        <a [routerLink]="['/timeline', id, 'friends']" title="">Bạn bè</a>
     </li>
     <li>
         <i class="ti-user"></i>
-        <a href="timeline-photos.html" title="">Follower</a>
+        <a [routerLink]="['/timeline', id, 'followers']" title="">Người theo dõi</a>
     </li>
     <li>
       <i class="ti-user"></i>
-      <a href="timeline-photos.html" title="">Following</a>
+      <a [routerLink]="['/timeline', id, 'following']" title="">Đang theo dõi</a>
   </li>
-    <li>
+  <li>
       <i class="ti-image"></i>
-      <a href="timeline-photos.html" title="">images</a>
+      <a [routerLink]="['/timeline', id, 'photos']" title="">Hình ảnh</a>
   </li>
+  <li>
+    <i class="ti-image"></i>
+    <a [routerLink]="['/timeline', id, 'share']" title="">Chia sẻ</a>
+</li>
 </ul>

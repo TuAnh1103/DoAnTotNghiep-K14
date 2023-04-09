@@ -1,0 +1,98 @@
+<div class="central-meta">
+  <div class="new-postbox">
+    <figure>
+      <img
+        [src]="
+          !user.avatar_image
+            ? 'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg'
+            : user.avatar_image.link_image
+        "
+        style="width:40px;height:40px;"
+        alt=""
+      />
+    </figure>
+    <div class="newpst-input">
+      <form method="post" [formGroup]="form" (ngSubmit)="sharePost()">
+        <textarea
+          rows="2"
+          placeholder="write something"
+          style="border: solid 1px orange"
+          [(ngModel)]="content"
+          formControlName="content"
+        >
+        </textarea>
+        <div class="friend-info" style="width: 80%; margin: 30px 10%">
+          <figure>
+            <img
+              [src]="
+                !post.author.avatar_image
+                  ? 'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg'
+                  : post.author.avatar_image.link_image
+              "
+              style="width:30px;height:30px;"
+              alt=""
+            />
+          </figure>
+          <div class="friend-name">
+            <ins
+              ><a href="" title=""
+                >{{ post.author.first_name }} {{ post.author.last_name }}
+              </a></ins
+            >
+            <span>Ngày đăng: {{ post.created_date | date }}</span>
+          </div>
+          <div class="description">
+            <p style="color: black; font-size: 16px; font-weight: bold">
+              {{ post.content }}
+            </p>
+          </div>
+          <div class="post-meta">
+            <div
+              style="width: 100%; height: 300px; margin: 0 auto"
+              [hidden]="slides.length == 0 ? true : false"
+            >
+              <app-image-slider
+                [slides]="slides"
+                *ngIf="slides.length > 0"
+              ></app-image-slider>
+            </div>
+            <div class="we-video-info">
+              <ul>
+                <li>
+                  <span data-toggle="tooltip" title="like">
+                    <a><i class="fa fa-thumbs-up"></i></a>
+                    <ins>{{ post.like_count }}</ins>
+                  </span>
+                </li>
+                <li>
+                  <span class="comment" data-toggle="tooltip" title="Comments">
+                    <a><i class="fa fa-comments-o"></i></a>
+                    <ins>{{ post.cmt_count }}</ins>
+                  </span>
+                </li>
+                <li class="social-media">
+                  <span data-toggle="tooltip" title="share">
+                    <a><i class="fa fa-share-alt"></i></a>
+                    <ins>{{ post.share_count }}</ins>
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <!-- <div class="description">
+                      <p>
+                        {{post.content}}
+                      </p>
+                    </div> -->
+          </div>
+        </div>
+        <div class="attachments">
+            <mat-dialog-actions align="center">
+              <button mat-raised-button color="primary" type="submit" tabindex="1">Đăng</button>
+              <button mat-raised-button mat-dialog-close tabindex="-1" type="button"  (click)="close()">Đóng</button>
+            </mat-dialog-actions>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- add post new box -->

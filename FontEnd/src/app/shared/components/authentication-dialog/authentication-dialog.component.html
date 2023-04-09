@@ -1,11 +1,11 @@
-<h2 class="log-title">Authentication</h2>
+<h2 class="log-title">Xác thực</h2>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <input type="text" id="input" formControlName="code"/>
-        <label class="control-label" for="input">Please enter the verification code</label><i class="mtrl-select"></i>
+        <label class="control-label" for="input">Vui lòng nhập mã xác nhận</label><i class="mtrl-select"></i>
       </div>
       <div class="submit-btns">
-        <button class="mtr-btn" type="submit"><span>Send</span></button>
-        <button class="mtr-btn" type="button" (click)="close()"><span>Cancel</span></button>
+        <button class="mtr-btn" type="submit"><span>Xác thực</span></button>
+        <button class="mtr-btn" type="button" (click)="close()"><span>Hủy</span></button>
       </div>
     </form>

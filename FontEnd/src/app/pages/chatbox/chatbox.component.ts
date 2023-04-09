@@ -11,5 +11,8 @@ export class ChatboxComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  close(){
+    $('.chat-box').removeClass('show');
+  }
 
 }

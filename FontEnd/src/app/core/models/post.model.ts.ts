@@ -5,7 +5,7 @@ import { FileResponse } from "./file-response.model";
 export class Post {
   content:string;
   privacy:number;
-  images:any;
+  images:any=[];
 }
 export class PostResponseList{
   content:PostResponse[];
@@ -30,4 +30,16 @@ export class Author
   last_name:string;
   first_name:string;
   avatar_image:FileResponse;
+}
+export class sharePost
+{
+  id:number;
+  author_share:Author;
+  content:string;
+  created_date:Date = new Date();
+  author_post:PostResponse;
+}
+export class SharePostResponseList{
+  content:sharePost[];
+  page:Pageable;
 }

@@ -50,24 +50,27 @@ export class LoginComponent implements OnInit {
                 (data)=>{
                     this.user=data as UserDetail;
                     localStorage.setItem("userId",this.user.id.toString());
-                    this.showSnackbarSuccess('Login successful!','','1000');
+                    this.showSnackbarSuccess('Đăng nhập thành công!','','1000');
                     this.router.navigateByUrl("/home");
                 },
                 (error) =>{
-                  this.showSnackbarFail('Login failed!','','1000');
+                  this.showSnackbarFail('Đăng nhập thất bại!','','1000');
                 }
                 )
           },
           error=>{
-            this.showSnackbarFail("Username or password doesn't exist.Please check again!",'','1000');
+            this.showSnackbarFail("Tên đăng nhập hoặc mật khẩu sai!",'','1000');
           }
         );
       }
       else{
-        this.showSnackbarFail("Username and password doesn't blank!",'','1000');
+        this.showSnackbarFail("Tên đăng nhập hoặc mật khẩu không được trống!",'','1000');
         }
   }
   ngOnInit(): void {
+    setTimeout(()=>{
+      localStorage.clear();
+    },1000)
 
   }
   getUserByUsername(username:string,token:any)

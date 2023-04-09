@@ -1,9 +1,11 @@
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { first } from 'rxjs';
 import { Friend, Friends } from 'src/app/core/models/friends.model';
 import { CommonService } from 'src/app/shared/common.service';
+import { FriendsComponent } from './friends/friends.component';
+import { FriendRequestComponent } from './friend-request/friend-request.component';
 
 @Component({
   selector: 'app-timeline-friends',
@@ -36,4 +38,5 @@ export class TimelineFriendsComponent implements OnInit {
       }
     })
   }
+
 }

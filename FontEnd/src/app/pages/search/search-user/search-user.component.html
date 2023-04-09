@@ -1,0 +1,79 @@
+<div class="central-meta">
+  <div class="frnds">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a>Kết quả tìm kiếm</a
+        >
+        <span></span>
+      </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div class="tab-pane active fade show" id="frends">
+        <ul class="nearby-contct">
+          <li *ngFor="let user of users">
+            <div class="nearly-pepls">
+              <figure>
+                <a [routerLink]="['/timeline', user.id]" title=""
+                  ><img
+                    [src]="
+                      !user.avatar_image
+                        ? 'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg'
+                        : user.avatar_image.link_image
+                    "
+                    style="width:50px;height:50px;"
+                    alt=""
+                /></a>
+              </figure>
+              <div class="pepl-info">
+                <h4>
+                  <a [routerLink]="['/timeline', user.id]" title=""
+                    >{{ user.last_name }}
+                    {{ user.first_name }}</a
+                  >
+                </h4>
+                <a
+                  class="add-butn more-action"
+                  style="
+                    background-color: rgb(220, 92, 237);
+                    border-radius: 20px;
+                    color: white;
+                    margin-right:40px;
+                  "
+                  data-ripple=""
+                  (click)="follow(user.id)"
+                  [hidden]="
+                  user.id.toString() != myId ? false : true
+                  "
+                  >Theo dõi</a
+                >
+                <a
+                  title=""
+                  class="add-butn"
+                  style="
+                    background-color: rgb(220, 92, 237);
+                    border-radius: 20px;
+                    color: white;
+                  "
+                  data-ripple=""
+                  (click)="addFriend(user.id)"
+                  [hidden]="
+                    !checkUser && user.id.toString() != myId
+                      ? false
+                      : true
+                  "
+                  >Thêm bạn bè</a
+                >
+              </div>
+            </div>
+          </li>
+        </ul>
+        <div class="lodmore">
+          <button class="btn-view btn-load-more" (click)="loadAdd()"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- centerl meta -->

@@ -4,9 +4,11 @@ import { FileResponse } from './../../core/models/file-response.model';
 import { first } from 'rxjs';
 import { CommonService } from 'src/app/shared/common.service';
 import { HttpClient } from '@angular/common/http';
-import { Form, FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Form, FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Favorite } from 'src/app/core/models/favorite.model';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-edit-profile-basic',
@@ -29,6 +31,7 @@ export class EditProfileBasicComponent implements OnInit {
   status: number;
   userDetail: UserDetail;
   imageUrl: string;
+  favoriteList: Favorite[];
   private headers: any;
   constructor(
     private snackBar: MatSnackBar,
@@ -45,6 +48,7 @@ export class EditProfileBasicComponent implements OnInit {
       hometown: [''],
       current_city: [''],
       gender: ['', Validators.required],
+      favorites: this.fb.array([], Validators.required)
     });
     this.baseUrl = this.commonService.webApiUrl;
     this.headers = this.commonService.createHeadersOption(
@@ -54,6 +58,32 @@ export class EditProfileBasicComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
+    this.getAllFavorites();
+  }
+  getAllFavorites(){
+    this.http.get(`${this.baseUrl}/auth/favorite`)
+    .pipe(first())
+    .subscribe(
+      (datas)=>{
+        console.log(datas);
+        this.favoriteList=datas as Favorite[];
+      },
+      (error)=>console.log(error)
+    )
+  }
+  onChange(selectedOption: MatCheckboxChange) {
+    const favorites = (<FormArray>(
+      this.form.get("favorites")
+    )) as FormArray;
+
+    if (selectedOption.checked) {
+      favorites.push(new FormControl(selectedOption.source.value));
+    } else {
+      const i = favorites.controls.findIndex(
+        x => x.value === selectedOption.source.value
+      );
+      favorites.removeAt(i);
+    }
   }
   loadData() {
     this.userService
@@ -76,6 +106,7 @@ export class EditProfileBasicComponent implements OnInit {
       );
   }
   updateProfile() {
+    console.log(this.form.value);
     this.body = {
       last_name: this.last_name,
       first_name: this.first_name,
@@ -84,6 +115,7 @@ export class EditProfileBasicComponent implements OnInit {
       hometown: this.hometown,
       current_city: this.current_city,
       gender: this.gender,
+      favoriteIds:this.form.get("favorites").value,
       avatar_image: '',
     };
     if (this.selectedFile) {
@@ -111,11 +143,11 @@ export class EditProfileBasicComponent implements OnInit {
         (response) => {
           this.status = 0;
           this.loadData();
-          this.showSnackbarSucsess('Update your profile success!','',1000);
+          this.showSnackbarSucsess('Cập nhật hồ sơ thành công!','',1000);
         },
         (error) => {
           this.status = 1;
-          this.showSnackbarError('Update your profile failed!','',1000);
+          this.showSnackbarError('Cập nhật hồ sơ thất bại!','',1000);
         }
       );
   }
@@ -129,11 +161,11 @@ export class EditProfileBasicComponent implements OnInit {
           this.body = {
             avatar_image: this.image.id,
           };
-          this.showSnackbarSucsess('Upload your avatar success!','',1000);
+          this.showSnackbarSucsess('Tải ảnh đại diện lên thành công!','',1000);
         },
         (error) =>
         {
-          this.showSnackbarError('Upload your avatar failed','',1000);
+          this.showSnackbarError('Tải ảnh đại diện lên thất bại','',1000);
         }
       );
   }
@@ -146,14 +178,14 @@ export class EditProfileBasicComponent implements OnInit {
     this.snackBar.open(content, action, {
       duration: 5000,
       verticalPosition: "top", // Allowed values are  'top' | 'bottom'
-      horizontalPosition: "left",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
+      horizontalPosition: "center",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
       panelClass: ["custom-style"]
   })}
   showSnackbarError(content, action, duration) {
     this.snackBar.open(content, action, {
       duration: 5000,
       verticalPosition: "top", // Allowed values are  'top' | 'bottom'
-      horizontalPosition: "left",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
+      horizontalPosition: "center",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
       panelClass: ["error-custom-style"]
   })}
 }

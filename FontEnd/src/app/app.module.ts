@@ -65,6 +65,22 @@ import { NewsTimelineComponent } from './pages/timeline/news-timeline/news-timel
 import { UserPostComponent } from './pages/timeline/news-timeline/user-post/user-post.component';
 import { ImageSliderComponent } from './shared/components/image-slider/image-slider.component';
 import { CommentPostComponent } from './pages/timeline/news-timeline/comment-post/comment-post.component';
+import { ShareDialogComponent } from './shared/components/share-dialog/share-dialog.component';
+import { CommentPostShareComponent } from './pages/timeline/timeline-post-share/comment-post-share/comment-post-share.component';
+import { TimelinePostShareComponent } from './pages/timeline/timeline-post-share/timeline-post-share.component';
+import { UserPostShareComponent } from './pages/timeline/timeline-post-share/user-post-share/user-post-share.component';
+import { PostShare_newComponent } from './pages/timeline/timeline-post-share/post-share_new/post-share_new.component';
+import { ConfirmDialogComponent } from './shared/components/confirm-dialog/confirm-dialog.component';
+import { MatButtonModule } from '@angular/material/button';
+import { EditPostDialogComponent } from './shared/components/edit-post-dialog/edit-post-dialog.component';
+import { ComponentsComponent } from './shared/components/components/components.component';
+import { EditPostShareComponent } from './shared/components/edit-post-share/edit-post-share.component';
+import { SearchUserComponent } from './pages/search/search-user/search-user.component';
+import { PostNewComponent } from './pages/news/post-new/post-new.component';
+import { CommentPostNewsComponent } from './pages/news/comment-post-news/comment-post-news.component';
+
+
+
 
 export function getToken() {
   return localStorage.getItem('token');
@@ -116,7 +132,19 @@ export function getToken() {
     NewsTimelineComponent,
     UserPostComponent,
     ImageSliderComponent,
-    CommentPostComponent
+    CommentPostComponent,
+    ShareDialogComponent,
+    CommentPostShareComponent,
+    TimelinePostShareComponent,
+    UserPostShareComponent,
+    PostShare_newComponent,
+    ConfirmDialogComponent,
+    EditPostDialogComponent,
+    ComponentsComponent,
+    EditPostShareComponent,
+    SearchUserComponent,
+    PostNewComponent,
+    CommentPostNewsComponent
   ],
   imports: [
     BrowserModule,
@@ -140,6 +168,8 @@ export function getToken() {
     MatTreeModule,
     ReactiveFormsModule,
     MatSnackBarModule,
+    MatButtonModule,
+    MatButtonModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: getToken

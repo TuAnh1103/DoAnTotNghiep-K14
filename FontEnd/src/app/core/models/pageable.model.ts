@@ -5,6 +5,6 @@ export class Pageable {
   paged: boolean;
 }
 export class Page {
-  index?:number;
-  size?:number
+  index:any;
+  size:any;
 }

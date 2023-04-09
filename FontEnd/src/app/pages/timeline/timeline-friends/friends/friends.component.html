@@ -7,9 +7,9 @@
           href="#frends"
           data-toggle="tab"
           (click)="loadDataFriend()"
-          >My Friends</a
+          >Bạn bè</a
         >
-        <span>55</span>
+        <span>{{countFriend}}</span>
       </li>
       <li class="nav-item">
         <a
@@ -18,8 +18,8 @@
           data-toggle="tab"
           [hidden]="!checkUser"
           (click)="loadDataFriendRequest()"
-          >Friend Requests</a
-        ><span [hidden]="!checkUser">60</span>
+          >Lời mời kết bạn</a
+        ><span [hidden]="!checkUser">{{countFriendRequest}}</span>
       </li>
     </ul>
 
@@ -37,6 +37,7 @@
                         ? 'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg'
                         : friend.user_info.avatar_image.link_image
                     "
+                    style="width:50px;height:50px;"
                     alt=""
                 /></a>
               </figure>
@@ -53,13 +54,14 @@
                     background-color: rgb(220, 92, 237);
                     border-radius: 20px;
                     color: white;
+                    margin-right:40px;
                   "
                   data-ripple=""
                   (click)="follow(friend.user_info.id)"
                   [hidden]="
                     friend.user_info.id.toString() != myId ? false : true
                   "
-                  >follow</a
+                  >Theo dõi</a
                 >
                 <a
                   title=""
@@ -68,11 +70,12 @@
                     background-color: rgb(92, 92, 237);
                     border-radius: 20px;
                     color: white;
+                    margin-right:30px;
                   "
                   data-ripple=""
                   (click)="unfriend(friend.user_info.id)"
                   [hidden]="checkUser ? false : true"
-                  >unfriend</a
+                  >Hủy theo dõi</a
                 >
                 <a
                   title=""
@@ -89,19 +92,18 @@
                       ? false
                       : true
                   "
-                  >add friend</a
+                  >Thêm bạn bè</a
                 >
               </div>
             </div>
           </li>
         </ul>
         <div class="lodmore">
-          <button class="btn-view btn-load-more"></button>
+          <button class="btn-view btn-load-more" (click)="loadAdd()"></button>
         </div>
       </div>
       <div class="tab-pane fade" id="frends-req" [hidden]="!checkUser">
         <app-friend-request></app-friend-request>
-        <button class="btn-view btn-load-more"></button>
       </div>
     </div>
   </div>

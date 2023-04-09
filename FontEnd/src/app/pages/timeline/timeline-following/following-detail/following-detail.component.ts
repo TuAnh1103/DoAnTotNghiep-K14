@@ -23,6 +23,8 @@ export class FollowingDetailComponent implements OnInit {
   id:string;
   checkUser:boolean;
   myId:string;
+  size:number=0;
+  count:number=0;
   constructor(private snackBar: MatSnackBar,private route: ActivatedRoute,private http:HttpClient,private commonService:CommonService) {
     this.baseUrl = this.commonService.webApiUrl;
     this.headers = this.commonService.createHeadersOption(
@@ -33,12 +35,14 @@ export class FollowingDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params)=>{
       this.id = params.get('id');
+      this.getQuantityFollowing();
       this.getAllFollowing()
       .pipe(first())
       .subscribe(
         (datas)=>{
           this.data=datas as Followings;
           this.listFollowing=this.data.content;
+          this.size=this.page.size;
         },
         (error)=>{
           console.log(error);
@@ -62,6 +66,35 @@ export class FollowingDetailComponent implements OnInit {
       headers: this.headers
     });
   }
+  loadAdd(){
+    this.size=this.page.size + 2;
+    this.page={
+      index:0,
+      size:this.size
+    }
+    this.http.post(`${this.baseUrl}/follow/following/${this.id}`, this.page, {
+      headers: this.headers
+    }).pipe(first())
+    .subscribe(
+      (datas)=>{
+        this.data=datas as Followings;
+        this.listFollowing=this.data.content;
+        this.size=this.page.size;
+      },
+      error=>console.log(error)
+    )
+  }
+  getQuantityFollowing(){
+    this.http.get(`${this.baseUrl}/follow/following/count/${this.id}`, {
+      headers: this.headers
+    }).pipe(first())
+    .subscribe(
+      (data)=>{
+        this.count = data as number;
+      },
+      error=>console.log(error)
+    )
+  }
   unfollow(userId:any){
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -73,6 +106,7 @@ export class FollowingDetailComponent implements OnInit {
     (message)=>{
       this.messageResponse=message;
       this.showSnackbarSucsess(this.messageResponse.message,'','2000');
+      this.getQuantityFollowing();
       this.getAllFollowing()
       .pipe(first())
       .subscribe(
@@ -129,14 +163,14 @@ export class FollowingDetailComponent implements OnInit {
   showSnackbarSucsess(content, action, duration) {
     this.snackBar.open(content, action, {
       duration: 5000,
-      verticalPosition: "bottom", // Allowed values are  'top' | 'bottom'
+      verticalPosition: "top", // Allowed values are  'top' | 'bottom'
       horizontalPosition: "center",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
       panelClass: ["custom-style"]
   })}
   showSnackbarError(content, action, duration) {
     this.snackBar.open(content, action, {
       duration: 5000,
-      verticalPosition: "bottom", // Allowed values are  'top' | 'bottom'
+      verticalPosition: "top", // Allowed values are  'top' | 'bottom'
       horizontalPosition: "center",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
       panelClass: ["error-custom-style"]
   })}

@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import * as $ from "jquery";
 import { first } from 'rxjs';
 import { UserDetail } from 'src/app/core/models/user-detail';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -14,7 +15,8 @@ export class HeaderComponent implements OnInit {
   private headers:any;
   id:string;
   user:UserDetail;
-  constructor(private http:HttpClient,private commonService:CommonService) {
+  searchKey:string;
+  constructor(private router:Router,private http:HttpClient,private commonService:CommonService) {
     this.id = localStorage.getItem('userId');
     this.baseUrl = this.commonService.webApiUrl;
     this.headers = this.commonService.createHeadersOption(localStorage.getItem('token'));
@@ -225,6 +227,9 @@ export class HeaderComponent implements OnInit {
         console.log(error)
       }
     )
+  }
+  searchUser(){
+    this.router.navigate(['/search', this.searchKey]);
   }
   logout(){
     localStorage.clear();

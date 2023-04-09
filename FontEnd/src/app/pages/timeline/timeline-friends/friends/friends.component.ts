@@ -25,6 +25,9 @@ export class FriendsComponent implements OnInit {
   messageResponse:MessageResponse;
   dataFriendRequest:FriendRequests;
   listFriendRequest: FriendRequest[];
+  size:number=0;
+  countFriend:number=0;
+  countFriendRequest:number=0;
   constructor(private snackBar: MatSnackBar,private route: ActivatedRoute,private http: HttpClient, private commonService: CommonService) {
     this.baseUrl = this.commonService.webApiUrl;
     this.headers = this.commonService.createHeadersOption(
@@ -35,7 +38,7 @@ export class FriendsComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params)=>{
       this.id = params.get('id');
-      console.log(this.id);
+      this.getQuantityFriend();
       this.getAllFriend()
       .pipe(first())
       .subscribe(
@@ -67,6 +70,45 @@ export class FriendsComponent implements OnInit {
     return this.http.post(`${this.baseUrl}/friends/getall/${this.id}`, this.page, {
       headers: this.headers
     });
+  }
+  getQuantityFriend(){
+    this.http.get(`${this.baseUrl}/friends/count/${this.id}`, {
+      headers: this.headers
+    }).pipe(first())
+    .subscribe(
+      (datas)=>{
+        this.countFriend = datas as number;
+      },
+      error=>console.log(error)
+    )
+  }
+  getQuantityFriendRequest(){
+    this.http.get(`${this.baseUrl}/friendrequest/count`, {
+      headers: this.headers
+    }).pipe(first())
+    .subscribe(
+      (datas)=>{
+        this.countFriendRequest = datas as number;
+      },
+      error=>console.log(error)
+    )
+  }
+  loadAdd(){
+    this.size=this.page.size + 5;
+    this.page={
+      index:0,
+      size:this.size
+    }
+    this.http.post(`${this.baseUrl}/friends/getall/${this.id}`, this.page, {
+      headers: this.headers
+    }).pipe(first())
+    .subscribe(
+      (datas)=>{
+        this.data=datas as Friends;
+        this.listFriend=this.data.content;
+      },
+      error=>console.log(error)
+    )
   }
   loadDataFriend(){
     this.getAllFriend()
@@ -132,6 +174,7 @@ export class FriendsComponent implements OnInit {
         (message)=>{
           this.messageResponse=message;
           this.showSnackbarSucsess(this.messageResponse.message,'',1000);
+          this.getQuantityFriend();
           this.getAllFriend()
           .pipe(first())
           .subscribe(
@@ -169,14 +212,14 @@ export class FriendsComponent implements OnInit {
   showSnackbarSucsess(content, action, duration) {
     this.snackBar.open(content, action, {
       duration: 1000,
-      verticalPosition: "bottom", // Allowed values are  'top' | 'bottom'
+      verticalPosition: "top", // Allowed values are  'top' | 'bottom'
       horizontalPosition: "center",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
       panelClass: ["custom-style"]
   })}
   showSnackbarError(content, action, duration) {
     this.snackBar.open(content, action, {
       duration: 5000,
-      verticalPosition: "bottom", // Allowed values are  'top' | 'bottom'
+      verticalPosition: "top", // Allowed values are  'top' | 'bottom'
       horizontalPosition: "center",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
       panelClass: ["error-custom-style"]
   })}

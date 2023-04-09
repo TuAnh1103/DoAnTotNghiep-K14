@@ -1,11 +1,11 @@
 
-<h4 class="widget-title">Who's follownig</h4>
+<h4 class="widget-title">Đang theo dõi</h4>
 <ul class="followers">
     <li *ngFor="let following of listFollowing">
-        <figure> <img [src]="!following.user_info.avatar_image?'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg':following.user_info.avatar_image.link_image" alt="" id="avatar"></figure>
+        <figure> <img [src]="!following.user_info.avatar_image?'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg':following.user_info.avatar_image.link_image" style="width:40px;height:40px;" alt="" id="avatar"></figure>
         <div class="friend-meta">
             <h4><a [routerLink]="['/timeline', following.user_info.id]" title="">{{following.user_info.last_name}} {{following.user_info.first_name}}</a></h4>
-            <button class="button-10" role="button" (click)="unfollow(following.user_info.id)">unfollow</button>
+            <button class="button-10" role="button" (click)="unfollow(following.user_info.id)">Hủy theo dõi</button>
         </div>
     </li>
 </ul>

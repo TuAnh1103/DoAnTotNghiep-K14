@@ -8,7 +8,7 @@
               !friendRequest.user_info.avatar_image
                 ? 'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg'
                 : friendRequest.user_info.avatar_image.link_image
-            "
+            "  style="width:50px;height:50px;"
             alt=""
         /></a>
       </figure>
@@ -26,10 +26,11 @@
             background-color: rgb(220, 92, 237);
             border-radius: 20px;
             color: white;
+            margin-right:30px;
           "
           data-ripple=""
           (click)="deleteRequest(friendRequest.user_info.id)"
-          >Delete Request</a
+          >Xóa</a
         >
         <a
           title=""
@@ -41,9 +42,10 @@
           "
           data-ripple=""
           (click)="confirmReqest(friendRequest.user_info.id)"
-          >Confirm</a
+          >Chấp nhận</a
         >
       </div>
     </div>
   </li>
 </ul>
+<button class="btn-view btn-load-more" (click)="loadAdd()"></button>

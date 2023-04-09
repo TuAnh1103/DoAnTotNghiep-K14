@@ -27,6 +27,7 @@ export class AuthenticationDialogComponent implements OnInit {
       gender:[data.gender],
       username:[data.username],
       password:[data.password],
+      favoriteIds:[data.favoriteIds],
       code:['',Validators.required]
     })
    }
@@ -35,6 +36,7 @@ export class AuthenticationDialogComponent implements OnInit {
 
   }
   onSubmit(){
+    console.log(this.form);
     const url=`${this.commonService.webApiUrl}/auth/register`;
     return this.http.post(url,this.form.value)
     .pipe(first())
@@ -42,7 +44,7 @@ export class AuthenticationDialogComponent implements OnInit {
       data=>{
         this.dialogRef.close();
         this.router.navigateByUrl("login");
-        this.showSnackbarSucsess('Register succesfull','Close','1000');
+        this.showSnackbarSucsess('Đăng ký tài khoản thành công!','Đóng','1000');
       },
       (error:HttpErrorResponse)=>{
         this.messageResponse=error.error;

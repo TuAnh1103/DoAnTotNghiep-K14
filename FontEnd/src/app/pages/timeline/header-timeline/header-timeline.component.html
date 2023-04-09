@@ -10,20 +10,21 @@
     />
   </figure>
   <div class="add-btn">
-    <span>1205 followers</span>
+    <span>{{countFollower}} người theo dõi</span>
+    <span>{{countFriend}} bạn bè</span>
     <a
       href="#"
       title=""
       data-ripple=""
       [hidden]="checkUser"
       (click)="addFriend()"
-      >Add Friend</a
+      >Thêm bạn bè</a
     >
   </div>
   <form class="edit-phto" [hidden]="!checkUser">
     <i class="fa fa-camera-retro"></i>
     <label class="fileContainer">
-      Edit Cover Photo
+     Thay đổi ảnh bìa
       <input type="file" (change)="selectFileCover($event)" />
     </label>
   </form>
@@ -44,7 +45,7 @@
             <form [ngClass]="{ 'edit-phto': checkUser }" [hidden]="!checkUser">
               <i class="fa fa-camera-retro"></i>
               <label class="fileContainer">
-                Edit Display Photo
+               Thay đổi ảnh đại diện
                 <input type="file" (change)="selectFileAvatar($event)" />
               </label>
             </form>
@@ -64,35 +65,35 @@
                 [routerLink]="['/timeline', id]"
                 title=""
                 data-ripple=""
-                >time line</a
+                >Bài viết</a
               >
               <a
                 class=""
                 [routerLink]="['/timeline', id, 'photos']"
                 title=""
                 data-ripple=""
-                >Photos</a
+                >Hình ảnh</a
               >
               <a
                 class=""
                 [routerLink]="['/timeline', id, 'friends']"
                 title=""
                 data-ripple=""
-                >Friends</a
+                >Bạn bè</a
               >
               <a
                 class=""
                 [routerLink]="['/timeline', id, 'followers']"
                 title=""
                 data-ripple=""
-                >Follower</a
+                >Người theo dõi</a
               >
               <a
                 class=""
                 [routerLink]="['/timeline', id, 'following']"
                 title=""
                 data-ripple=""
-                >Following</a
+                >Đang theo dõi</a
               >
             </li>
           </ul>

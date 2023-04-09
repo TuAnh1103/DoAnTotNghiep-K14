@@ -6,6 +6,7 @@ import { CommonService } from 'src/app/shared/common.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { first, Observable } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-center-meta',
@@ -26,7 +27,8 @@ export class CenterMetaComponent implements OnInit {
     private fb: FormBuilder,
     private commonService: CommonService,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {
     this.form = this.fb.group({
       content: ['', Validators.required],
@@ -41,6 +43,7 @@ export class CenterMetaComponent implements OnInit {
     this.message = '';
     if(this.selectedFiles)
     {
+      this.showSnackbarSucsess("Tải ảnh lên thành công!","",1000);
       this.upload(this.selectedFiles)
       .pipe(first())
       .subscribe(
@@ -58,6 +61,7 @@ export class CenterMetaComponent implements OnInit {
         },
         (error) => {
           console.log(error);
+          this.showSnackbarError("Có lỗi trong quá trình tải ảnh!","",1000);
         }
       );
     }
@@ -72,6 +76,7 @@ export class CenterMetaComponent implements OnInit {
   }
   sendPost(body:any)
   {
+    this.showSnackbarSucsess("Đăng tải!","",1000);
     this.http
     .post(`${this.baseUrl}/post`,body, {
       headers: this.commonService.createHeadersOption(
@@ -81,11 +86,11 @@ export class CenterMetaComponent implements OnInit {
     .pipe(first())
     .subscribe(
       (response) => {
-        console.log('ok');
+        this.showSnackbarSucsess("Đăng bài viết mới thành công!","",1000);
         this.clear();
       },
       (error) => {
-        console.log(error);
+        this.showSnackbarError("Đăng bài viết mới thất bại!","",1000);
       }
     );
   }
@@ -104,4 +109,18 @@ export class CenterMetaComponent implements OnInit {
     this.form.get("content").reset();
     this.form.get("privacy").reset();
   }
+  showSnackbarSucsess(content, action, duration) {
+    this.snackBar.open(content, action, {
+      duration: 5000,
+      verticalPosition: "top", // Allowed values are  'top' | 'bottom'
+      horizontalPosition: "center",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
+      panelClass: ["custom-style"]
+  })}
+  showSnackbarError(content, action, duration) {
+    this.snackBar.open(content, action, {
+      duration: 5000,
+      verticalPosition: "top", // Allowed values are  'top' | 'bottom'
+      horizontalPosition: "center",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
+      panelClass: ["error-custom-style"]
+  })}
 }

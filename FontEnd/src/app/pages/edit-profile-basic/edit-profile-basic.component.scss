@@ -240,3 +240,8 @@ main {
   background-color: red;
   color: white;
 }
+#avatar[_ngcontent-dgb-c78] {
+  height: 50px;
+  width: 50px;
+  clip-path: circle(25px at 50% 50%);
+}

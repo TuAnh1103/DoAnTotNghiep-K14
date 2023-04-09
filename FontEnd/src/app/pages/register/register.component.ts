@@ -1,7 +1,7 @@
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { first } from 'rxjs';
@@ -10,6 +10,8 @@ import { CustomvalidationService } from 'src/app/services/customvalidation.servi
 import { AuthenticationDialogComponent } from 'src/app/shared/components/authentication-dialog/authentication-dialog.component';
 import { CommonService } from 'src/app/shared/common.service';
 import { MessageResponse } from 'src/app/core/models/message-response.ts';
+import { Favorite } from 'src/app/core/models/favorite.model';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-register',
@@ -17,6 +19,7 @@ import { MessageResponse } from 'src/app/core/models/message-response.ts';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  private baseUrl:string;
   form:FormGroup;
   user:User;
   firstName:string;
@@ -29,7 +32,9 @@ export class RegisterComponent implements OnInit {
   password_confirmation:string;
   message?:string;
   messageResponse:MessageResponse;
+  favoriteList: Favorite[];
   constructor(private snackBar: MatSnackBar,private dialog: MatDialog,private fb:FormBuilder,private http:HttpClient,private commonService:CommonService,private router:Router, private customValidator: CustomvalidationService) {
+    this.baseUrl=this.commonService.webApiUrl;
     this.form=this.fb.group({
       firstName:['',Validators.required],
       lastName:['',Validators.required],
@@ -39,17 +44,19 @@ export class RegisterComponent implements OnInit {
       username:['',Validators.required,this.customValidator.userNameValidator.bind(this.customValidator)],
       password:['',Validators.compose([Validators.required, this.customValidator.patternValidator()])],
       password_confirmation:['',Validators.required],
+      favorites: this.fb.array([], Validators.required)
     },
     {
       validator: this.customValidator.MatchPassword('password', 'password_confirmation'),
     });
    }
   ngOnInit(): void {
+    this.getAllFavorites();
   }
   onSubmit(){
     this.message="";
     const url=`${this.commonService.webApiUrl}/auth/register`;
-    this.showSnackbarSucsess('Wait for the code to be sent to your email in 30 seconds....','Close','3000');
+    this.showSnackbarSucsess('Mã xác thực đang được gửi đến email của bạn sau 10 giây....','Close','3000');
     return this.http.post(url,this.form.value)
     .pipe(first())
     .subscribe(
@@ -58,9 +65,35 @@ export class RegisterComponent implements OnInit {
         this.openDialog();
       },
       (error: HttpErrorResponse)=>{
+        console.log(error);
         this.messageResponse=error.error;
         this.showSnackbarError(this.messageResponse.message,'','2000');
       }
+    )
+  }
+  onChange(selectedOption: MatCheckboxChange) {
+    const favorites = (<FormArray>(
+      this.form.get("favorites")
+    )) as FormArray;
+
+    if (selectedOption.checked) {
+      favorites.push(new FormControl(selectedOption.source.value));
+    } else {
+      const i = favorites.controls.findIndex(
+        x => x.value === selectedOption.source.value
+      );
+      favorites.removeAt(i);
+    }
+  }
+  getAllFavorites(){
+    this.http.get(`${this.baseUrl}/auth/favorite`)
+    .pipe(first())
+    .subscribe(
+      (datas)=>{
+        console.log(datas);
+        this.favoriteList=datas as Favorite[];
+      },
+      (error)=>console.log(error)
     )
   }
   openDialog(){
@@ -73,7 +106,8 @@ export class RegisterComponent implements OnInit {
         gender:this.gender,
         email:this.email,
         username:this.username,
-        password:this.password
+        password:this.password,
+        favoriteIds:this.form.get("favorites").value
       }
     });
   }

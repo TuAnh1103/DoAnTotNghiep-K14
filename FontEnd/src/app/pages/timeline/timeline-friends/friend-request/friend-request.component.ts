@@ -21,6 +21,8 @@ export class FriendRequestComponent implements OnInit {
   data:FriendRequests;
   checkUser:boolean;
   messageResponse:MessageResponse;
+  size:number=0;
+  countFriendRequest:number=0;
   constructor(private snackBar: MatSnackBar,private route: ActivatedRoute,private http: HttpClient, private commonService: CommonService) {
     this.baseUrl = this.commonService.webApiUrl;
     this.headers = this.commonService.createHeadersOption(
@@ -30,7 +32,7 @@ export class FriendRequestComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params)=>{
       this.id = params.get('id');
-      console.log(this.id);
+      this.getQuantityFriendRequest();
       if(this.id === localStorage.getItem('userId'))
       {
         this.checkUser = true;
@@ -40,6 +42,7 @@ export class FriendRequestComponent implements OnInit {
         (datas)=>{
           this.data=datas as FriendRequests;
           this.listFriendRequest=this.data.content;
+          this.size=this.page.size;
         },
         (error)=>{
           console.log(error);
@@ -59,6 +62,35 @@ export class FriendRequestComponent implements OnInit {
       headers: this.headers
     });
   }
+  getQuantityFriendRequest(){
+    this.http.get(`${this.baseUrl}/friendrequest/count`, {
+      headers: this.headers
+    }).pipe(first())
+    .subscribe(
+      (datas)=>{
+        this.countFriendRequest = datas as number;
+      },
+      error=>console.log(error)
+    )
+  }
+  loadAdd(){
+    this.size=this.page.size + 5;
+    this.page={
+      index:0,
+      size:this.size
+    }
+    this.http.post(`${this.baseUrl}/friendrequest`, this.page, {
+      headers: this.headers
+    }).pipe(first())
+    .subscribe(
+      (datas)=>{
+        this.data=datas as FriendRequests;
+        this.listFriendRequest=this.data.content;
+        this.size=this.page.size;
+      },
+      error=>console.log(error)
+    )
+  }
   confirmReqest(userId:any){
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -70,6 +102,7 @@ export class FriendRequestComponent implements OnInit {
     (message)=>{
       this.messageResponse=message;
       this.showSnackbarSucsess(this.messageResponse.message,'',1000);
+      this.getQuantityFriendRequest();
       this.getAllFriendRequest()
         .pipe(first())
         .subscribe(
@@ -97,6 +130,7 @@ export class FriendRequestComponent implements OnInit {
     (message)=>{
       this.messageResponse=message;
       this.showSnackbarSucsess(this.messageResponse.message,'',1000);
+      this.getQuantityFriendRequest();
       this.getAllFriendRequest()
       .pipe(first())
       .subscribe(
@@ -116,14 +150,14 @@ export class FriendRequestComponent implements OnInit {
   showSnackbarSucsess(content, action, duration) {
     this.snackBar.open(content, action, {
       duration: 1000,
-      verticalPosition: "bottom", // Allowed values are  'top' | 'bottom'
+      verticalPosition: "top", // Allowed values are  'top' | 'bottom'
       horizontalPosition: "center",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
       panelClass: ["custom-style"]
   })}
   showSnackbarError(content, action, duration) {
     this.snackBar.open(content, action, {
       duration: 5000,
-      verticalPosition: "bottom", // Allowed values are  'top' | 'bottom'
+      verticalPosition: "top", // Allowed values are  'top' | 'bottom'
       horizontalPosition: "center",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
       panelClass: ["error-custom-style"]
   })}

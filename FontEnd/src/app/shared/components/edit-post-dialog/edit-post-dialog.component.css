@@ -1,0 +1,9 @@
+::ng-deep .custom-style {
+  background-color: green;
+  color: white;
+}
+
+::ng-deep .error-custom-style {
+  background-color: #CC9966;
+  color: white;
+}

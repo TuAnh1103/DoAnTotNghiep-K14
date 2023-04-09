@@ -21,6 +21,9 @@ import { AuthenticationDialogComponent } from './shared/components/authenticatio
 import { AuthGuardService } from './core/auth/auth-guard.service';
 import { TimelineFollowerComponent } from './pages/timeline/timeline-follower/timeline-follower.component';
 import { TimelineFollowingComponent } from './pages/timeline/timeline-following/timeline-following.component';
+import { ShareDialogComponent } from './shared/components/share-dialog/share-dialog.component';
+import { TimelinePostShareComponent } from './pages/timeline/timeline-post-share/timeline-post-share.component';
+import { SearchComponent } from './pages/search/search.component';
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, /* redirect without clear GET params */
   { path: 'login', component: LoginComponent },
@@ -60,6 +63,11 @@ const routes: Routes = [
         path:'photos',
         component:TimelinePhotosComponent,
         canActivate:[AuthGuardService]
+      },
+      {
+        path:'share',
+        component:TimelinePostShareComponent,
+        canActivate:[AuthGuardService]
       }
     ],
   },
@@ -67,6 +75,7 @@ const routes: Routes = [
   {path:'error',component:ErrorComponent,canActivate:[AuthGuardService]},
   {path:'news',component:NewsComponent,canActivate:[AuthGuardService]},
   {path:'notifications',component:NotificationsComponent,canActivate:[AuthGuardService]},
+  {path:'search/:key',component:SearchComponent,canActivate:[AuthGuardService]},
   {path:'account',
   children:[
     {
@@ -80,7 +89,6 @@ const routes: Routes = [
   ],
   canActivate:[AuthGuardService]
   },
-  {path:'userpost',component:UserPostComponent,canActivate:[AuthGuardService]},
   { path: '**', redirectTo: 'home' }
 ];
 

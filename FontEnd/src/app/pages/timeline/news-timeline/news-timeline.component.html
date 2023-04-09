@@ -1,5 +1,8 @@
 <div class="loadMore">
   <div class="central-meta item" *ngFor="let post of postList">
-  <app-user-post  [post]="post"></app-user-post>
+  <app-user-post  [post]="post"  (updatePostEvent)="updatePost($event)"></app-user-post>
   </div>
+  <div class="lodmore">
+    <button class="btn-view btn-load-more" (click)="loadAdd()"></button>
   </div>
+</div>

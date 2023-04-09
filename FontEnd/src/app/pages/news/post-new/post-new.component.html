@@ -1,0 +1,103 @@
+<div class="user-post">
+  <div class="friend-info">
+    <div>
+      <div class="friend-info" style="float: left;">
+        <figure>
+          <img
+            [src]="
+              !post.author.avatar_image
+                ? 'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg'
+                : post.author.avatar_image.link_image
+            "
+            alt=""
+            style="width: 60px; height: 60px"
+          />
+        </figure>
+      <div class="friend-name">
+          <ins
+            ><a href="" title=""
+              >{{ post.author.first_name }} {{ post.author.last_name }}
+            </a></ins
+          >
+          <span>Ngày đăng: {{ post.created_date|date}}</span>
+      </div>
+      </div>
+    </div>
+    <div class="description">
+      <p style="color: black; font-size: 16px; font-weight: bold">
+        {{ post.content }}
+      </p>
+    </div>
+    <div class="post-meta">
+      <div
+        style="width: 100%; height: 500px; margin: 0 auto"
+        [hidden]="slides.length == 0 ? true : false"
+      >
+        <app-image-slider
+          [slides]="slides"
+          *ngIf="slides.length > 0"
+        ></app-image-slider>
+      </div>
+      <div class="we-video-info">
+        <ul>
+          <li>
+            <span [ngClass]="{'liked' : liked, 'notliked': !liked}" data-toggle="tooltip" title="like">
+              <a (click)="likePost()"><i class="fa fa-thumbs-up"></i></a>
+              <ins>{{post.like_count}}</ins>
+            </span>
+          </li>
+          <li>
+            <span class="comment" data-toggle="tooltip" title="Comments">
+              <a (click)="openComment()"><i class="fa fa-comments-o"></i></a>
+              <ins>{{post.cmt_count}}</ins>
+            </span>
+          </li>
+          <li class="social-media">
+            <span data-toggle="tooltip" title="share">
+              <a (click)="sharePost()"><i class="fa fa-share-alt"></i></a>
+              <ins>{{post.share_count}}</ins>
+            </span>
+          </li>
+        </ul>
+      </div>
+      <!-- <div class="description">
+          <p>
+            {{post.content}}
+          </p>
+        </div> -->
+    </div>
+  </div>
+  <div class="coment-area">
+    <ul class="we-comet">
+      <li *ngFor="let comment of commentList" [hidden]="!open">
+        <app-comment-post-news [comment]="comment"></app-comment-post-news>
+      </li>
+      <li [hidden]="!open">
+        <a href="#" title="" class="showmore underline">xem thêm</a>
+      </li>
+      <li class="post-comment">
+        <div class="comet-avatar">
+          <img
+            [src]="
+              !user.avatar_image
+                ? 'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg'
+                : user.avatar_image.link_image
+            "
+            style="min-width:50px;min-height:50px;max-height:50px;max-height: 50px;" alt=""
+          />
+        </div>
+        <div class="post-comt-box">
+          <form [formGroup]="form">
+            <textarea
+              placeholder="Post your comment"
+              formControlName="content"
+              [(ngModel)]="content"
+              (keyup.enter)="commentPost()"
+            ></textarea>
+            <button type="submit"></button>
+          </form>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

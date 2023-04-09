@@ -25,6 +25,8 @@ export class HeaderTimelineComponent implements OnInit {
   cover_image:FileResponse;
   avatar_image:FileResponse;
   body:any;
+  countFollower:number=0;
+  countFriend:number=0;
   constructor(private router:Router,private snackBar: MatSnackBar,private route: ActivatedRoute,private http:HttpClient,private commonService:CommonService) {
     this.baseUrl = this.commonService.webApiUrl;
     this.headers = this.commonService.createHeadersOption(localStorage.getItem('token'));
@@ -32,6 +34,8 @@ export class HeaderTimelineComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params)=>{
       this.id=params.get('id');
+      this.getQuantityFollower();
+      this.getQuantityFriend();
       this.getUserInfo();
       if(this.id === localStorage.getItem('userId'))
       {
@@ -53,6 +57,28 @@ export class HeaderTimelineComponent implements OnInit {
       (error)=>{
         console.log(error)
       }
+    )
+  }
+  getQuantityFollower(){
+    this.http.get(`${this.baseUrl}/follow/follower/count/${this.id}`, {
+      headers: this.headers
+    }).pipe(first())
+    .subscribe(
+      (data)=>{
+        this.countFollower = data as number;
+      },
+      error=>console.log(error)
+    )
+  }
+  getQuantityFriend(){
+    this.http.get(`${this.baseUrl}/friends/count/${this.id}`, {
+      headers: this.headers
+    }).pipe(first())
+    .subscribe(
+      (datas)=>{
+        this.countFriend = datas as number;
+      },
+      error=>console.log(error)
     )
   }
   addFriend(){
@@ -85,7 +111,7 @@ export class HeaderTimelineComponent implements OnInit {
         this.updateAvatarImage(this.body);
       },
       (error)=>{
-        this.showSnackbarError("upload avatar image failed!","",1000);
+        this.showSnackbarError("Tải ảnh lên thất bại!","",1000);
       }
     )
 
@@ -108,7 +134,7 @@ export class HeaderTimelineComponent implements OnInit {
         this.updateCoverImage(this.body);
       },
       (error)=>{
-        this.showSnackbarError("upload cover image failed!","",1000);
+        this.showSnackbarError("Tải ảnh lên thất bại!","",1000);
       }
     )
   }
@@ -121,10 +147,10 @@ export class HeaderTimelineComponent implements OnInit {
     .subscribe(
       (response) => {
         this.getUserInfo();
-        this.showSnackbarSucsess("Update cover image success!","",1000);
+        this.showSnackbarSucsess("Thay đổi ảnh bìa thành công!","",1000);
       },
       (error) => {
-        this.showSnackbarError('Update cover profile failed!','',1000);
+        this.showSnackbarError('Thay đổi ảnh bìa thất bại!','',1000);
       }
     );
   }
@@ -137,10 +163,10 @@ export class HeaderTimelineComponent implements OnInit {
     .subscribe(
       (response) => {
         this.getUserInfo();
-        this.showSnackbarSucsess("Update avatar image success!","",1000);
+        this.showSnackbarSucsess("Thay đổi ảnh đại diện thành công!","",1000);
       },
       (error) => {
-        this.showSnackbarError('Update your profile failed!','',1000);
+        this.showSnackbarError('Thay đổi ảnh đại diện thất bại!!','',1000);
       }
     );
   }

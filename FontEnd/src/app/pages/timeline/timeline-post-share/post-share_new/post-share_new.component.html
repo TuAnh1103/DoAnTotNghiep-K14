@@ -1,0 +1,8 @@
+<div class="loadMore">
+  <div class="central-meta item" *ngFor="let post of postShareList">
+    <app-user-post-share  [postshare]="post" (updatePostShareEvent)="updatePostShare($event)"></app-user-post-share>
+  </div>
+  <div class="lodmore">
+    <button class="btn-view btn-load-more" (click)="loadAdd()"></button>
+  </div>
+</div>
