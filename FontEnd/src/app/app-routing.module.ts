@@ -24,6 +24,13 @@ import { TimelineFollowingComponent } from './pages/timeline/timeline-following/
 import { ShareDialogComponent } from './shared/components/share-dialog/share-dialog.component';
 import { TimelinePostShareComponent } from './pages/timeline/timeline-post-share/timeline-post-share.component';
 import { SearchComponent } from './pages/search/search.component';
+import { HomeAdminComponent } from './admin/home-admin/home-admin.component';
+import { PostAdminComponent } from './admin/post-admin/post-admin.component';
+import { SharePostAdminComponent } from './admin/share-post-admin/share-post-admin.component';
+import { AddressAdminComponent } from './admin/address-admin/address-admin.component';
+import { FavoriteAdminComponent } from './admin/favorite-admin/favorite-admin.component';
+import { UserAdminComponent } from './admin/user-admin/user-admin.component';
+import { UserdetailViewComponent } from './admin/userdetail-view/userdetail-view.component';
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, /* redirect without clear GET params */
   { path: 'login', component: LoginComponent },
@@ -88,6 +95,42 @@ const routes: Routes = [
     }
   ],
   canActivate:[AuthGuardService]
+  },
+  {path:'admin',component:HomeAdminComponent,canActivate:[AuthGuardService]},
+  {
+    path:'admin',
+    children:[
+      {
+        path:'post',
+        component:PostAdminComponent,
+        canActivate:[AuthGuardService]
+      },
+      {
+        path:'share',
+        component:SharePostAdminComponent,
+        canActivate:[AuthGuardService]
+      },
+      {
+        path:'address',
+        component:AddressAdminComponent,
+        canActivate:[AuthGuardService]
+      },
+      {
+        path:'favorite',
+        component:FavoriteAdminComponent,
+        canActivate:[AuthGuardService]
+      },
+      {
+        path:'account',
+        component:UserAdminComponent,
+        canActivate:[AuthGuardService]
+      },
+      {
+        path:'view/:userId',
+        component:UserdetailViewComponent,
+        canActivate:[AuthGuardService]
+      }
+    ],
   },
   { path: '**', redirectTo: 'home' }
 ];

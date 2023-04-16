@@ -1,0 +1,66 @@
+#edit{
+  color:green;
+  margin-right:5px;
+}
+#delete{
+  color:orangered;
+}
+#edit:hover {
+  color: blue;
+}
+#delete:hover{
+  color: blue;
+}
+.liked{
+  color:#41b4fb ;
+}
+
+.notliked {
+  color: #8f898f;
+}
+.cdk-global-overlay-wrapper {
+  pointer-events: auto;
+  display: block;
+  position: relative;
+  overflow: auto;
+  text-align: center;
+}
+
+.cdk-global-overlay-wrapper::before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  white-space: nowrap;
+}
+
+.cdk-overlay-pane {
+  display: inline-block;
+  position: relative;
+  text-align: left;
+  white-space: normal;
+}
+#edit{
+  color:green;
+  margin-right:5px;
+}
+#delete{
+  color:orangered;
+}
+#edit:hover {
+  color: blue;
+}
+#delete:hover{
+  color: blue;
+}
+::ng-deep .custom-style {
+  background-color: green;
+  color: white;
+}
+
+::ng-deep .error-custom-style {
+  background-color: #CC9966;
+  color: white;
+}
+.cdk-overlay-transparent-backdrop{
+  background-color:transparent;
+}

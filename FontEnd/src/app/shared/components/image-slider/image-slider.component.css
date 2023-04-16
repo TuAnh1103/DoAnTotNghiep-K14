@@ -13,7 +13,7 @@
   right: 32px;
   font-size: 45px;
   color: black;
-  z-index: 1;
+  z-index: 0;
   cursor: pointer;
 }
 
@@ -24,7 +24,7 @@
   left: 32px;
   font-size: 45px;
   color: black;
-  z-index: 1;
+  z-index: 0;
   cursor: pointer;
 }
 

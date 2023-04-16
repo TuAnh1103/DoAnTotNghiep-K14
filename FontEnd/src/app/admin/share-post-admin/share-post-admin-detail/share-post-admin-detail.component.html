@@ -1,0 +1,108 @@
+<div class="user-post">
+  <div class="friend-info">
+    <div>
+      <div class="friend-info">
+        <figure>
+          <img
+            [src]="
+              !postshare.author_share.avatar_image
+                ? 'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg'
+                : postshare.author_share.avatar_image.link_image
+            "
+            alt=""
+            style="width: 60px; height: 60px"
+          />
+        </figure>
+        <div class="friend-name">
+          <ins
+            ><a href="" title=""
+              >{{ postshare.author_share.first_name }} {{ postshare.author_share.last_name }}
+            </a></ins
+          >
+          <span>Ngày đăng: {{ postshare.created_date|date}}</span>
+        </div>
+      </div>
+      <div style="float: right;" *ngIf="checked">
+        <mat-icon id="edit" (click)="editPost(postshare.id)"> border_color</mat-icon>
+        <mat-icon id="delete" (click)="deletePost(postshare.id)">cancel</mat-icon>
+      </div>
+    </div>
+
+    <div class="description">
+      <p style="color: black; font-size: 16px; font-weight: bold">
+        {{ postshare.content }}
+      </p>
+    </div>
+    <div style="width:90%;margin-left:5%;" >
+      <div class="friend-info">
+        <figure>
+          <img
+            [src]="
+              !postshare.author_post.author.avatar_image
+                ? 'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg'
+                : postshare.author_post.author.avatar_image.link_image
+            "
+            alt=""
+            style="width: 50px; height: 50px"
+          />
+        </figure>
+        <div class="friend-name">
+          <ins
+            ><a href="" title=""
+              >{{ postshare.author_post.author.first_name }} {{ postshare.author_post.author.last_name }}
+            </a></ins
+          >
+          <span>Ngày đăng: {{ postshare.author_post.created_date|date}}</span>
+        </div>
+        <div class="description">
+          <p style="color: black; font-size: 16px; font-weight: bold">
+            {{ postshare.author_post.content }}
+          </p>
+        </div>
+        <div class="post-meta">
+          <div
+            style="width: 100%; height: 500px; margin: 0 auto"
+            [hidden]="slides.length == 0 ? true : false"
+          >
+            <app-image-slider
+              [slides]="slides"
+              *ngIf="slides.length > 0"
+            ></app-image-slider>
+          </div>
+          <div class="we-video-info">
+            <ul>
+              <li>
+                <span [ngClass]="{'liked' : liked, 'notliked': !liked}" data-toggle="tooltip" title="like">
+                  <a><i class="fa fa-thumbs-up"></i></a>
+                  <ins>{{postshare.author_post.like_count}}</ins>
+                </span>
+              </li>
+              <li>
+                <span class="comment" data-toggle="tooltip" title="Comments">
+                  <a (click)="openComment()"><i class="fa fa-comments-o"></i></a>
+                  <ins>{{postshare.author_post.cmt_count}}</ins>
+                </span>
+              </li>
+              <li class="social-media">
+                <span data-toggle="tooltip" title="share">
+                  <a><i class="fa fa-share-alt"></i></a>
+                  <ins>{{postshare.author_post.share_count}}</ins>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="coment-area">
+        <ul class="we-comet">
+          <li *ngFor="let comment of commentList" [hidden]="!open">
+            <app-comment-post-share [comment]="comment"></app-comment-post-share>
+          </li>
+          <li [hidden]="!open">
+            <a href="#" title="" class="showmore underline">xem thêm</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

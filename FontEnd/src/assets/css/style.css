@@ -4756,7 +4756,7 @@ canvas {
     position: absolute;
     right: 100%;
     width: 300px;
-    z-index: 9999999;
+    z-index: 999999999;
     transform: translate(40px) scale(0);
     opacity: 0;
     visibility: hidden;
@@ -4766,6 +4766,7 @@ canvas {
 }
 
 .chat-box.show {
+    z-index: 999999999;
     transform: translate(0) scale(1);
     opacity: 1;
     visibility: visible;
@@ -4898,8 +4899,11 @@ canvas {
 
 .chat-list > ul li.you .chat-message-item {
     background: rgba(202, 239, 142, 0.55) none repeat scroll 0 0;
+    float: right;
 }
-
+.chat-list > ul li.you .notification-event .notification-date >.entry-date .updated{
+  float: right;
+}
 .text-box {
     position: relative;
 }

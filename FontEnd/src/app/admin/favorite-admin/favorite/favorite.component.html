@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="col-lg-5">
+    <!-- Circle Buttons -->
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary" *ngIf="btnAdd">Thêm sở thích</h6>
+        <h6 Sửa class="m-0 font-weight-bold text-primary" *ngIf="btnUpdate">Sửa sở thích</h6>
+      </div>
+      <div class="card-body">
+        <form id="categoryForm" name="categoryForm">
+          <input hidden="true" value="" id="categoryId" />
+          <input
+            id="name"
+            name="name"
+            type="text"
+            class="form-control"
+            placeholder="nhập sở thích..."
+            [(ngModel)]="favorite"
+            required="required"
+            style="width: 100%"
+          />
+          <br />
+          <button *ngIf="btnAdd" style="margin-right:30px" id="btnSave" type="button" class="btn btn-primary"  margin-right="50px" (click)="addFavorite()">Thêm</button>
+          <button
+            id="btnUpdate"
+            type="button"
+            class="btn btn-primary"
+            *ngIf="btnUpdate"
+            (click)="edit()"
+            style="margin-right:30px"
+          >
+            Sửa
+          </button>
+          <button
+            id="btnRest"
+            type="button"
+            class="btn btn-outline-secondary"
+            *ngIf="btnAdd"
+            style="margin-right:30px"
+            (click)="reset()"
+          >
+            Reset
+          </button>
+          <button
+            id="btnRest"
+            type="button"
+            class="btn btn-outline-secondary"
+            *ngIf="btnUpdate"
+            (click)="backAdd()"
+            style="margin-right:30px"
+          >
+            Back
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-7">
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Danh sách sở thích</h6>
+      </div>
+      <div class="card-body">
+        <table
+          id="dataTable"
+          class="table table-bordered"
+          width="100%"
+          cellspacing="0"
+        >
+          <thead>
+            <th>Tên sở thích</th>
+            <th>Hành động</th>
+          </thead>
+          <tbody id="fetchData">
+            <tr *ngFor="let a of favoriteList; let i = index">
+              <td>{{ a.favorite_name }}</td>
+              <td>
+                <div style="float: center">
+                  <mat-icon id="edit" (click)="editFavorite(a)"> border_color</mat-icon>
+                  <mat-icon id="delete" (click)="deleteFavorite(a)">cancel</mat-icon>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>

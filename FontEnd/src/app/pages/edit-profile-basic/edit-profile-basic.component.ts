@@ -32,6 +32,7 @@ export class EditProfileBasicComponent implements OnInit {
   userDetail: UserDetail;
   imageUrl: string;
   favoriteList: Favorite[];
+  favorites:any=[];
   private headers: any;
   constructor(
     private snackBar: MatSnackBar,
@@ -99,6 +100,10 @@ export class EditProfileBasicComponent implements OnInit {
           this.bio = this.userDetail.bio;
           this.gender = this.userDetail.gender.toString();
           this.image = this.userDetail.avatar_image as FileResponse;
+          this.userDetail.user_favorite.forEach((e)=>{
+            this.favorites.push(e.id);
+
+          });
         },
         (error) => {
           console.log(error);

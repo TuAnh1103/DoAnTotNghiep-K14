@@ -78,8 +78,28 @@ import { EditPostShareComponent } from './shared/components/edit-post-share/edit
 import { SearchUserComponent } from './pages/search/search-user/search-user.component';
 import { PostNewComponent } from './pages/news/post-new/post-new.component';
 import { CommentPostNewsComponent } from './pages/news/comment-post-news/comment-post-news.component';
-
-
+import { HomeAdminComponent } from './admin/home-admin/home-admin.component';
+import { SideNavAdminComponent } from './admin/side-nav-admin/side-nav-admin.component';
+import { FooterAdminComponent } from './admin/footer-admin/footer-admin.component';
+import { TopBarAdminComponent } from './admin/top-bar-admin/top-bar-admin.component';
+import { AddressAdminComponent } from './admin/address-admin/address-admin.component';
+import { AddressComponent } from './admin/address-admin/address/address.component';
+import { FavoriteAdminComponent } from './admin/favorite-admin/favorite-admin.component';
+import { FavoriteComponent } from './admin/favorite-admin/favorite/favorite.component';
+import { PostAdminComponent } from './admin/post-admin/post-admin.component';
+import { PostListComponent } from './admin/post-admin/post-list/post-list.component';
+import { PostDetailComponent } from './admin/post-admin/post-detail/post-detail.component';
+import { CommentPostDetailComponent } from './admin/post-admin/comment-post-detail/comment-post-detail.component';
+import { SharePostAdminComponent } from './admin/share-post-admin/share-post-admin.component';
+import { PostShareListComponent } from './admin/share-post-admin/post-share-list/post-share-list.component';
+import { CommentPostShareAdminComponent } from './admin/share-post-admin/comment-post-share-admin/comment-post-share-admin.component';
+import { UserAdminComponent } from './admin/user-admin/user-admin.component';
+import { UserManagementComponent } from './admin/user-admin/user-management/user-management.component';
+import { SharePostAdminDetailComponent } from './admin/share-post-admin/share-post-admin-detail/share-post-admin-detail.component';
+import { ImageAdminComponent } from './admin/image-admin/image-admin.component';
+import { ImageListComponent } from './admin/image-admin/image-list/image-list.component';
+import { UserdetailViewComponent } from './admin/userdetail-view/userdetail-view.component';
+import { UserViewComponent } from './admin/userdetail-view/user-view/user-view.component';
 
 
 export function getToken() {
@@ -144,7 +164,31 @@ export function getToken() {
     EditPostShareComponent,
     SearchUserComponent,
     PostNewComponent,
-    CommentPostNewsComponent
+    CommentPostNewsComponent,
+    HomeAdminComponent,
+    SideNavAdminComponent,
+    FooterAdminComponent,
+    TopBarAdminComponent,
+    AddressAdminComponent,
+    AddressComponent,
+    FavoriteAdminComponent,
+    FavoriteComponent,
+    PostAdminComponent,
+    PostListComponent,
+    PostDetailComponent,
+    CommentPostDetailComponent,
+    SharePostAdminComponent,
+    PostShareListComponent,
+    CommentPostShareAdminComponent,
+    UserAdminComponent,
+    UserManagementComponent,
+    PostAdminComponent,
+    CommentPostShareAdminComponent,
+    SharePostAdminDetailComponent,
+    ImageAdminComponent,
+    ImageListComponent,
+    UserdetailViewComponent,
+    UserViewComponent
   ],
   imports: [
     BrowserModule,

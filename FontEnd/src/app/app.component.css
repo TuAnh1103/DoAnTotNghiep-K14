@@ -1,0 +1,4 @@
+svg:not(:root).svg-inline--fa {
+  overflow: visible;
+  display: none;
+}

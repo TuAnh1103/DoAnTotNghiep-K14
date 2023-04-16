@@ -1,0 +1,15 @@
+<div class="comet-avatar">
+  <img
+    [src]="!comment.author.avatar_image? 'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg': comment.author.avatar_image.link_image" alt="" style="width: 40px;height:40px"
+  />
+</div>
+<div class="we-comment">
+  <div class="coment-head">
+    <h5><a href="time-line.html" title="">{{comment.author.last_name}}{{comment.author.first_name}}</a></h5>
+    <span>{{comment.created_date|date}}</span>
+
+  </div>
+  <p>
+    {{comment.content}}
+  </p>
+</div>

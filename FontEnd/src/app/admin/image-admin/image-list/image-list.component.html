@@ -1,0 +1,16 @@
+<div class="central-meta">
+  <ul class="photos">
+    <li *ngFor="let user of users" >
+      <a class="strip" [routerLink]="['/timeline',user.id]" title="" data-strip-group="mygroup" data-strip-group-options="loop: false">
+        <img [src]="!user.avatar_image ?'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg':user.avatar_image.link_image" alt=""></a>
+        <div class="strip" style="display: flex;justify-content: space-between;">
+          <div>
+            <p style="font-size:12px;font-weight:bolder;color:black;margin: 0 0 0px">User name:{{user.username}}</p>
+            <p style="font-size:10px;">Ngày tham gia:{{user.created_date}}</p>
+          </div>
+        </div>
+    </li>
+  </ul>
+  <div class="lodmore"><button class="btn-view btn-load-more"></button></div>
+
+</div>

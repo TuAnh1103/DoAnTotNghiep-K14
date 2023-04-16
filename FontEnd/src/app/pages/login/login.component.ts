@@ -79,14 +79,14 @@ export class LoginComponent implements OnInit {
   }
   showSnackbarSuccess(content, action, duration) {
     this.snackBar.open(content, action, {
-      duration: 5000,
+      duration: 1000,
       verticalPosition: "top", // Allowed values are  'top' | 'bottom'
       horizontalPosition: "right",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
       panelClass: ["custom-style"]
     })}
     showSnackbarFail(content, action, duration) {
       this.snackBar.open(content, action, {
-        duration: 5000,
+        duration: 1000,
         verticalPosition: "top", // Allowed values are  'top' | 'bottom'
         horizontalPosition: "right",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
         panelClass: ["custom-style2"]

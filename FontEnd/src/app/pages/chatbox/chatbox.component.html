@@ -1,7 +1,7 @@
 <div class="chat-box">
     <div class="chat-head">
         <span class="status f-online"></span>
-        <h6>Bucky Barnes</h6>
+        <h6>{{myDetail.last_name}} {{myDetail.first_name}} </h6>
         <div class="more">
             <span><i class="ti-more-alt"></i></span>
             <span class="close-mesage"  (click)="close()"><i class="ti-close"></i></span>
@@ -9,36 +9,19 @@
     </div>
     <div class="chat-list">
         <ul style="height:90%;overflow:auto;">
-            <li class="me">
-                <div class="chat-thumb"><img src="assets/images/resources/chatlist1.jpg" alt=""></div>
+            <li *ngFor="let message of receivedMessagesDatabase" [ngClass]="message.messageFrom==myId?'you':'me'">
+                <div class="chat-thumb" *ngIf="message.messageFrom==myId"><img [src]="!myDetail.avatar_image?'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg':myDetail.avatar_image.link_image" alt=""></div>
+                <div class="chat-thumb" *ngIf="message.messageFrom!=myId"><img [src]="!frienDetail.avatar_image?'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg':frienDetail.avatar_image.link_image" alt=""></div>
                 <div class="notification-event">
                     <span class="chat-message-item">
-                        Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
+                      {{message.messageText}}
                     </span>
-                    <span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
-                </div>
-            </li>
-            <li class="you">
-                <div class="chat-thumb"><img src="assets/images/resources/chatlist2.jpg" alt=""></div>
-                <div class="notification-event">
-                    <span class="chat-message-item">
-                        Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
-                    </span>
-                    <span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
-                </div>
-            </li>
-            <li class="me">
-                <div class="chat-thumb"><img src="assets/images/resources/chatlist1.jpg" alt=""></div>
-                <div class="notification-event">
-                    <span class="chat-message-item">
-                        Hi James! Please remember to buy the food for tomorrow! I’m gonna be handling the gifts and Jake’s gonna get the drinks
-                    </span>
-                    <span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated">Yesterday at 8:10pm</time></span>
+                    <span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated" id="date">{{message.messageTime}}</time></span>
                 </div>
             </li>
         </ul>
-        <form class="text-box">
-            <textarea placeholder="Post enter to post..."></textarea>
+        <div class="text-box">
+            <textarea placeholder="Viết tin nhắn ..." [(ngModel)]="messageText" (keyup.enter)="send()"></textarea>
             <div class="add-smiles">
                 <span title="add icon" class="em em-expressionless"></span>
             </div>
@@ -56,7 +39,7 @@
                 <i class="em em-rage"></i>
                 <i class="em em-stuck_out_tongue"></i>
             </div>
-            <button type="submit"></button>
-        </form>
+            <!-- <button type="submit">gui</button> -->
+        </div>
     </div>
 </div>

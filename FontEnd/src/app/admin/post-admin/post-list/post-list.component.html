@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-lg-2"></div>
+  <div class="col-lg-8">
+    <div class="loadMore photos">
+      <div class="central-meta item" *ngFor="let post of postList">
+      <app-post-detail [post]="post"></app-post-detail>
+      </div>
+      <div class="lodmore">
+        <button class="btn-view btn-load-more" (click)="loadAdd()"></button>
+      </div>
+    </div>
+    </div>
+</div>

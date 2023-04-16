@@ -1,4 +1,5 @@
 import { Address } from "./address.model";
+import { Favorite } from "./favorite.model";
 import { FileResponse } from "./file-response.model";
 
 export class UserDetail {
@@ -14,4 +15,6 @@ export class UserDetail {
     hometown:Address;
     current_city:Address;
     avatar_image:FileResponse;
+    created_date:Date;
+    user_favorite:Favorite[];
 }

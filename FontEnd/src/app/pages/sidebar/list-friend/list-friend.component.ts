@@ -18,6 +18,7 @@ export class ListFriendComponent implements OnInit {
   data:Friends;
   item:any;
   show:boolean=true;
+  userTo:string;
   constructor(private http: HttpClient, private commonService: CommonService) {
     this.baseUrl = this.commonService.webApiUrl;
     this.headers = this.commonService.createHeadersOption(
@@ -29,6 +30,7 @@ export class ListFriendComponent implements OnInit {
       (datas)=>{
         this.data=datas as Friends;
         this.listFriend=this.data.content;
+        console.log(this.listFriend);
       },
       (error)=>{
         console.log(error);
@@ -46,7 +48,14 @@ export class ListFriendComponent implements OnInit {
       headers: this.headers
     });
   }
-  showChat(friend:any){
-    $('.chat-box').addClass('show');
+  showChat(id:any){
+    localStorage.setItem('userTo',id);
+    localStorage.getItem("userTo");
+    this.userTo=id;
+      $('.chat-box').addClass('show');
+  }
+  closeChat($event:any)
+  {
+    this.userTo="";
   }
 }

@@ -2,9 +2,9 @@
 <h4 class="widget-title">Bạn bè</h4>
 <div id="searchDir"></div>
 <ul id="people-list" class="friendz-list" style="height:90%;overflow:auto;">
-    <li *ngFor="let friend of listFriend" (click)="showChat(item)" >
+    <li *ngFor="let friend of listFriend">
         <figure>
-            <img [src]="!friend.user_info.avatar_image?'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg':friend.user_info.avatar_image.link_image" alt="" id="avatar" style="width:40px;height:40px;">
+            <img (click)="showChat(friend.user_info.id)" [src]="!friend.user_info.avatar_image?'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg':friend.user_info.avatar_image.link_image" alt="" id="avatar" style="width:40px;height:40px;">
             <span class="status f-online"></span>
         </figure>
         <div class="friendz-meta">
@@ -13,4 +13,4 @@
         </div>
     </li>
 </ul>
-<app-chatbox></app-chatbox>
+<app-chatbox [userId]="userTo"  (closeChat)="closeChat($event)"></app-chatbox>

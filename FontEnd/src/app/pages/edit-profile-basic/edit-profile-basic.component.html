@@ -85,7 +85,7 @@
                       <input
                         type="radio"
                         name="gender"
-                        checked="checked"
+                        [checked]="gender=='true'?true:false"
                         formControlName="gender"
                         [(ngModel)]="gender"
                         value="true"
@@ -100,6 +100,7 @@
                         formControlName="gender"
                         [(ngModel)]="gender"
                         value="false"
+                        [checked]="gender=='false'?true:false"
                       /><i class="check-box"></i>Nữ
                     </label>
                   </div>
@@ -110,7 +111,7 @@
                 <label for="pass">Sở thích</label>
                 <div style="display: block;">
                   <div style="width:100px" *ngFor="let favorite of favoriteList; let i=index">
-                    <mat-checkbox [value]="favorite.id.toString()" (change)="onChange($event)">
+                    <mat-checkbox [value]="favorite.id.toString()" (change)="onChange($event)"  [checked]="favorites.lastIndexOf(favorite.id)!=-1?true:false">
                       {{favorite.favorite_name}}
                     </mat-checkbox>
                   </div>
