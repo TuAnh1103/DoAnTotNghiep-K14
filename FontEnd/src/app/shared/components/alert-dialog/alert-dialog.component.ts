@@ -18,6 +18,6 @@ export class AlertDialogComponent implements OnInit {
   }
   close(){
     this.dialogRef.close();
-    this.router.navigateByUrl("login");
+    this.router.navigateByUrl("/home");
   }
 }

@@ -8,3 +8,6 @@ export class Friend {
   id:number;
   user_info:UserDetail;
 }
+export class FriendSuggest {
+  user_info:UserDetail;
+}

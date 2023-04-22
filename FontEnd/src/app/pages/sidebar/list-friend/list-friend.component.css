@@ -1,3 +1,4 @@
+
 .sidebar {
   display: table;
   float: none;
@@ -390,4 +391,7 @@ span.status.f-off {
   width: 50px;
   height: 50px;
   clip-path: circle(20px at 50% 50%);
+}
+.chat-list > ul li.you .notification-event #date{
+  float:right
 }

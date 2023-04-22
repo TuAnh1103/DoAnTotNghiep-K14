@@ -32,7 +32,7 @@ export class PostListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.getAllPostNewsFeed()
+      this.getAllPost()
         .pipe(first())
         .subscribe(
           (datas) => {
@@ -43,12 +43,12 @@ export class PostListComponent implements OnInit {
           (error) => console.log(error)
         );
   }
-  getAllPostNewsFeed() {
+  getAllPost() {
     this.page = {
-      index: 7,
+      index: 0,
       size: 5,
     };
-    return this.http.post(`${this.baseUrl}/post/newsfeed`, this.page, {
+    return this.http.post(`${this.baseUrl}/admin/post/getall`, this.page, {
       headers: this.headers,
     });
   }
@@ -59,7 +59,7 @@ export class PostListComponent implements OnInit {
       size: this.size,
     };
     this.http
-      .post(`${this.baseUrl}/post/newsfeed`, this.page, {
+      .post(`${this.baseUrl}/admin/post/getall`, this.page, {
         headers: this.headers,
       })
       .pipe(first())

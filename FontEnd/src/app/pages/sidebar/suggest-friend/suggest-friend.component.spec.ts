@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TimelineGroupComponent } from './timeline-group.component';
+import { SuggestFriendComponent } from './suggest-friend.component';
 
-describe('TimelineGroupComponent', () => {
-  let component: TimelineGroupComponent;
-  let fixture: ComponentFixture<TimelineGroupComponent>;
+describe('SuggestFriendComponent', () => {
+  let component: SuggestFriendComponent;
+  let fixture: ComponentFixture<SuggestFriendComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TimelineGroupComponent ]
+      declarations: [ SuggestFriendComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TimelineGroupComponent);
+    fixture = TestBed.createComponent(SuggestFriendComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

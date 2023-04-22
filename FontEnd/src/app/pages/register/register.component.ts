@@ -12,6 +12,9 @@ import { CommonService } from 'src/app/shared/common.service';
 import { MessageResponse } from 'src/app/core/models/message-response.ts';
 import { Favorite } from 'src/app/core/models/favorite.model';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { ApiService } from 'src/app/core/service/api/api.service';
+import { HelperService } from 'src/app/core/service/helper/helper.service';
+import { AuthFirebaseService } from 'src/app/core/service/auth-firebase/auth-firebase.service';
 
 @Component({
   selector: 'app-register',
@@ -33,7 +36,11 @@ export class RegisterComponent implements OnInit {
   message?:string;
   messageResponse:MessageResponse;
   favoriteList: Favorite[];
-  constructor(private snackBar: MatSnackBar,private dialog: MatDialog,private fb:FormBuilder,private http:HttpClient,private commonService:CommonService,private router:Router, private customValidator: CustomvalidationService) {
+  constructor(private api:ApiService,private helper:HelperService,private auth:AuthFirebaseService,
+    private snackBar: MatSnackBar,private dialog: MatDialog,
+    private fb:FormBuilder,private http:HttpClient,
+    private commonService:CommonService,private router:Router,
+    private customValidator: CustomvalidationService) {
     this.baseUrl=this.commonService.webApiUrl;
     this.form=this.fb.group({
       firstName:['',Validators.required],
@@ -63,6 +70,18 @@ export class RegisterComponent implements OnInit {
       data=>{
         this.user = this.form.value;
         this.openDialog();
+
+        // this.auth.signup(this.email, this.password).then(data=>{
+        //   this.api.createUser(data.user.uid, {
+        //     name: this.username,
+        //     email: this.email,
+        //     uid: data.user.uid,
+        //     conversations:[]
+        //   }).then(()=>{
+        //     localStorage.setItem('uid', data.user.uid)
+        //      console.log("thanh cong");
+        //   })
+        // })
       },
       (error: HttpErrorResponse)=>{
         console.log(error);

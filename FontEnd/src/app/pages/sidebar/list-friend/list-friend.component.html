@@ -1,16 +1,63 @@
 
 <h4 class="widget-title">Bạn bè</h4>
 <div id="searchDir"></div>
+
 <ul id="people-list" class="friendz-list" style="height:90%;overflow:auto;">
     <li *ngFor="let friend of listFriend">
         <figure>
-            <img (click)="showChat(friend.user_info.id)" [src]="!friend.user_info.avatar_image?'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg':friend.user_info.avatar_image.link_image" alt="" id="avatar" style="width:40px;height:40px;">
+            <img (click)="showChat(friend.user_info)" [src]="!friend.user_info.avatar_image?'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg':friend.user_info.avatar_image.link_image" alt="" id="avatar" style="width:40px;height:40px;">
             <span class="status f-online"></span>
         </figure>
         <div class="friendz-meta">
             <a [routerLink]="['/timeline', friend.user_info.id]">{{friend.user_info.last_name}} {{friend.user_info.first_name}} </a>
-            <i><a href="https://wpkixx.com/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a0d7c9ced4c5d2d3cfccc4c5d2e0c7cdc1c9cc8ec3cfcd">[email&#160;protected]</a></i>
+            <i><a [routerLink]="['/messager/t',friend.user_info.id]" class="__cf_email__" data-cfemail="a0d7c9ced4c5d2d3cfccc4c5d2e0c7cdc1c9cc8ec3cfcd">messager</a></i>
         </div>
     </li>
 </ul>
-<app-chatbox [userId]="userTo"  (closeChat)="closeChat($event)"></app-chatbox>
+<div class="chat-box">
+  <div class="chat-head">
+      <span class="status f-online"></span>
+      <h6>{{my.last_name}} {{my.first_name}} </h6>
+      <div class="more">
+          <span><i class="ti-more-alt"></i></span>
+          <span class="close-mesage"  (click)="closeChat()"><i class="ti-close"></i></span>
+      </div>
+  </div>
+  <div class="chat-list">
+      <ul style="height:90%;overflow:auto;">
+          <li *ngFor="let x of messages" [ngClass]="x.senderId === api.currentUser.uid?'you':'me'">
+              <div class="chat-thumb" *ngIf="x.senderId === api.currentUser.uid"><img [src]="!my.avatar_image?'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg':my.avatar_image.link_image" alt=""></div>
+              <div class="chat-thumb" *ngIf="x.senderId !== api.currentUser.uid"><img [src]="!chatUser.avatar_image?'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg':chatUser.avatar_image.link_image" alt=""></div>
+              <div class="notification-event">
+                  <span class="chat-message-item">
+                    {{ x.content }}
+                  </span>
+                  <span class="notification-date"><time datetime="2004-07-24T18:18" class="entry-date updated" id="date">{{x.timestamp.toDate() | date }}</time></span>
+              </div>
+          </li>
+      </ul>
+      <div class="text-box">
+          <textarea placeholder="Viết tin nhắn ..." [(ngModel)]="message" (keyup.enter)="sendMessage()"></textarea>
+          <div class="add-smiles">
+              <span title="add icon" class="em em-expressionless"></span>
+          </div>
+          <div class="smiles-bunch">
+              <i class="em em---1"></i>
+              <i class="em em-smiley"></i>
+              <i class="em em-anguished"></i>
+              <i class="em em-laughing"></i>
+              <i class="em em-angry"></i>
+              <i class="em em-astonished"></i>
+              <i class="em em-blush"></i>
+              <i class="em em-disappointed"></i>
+              <i class="em em-worried"></i>
+              <i class="em em-kissing_heart"></i>
+              <i class="em em-rage"></i>
+              <i class="em em-stuck_out_tongue"></i>
+          </div>
+          <!-- <button type="submit">gui</button> -->
+      </div>
+  </div>
+</div>
+
+<!-- <app-chatbox [userId]="userTo"  (closeChat)="closeChat($event)"></app-chatbox> -->

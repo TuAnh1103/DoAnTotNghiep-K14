@@ -1,7 +1,8 @@
+import { FilterPipeModule } from 'ngx-filter-pipe';
+import { AngularFireModule } from '@angular/fire/compat';
 import { FollowerDetailComponent } from './pages/timeline/timeline-follower/follower-detail/follower-detail.component';
 import { TimelineFollowingComponent } from './pages/timeline/timeline-following/timeline-following.component';
 import { TimelineFollowerComponent } from './pages/timeline/timeline-follower/timeline-follower.component';
-import { PageComponent } from './pages/timeline/timeline-page/page/page.component';
 import { AuthService } from './core/auth/auth.service';
 import { NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -29,8 +30,6 @@ import { EditAccountSettingComponent } from './pages/edit-account-setting/edit-a
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 import { MessageComponent } from './pages/message/message.component';
 import { EditProfileBasicComponent } from './pages/edit-profile-basic/edit-profile-basic.component';
-import { TimelineGroupComponent } from './pages/timeline/timeline-group/timeline-group.component';
-import { TimelinePageComponent } from './pages/timeline/timeline-page/timeline-page.component';
 import { TimelinePhotosComponent } from './pages/timeline/timeline-photos/timeline-photos.component';
 import { NotificationsComponent } from './pages/notifications/notifications.component';
 import { ErrorComponent } from './pages/error/error.component';
@@ -53,7 +52,6 @@ import { NotificationDialogComponent } from './shared/shared/notification-dialog
 import { AuthGuardService } from './core/auth/auth-guard.service';
 import { JwtModule } from '@auth0/angular-jwt';
 import { PhotosComponent } from './pages/timeline/timeline-photos/photos/photos.component';
-import { GroupComponent } from './pages/timeline/timeline-group/group/group.component';
 import { FriendsComponent } from './pages/timeline/timeline-friends/friends/friends.component';
 import { FollowingComponent } from './pages/sidebar/following/following.component';
 import { FriendRequestComponent } from './pages/timeline/timeline-friends/friend-request/friend-request.component';
@@ -100,8 +98,23 @@ import { ImageAdminComponent } from './admin/image-admin/image-admin.component';
 import { ImageListComponent } from './admin/image-admin/image-list/image-list.component';
 import { UserdetailViewComponent } from './admin/userdetail-view/userdetail-view.component';
 import { UserViewComponent } from './admin/userdetail-view/user-view/user-view.component';
-
-
+import { SuggestFriendComponent } from './pages/sidebar/suggest-friend/suggest-friend.component';
+import { ChatMessageComponent } from './pages/chat-message/chat-message.component';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { ChatMessageContentComponent } from './pages/chat-message/chat-message-content/chat-message-content.component';
+import { environment } from '../environments/environment';
+import { AngularFireAuthModule } from "@angular/fire/compat/auth";
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import {MatListModule} from '@angular/material/list'
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  wheelPropagation: true
+};
 export function getToken() {
   return localStorage.getItem('token');
 }
@@ -128,8 +141,6 @@ export function getToken() {
     ChangePasswordComponent,
     MessageComponent,
     EditProfileBasicComponent,
-    TimelineGroupComponent,
-    TimelinePageComponent,
     TimelinePhotosComponent,
     NotificationsComponent,
     ErrorComponent,
@@ -137,8 +148,6 @@ export function getToken() {
     AuthenticationDialogComponent,
     NotificationDialogComponent,
     PhotosComponent,
-    PageComponent,
-    GroupComponent,
     FriendsComponent,
     FollowingComponent,
     FriendRequestComponent,
@@ -188,7 +197,10 @@ export function getToken() {
     ImageAdminComponent,
     ImageListComponent,
     UserdetailViewComponent,
-    UserViewComponent
+    UserViewComponent,
+    SuggestFriendComponent,
+    ChatMessageComponent,
+    ChatMessageContentComponent
   ],
   imports: [
     BrowserModule,
@@ -214,17 +226,31 @@ export function getToken() {
     MatSnackBarModule,
     MatButtonModule,
     MatButtonModule,
+    MatListModule,
+    PerfectScrollbarModule,
+    MatFormFieldModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: getToken
       }
     }),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    ScrollingModule,
+    FilterPipeModule
   ],
   exports: [
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PerfectScrollbarModule
   ],
-  providers: [AuthService,AuthGuardService],
+  providers: [AuthService,AuthGuardService,{
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    }],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

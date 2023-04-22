@@ -14,6 +14,14 @@
 ( function( global, factory ) {
 
 	"use strict";
+  if ($.isFunction($.fn.perfectScrollbar)) {
+		$('.dropdowns, .twiter-feed, .invition, .followers, .chatting-area, .peoples, #people-list, .chat-list > ul, .message-list, .chat-users, .left-menu,.scrollable-chat-panel,.chat-user-panel').perfectScrollbar();
+    $('.scrollable-chat-panel').perfectScrollbar();
+    var position = $(".chat-search").last().position().top;
+    $('.scrollable-chat-panel').scrollTop(position);
+    $('.scrollable-chat-panel').perfectScrollbar('update');
+    $('.pagination-scrool').perfectScrollbar();
+  }
 
 	if ( typeof module === "object" && typeof module.exports === "object" ) {
 

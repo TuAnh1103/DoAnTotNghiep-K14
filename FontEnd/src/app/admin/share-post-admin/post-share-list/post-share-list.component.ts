@@ -24,9 +24,6 @@ export class PostShareListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.route.paramMap.subscribe((params)=>{
-      // this.id = params.get('id');
-      this.id=localStorage.getItem('userId');
       this.getAllShare().pipe(first())
       .subscribe(
         (datas)=>{
@@ -38,14 +35,13 @@ export class PostShareListComponent implements OnInit {
           console.log(error);
         }
       )
-    // })
   }
   getAllShare(){
     this.page={
       index:0,
       size:5
     };
-    return this.http.post(`${this.baseUrl}/share/all/${this.id}`, this.page, {
+    return this.http.post(`${this.baseUrl}/admin/share/getall`, this.page, {
       headers: this.headers
     });
   }
@@ -55,7 +51,7 @@ export class PostShareListComponent implements OnInit {
       index:0,
       size:this.size
     }
-    this.http.post(`${this.baseUrl}/share/all/${this.id}`, this.page, {
+    this.http.post(`${this.baseUrl}/admin/share/getall`, this.page, {
       headers: this.headers
     }).pipe(first())
     .subscribe(

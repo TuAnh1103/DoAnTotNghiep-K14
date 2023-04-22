@@ -1,0 +1,13 @@
+<h4 class="widget-title">Gợi ý bạn bè</h4>
+  <ul  class="followers" style="height:90%;overflow:auto;">
+    <li *ngFor="let friend of listSuggestFriend" class="list-item">
+      <figure> <img [src]="!friend.avatar_image?'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg':friend.avatar_image.link_image" style="width:40px;height:40px;" alt="" id="avatar"></figure>
+      <div class="friend-meta">
+          <h4><a [routerLink]="['/timeline', friend.id]">{{friend.last_name}} {{friend.first_name}}</a></h4>
+          <div style="display: flex;">
+            <button class="button-10" role="button" (click)="addFriend(friend.id)">Thêm bạn bè</button>
+          </div>
+      </div>
+  </li>
+  </ul>
+

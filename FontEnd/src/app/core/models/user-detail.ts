@@ -8,6 +8,7 @@ export class UserDetail {
     last_name:string;
     gender:boolean;
     dob:Date;
+    email:string;
     username:string;
     password:string;
     bio:string;

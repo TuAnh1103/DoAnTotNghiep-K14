@@ -40,7 +40,10 @@ export class ChatboxComponent implements OnChanges{
   ngOnChanges(changes: SimpleChanges) {
     this.userId = changes['userId'].currentValue;
     this.messageTo=this.userId;
-    this.getFriendDetail(this.userId);
+    if( this.userId)
+    {
+      this.getFriendDetail(this.userId);
+    }
     this.connect();
   }
   close(){
@@ -73,7 +76,7 @@ export class ChatboxComponent implements OnChanges{
   }
   async connect(){
     this.messageFrom=localStorage.getItem("userId");
-    this.messageTo=this.userId;
+    this.messageTo=this.userId?this.userId:this.messageFrom;
     await this.fetchAllReceivedMessage( this.messageFrom,this.messageTo);
     this.socket=new SockJS(`${this.baseUrl}/chat`);
     this.stompClient=Stomp.over(this.socket);

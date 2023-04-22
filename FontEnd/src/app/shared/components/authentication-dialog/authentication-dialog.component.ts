@@ -7,6 +7,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { first } from 'rxjs';
+import { ApiService } from 'src/app/core/service/api/api.service';
+import { HelperService } from 'src/app/core/service/helper/helper.service';
+import { AuthFirebaseService } from 'src/app/core/service/auth-firebase/auth-firebase.service';
 
 @Component({
   selector: 'app-authentication-dialog',
@@ -17,7 +20,11 @@ export class AuthenticationDialogComponent implements OnInit {
   form:FormGroup;
   firstName:string;
   messageResponse:MessageResponse;
-  constructor(private snackBar: MatSnackBar,private router:Router,private commonService:CommonService,private http:HttpClient,private fb:FormBuilder,private dialogRef:MatDialogRef<AuthenticationDialogComponent>,@Inject(MAT_DIALOG_DATA)data) {
+  constructor(
+    private api:ApiService,private helper:HelperService,private auth:AuthFirebaseService,
+    private snackBar: MatSnackBar,private router:Router,
+    private commonService:CommonService,private http:HttpClient,
+    private fb:FormBuilder,private dialogRef:MatDialogRef<AuthenticationDialogComponent>,@Inject(MAT_DIALOG_DATA)data) {
     this.firstName=data.firstName;
     this.form=this.fb.group({
       firstName:[data.firstName],
@@ -42,6 +49,22 @@ export class AuthenticationDialogComponent implements OnInit {
     .pipe(first())
     .subscribe(
       data=>{
+        console.log(this.form.get('email').value);
+        console.log(this.form.get('password').value);
+        this.auth.signup(this.form.get('email').value, this.form.get('password').value).then(data=>{
+          this.api.createUser(data.user.uid, {
+            name: this.form.get('username').value,
+            email: this.form.get('email').value,
+            uid: data.user.uid,
+            conversations:[]
+          }).then(()=>{
+            localStorage.setItem('uid', data.user.uid)
+             console.log("thanh cong");
+          })
+        },error=>{
+         console.log(error)
+
+        })
         this.dialogRef.close();
         this.router.navigateByUrl("login");
         this.showSnackbarSucsess('Đăng ký tài khoản thành công!','Đóng','1000');

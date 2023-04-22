@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TimelinePageComponent } from './timeline-page.component';
+import { ChatMessageComponent } from './chat-message.component';
 
-describe('TimelinePageComponent', () => {
-  let component: TimelinePageComponent;
-  let fixture: ComponentFixture<TimelinePageComponent>;
+describe('ChatMessageComponent', () => {
+  let component: ChatMessageComponent;
+  let fixture: ComponentFixture<ChatMessageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TimelinePageComponent ]
+      declarations: [ ChatMessageComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TimelinePageComponent);
+    fixture = TestBed.createComponent(ChatMessageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -6,8 +6,6 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { TimelineComponent } from './pages/timeline/timeline.component';
 import { TimelineFriendsComponent } from './pages/timeline/timeline-friends/timeline-friends.component';
-import { TimelineGroupComponent } from './pages/timeline/timeline-group/timeline-group.component';
-import { TimelinePageComponent } from './pages/timeline/timeline-page/timeline-page.component';
 import { TimelinePhotosComponent } from './pages/timeline/timeline-photos/timeline-photos.component';
 import { MessageComponent } from './pages/message/message.component';
 import { ErrorComponent } from './pages/error/error.component';
@@ -31,6 +29,8 @@ import { AddressAdminComponent } from './admin/address-admin/address-admin.compo
 import { FavoriteAdminComponent } from './admin/favorite-admin/favorite-admin.component';
 import { UserAdminComponent } from './admin/user-admin/user-admin.component';
 import { UserdetailViewComponent } from './admin/userdetail-view/userdetail-view.component';
+import { ChatMessageComponent } from './pages/chat-message/chat-message.component';
+import { ChatMessageContentComponent } from './pages/chat-message/chat-message-content/chat-message-content.component';
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, /* redirect without clear GET params */
   { path: 'login', component: LoginComponent },
@@ -54,16 +54,6 @@ const routes: Routes = [
       {
         path:'following',
         component:TimelineFollowingComponent,
-        canActivate:[AuthGuardService]
-      },
-      {
-        path:'groups',
-        component:TimelineGroupComponent,
-        canActivate:[AuthGuardService]
-      },
-      {
-        path:'pages',
-        component:TimelinePageComponent,
         canActivate:[AuthGuardService]
       },
       {
@@ -132,13 +122,14 @@ const routes: Routes = [
       }
     ],
   },
+  {path:'messager/t/:chatId',component:ChatMessageComponent,canActivate:[AuthGuardService]},
   { path: '**', redirectTo: 'home' }
 ];
 
 @NgModule({
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })
   ],
   exports: [RouterModule]
 })

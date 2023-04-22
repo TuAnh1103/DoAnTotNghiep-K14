@@ -5,6 +5,7 @@ import * as $ from "jquery";
 import { first } from 'rxjs';
 import { UserDetail } from 'src/app/core/models/user-detail';
 import { Router } from '@angular/router';
+import { ApiService } from 'src/app/core/service/api/api.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -16,7 +17,9 @@ export class HeaderComponent implements OnInit {
   id:string;
   user:UserDetail;
   searchKey:string;
-  constructor(private router:Router,private http:HttpClient,private commonService:CommonService) {
+  constructor(
+    private api:ApiService,
+    private router:Router,private http:HttpClient,private commonService:CommonService) {
     this.id = localStorage.getItem('userId');
     this.baseUrl = this.commonService.webApiUrl;
     this.headers = this.commonService.createHeadersOption(localStorage.getItem('token'));
@@ -233,6 +236,7 @@ export class HeaderComponent implements OnInit {
   }
   logout(){
     localStorage.clear();
+    this.api.clearData();
   }
 }
 

@@ -8,6 +8,9 @@ import { first } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { LoginModel, Token } from 'src/app/core/models/login.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ApiService } from 'src/app/core/service/api/api.service';
+import { HelperService } from 'src/app/core/service/helper/helper.service';
+import { AuthFirebaseService } from 'src/app/core/service/auth-firebase/auth-firebase.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +23,11 @@ export class LoginComponent implements OnInit {
   accesstoken:Token;
   error:any;
   user:UserDetail;
-  constructor(private snackBar: MatSnackBar, private fb:FormBuilder,private authService:AuthService,private router:Router,private http:HttpClient,private commonService:CommonService) {
+  constructor(
+    private api:ApiService,private helper:HelperService,private auth:AuthFirebaseService,
+    private snackBar: MatSnackBar, private fb:FormBuilder,
+    private authService:AuthService,private router:Router,
+    private http:HttpClient,private commonService:CommonService) {
     this.form=this.fb.group({
       username:['',Validators.required],
       password:['',Validators.required]
@@ -50,8 +57,19 @@ export class LoginComponent implements OnInit {
                 (data)=>{
                     this.user=data as UserDetail;
                     localStorage.setItem("userId",this.user.id.toString());
-                    this.showSnackbarSuccess('Đăng nhập thành công!','','1000');
                     this.router.navigateByUrl("/home");
+                    this.router.navigateByUrl("/home");
+                   this.auth.login(this.user.email,this.loginModel.password).then(datas=>{
+                      console.log('data', datas);
+                      console.log(datas.user.uid);
+                      this.router.navigateByUrl("/home");
+                      // user login
+                         this.api.setCurrentUser(datas.user.uid);
+                         console.log(this.api.currentUser);
+                         this.showSnackbarSuccess('Đăng nhập thành công!','','1000');
+                    },error=> {
+                      console.log(error);
+                    })
                 },
                 (error) =>{
                   this.showSnackbarFail('Đăng nhập thất bại!','','1000');

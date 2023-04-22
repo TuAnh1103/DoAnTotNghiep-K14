@@ -1,6 +1,6 @@
 
 <h4 class="widget-title">Đang theo dõi</h4>
-<ul class="followers">
+  <ul class="followers" style="height:90%;overflow:auto;">
     <li *ngFor="let following of listFollowing">
         <figure> <img [src]="!following.user_info.avatar_image?'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg':following.user_info.avatar_image.link_image" style="width:40px;height:40px;" alt="" id="avatar"></figure>
         <div class="friend-meta">

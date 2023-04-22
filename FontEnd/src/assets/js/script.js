@@ -17,9 +17,24 @@ jQuery(document).ready(function($) {
 
 //------ scrollbar plugin
 	if ($.isFunction($.fn.perfectScrollbar)) {
-		$('.dropdowns, .twiter-feed, .invition, .followers, .chatting-area, .peoples, #people-list, .chat-list > ul, .message-list, .chat-users, .left-menu').perfectScrollbar();
-	}
+		$('.dropdowns, .twiter-feed, .invition, .followers, .chatting-area, .peoples, #people-list, .chat-list > ul, .message-list, .chat-users, .left-menu,.scrollable-chat-panel,.chat-user-panel').perfectScrollbar();
+    $('.scrollable-chat-panel').perfectScrollbar();
+    var position = $(".chat-search").last().position();
+    $('.scrollable-chat-panel').scrollTop(position);
+    $('.scrollable-chat-panel').perfectScrollbar('update');
+    $('.pagination-scrool').perfectScrollbar();
+  }
 
+
+  $('.chat-upload-trigger').on('click', function(e) {
+    $(this).parent().find('.chat-upload').toggleClass("active");
+  });
+  $('.user-detail-trigger').on('click', function(e) {
+    $(this).closest('.chat').find('.chat-user-detail').toggleClass("active");
+  });
+  $('.user-undetail-trigger').on('click', function(e) {
+    $(this).closest('.chat').find('.chat-user-detail').toggleClass("active");
+  });
 /*--- socials menu scritp ---*/
 	$('.trigger').on("click", function() {
 	    $(this).parent(".menu").toggleClass("active");
@@ -93,7 +108,7 @@ $('.notification-box > ul li > i.del').on("click", function(){
 	if ($.isFunction($.fn.stick_in_parent)) {
 		$('.stick-widget').stick_in_parent({
 			parent: '#page-contents',
-			offset_top: 60,
+			offset_top: 100,
 		});
 
 	}
