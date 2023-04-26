@@ -2,6 +2,7 @@
         import com.viuniteam.socialviuni.dto.Profile;
         import com.viuniteam.socialviuni.dto.request.post.PostFilterRequest;
         import com.viuniteam.socialviuni.dto.request.post.PostSaveRequest;
+        import com.viuniteam.socialviuni.dto.response.image.ImageResponse;
         import com.viuniteam.socialviuni.dto.response.post.PostResponse;
         import com.viuniteam.socialviuni.service.PostService;
         import com.viuniteam.socialviuni.utils.PageInfo;
@@ -11,6 +12,7 @@
         import org.springframework.web.bind.annotation.*;
 
         import javax.validation.Valid;
+        import  java.util.List;
         @RestController
         @RequestMapping("/post")
         @AllArgsConstructor
@@ -46,5 +48,15 @@
             @PostMapping("/search")
             public Page<PostResponse> search(@RequestBody PostFilterRequest postFilterRequest){
                 return postService.search(postFilterRequest);
+            }
+            @GetMapping("/all/image/{userId}")
+            public List <ImageResponse> getAllImageByUser(@PathVariable("userId") Long userId)
+            {
+                return postService.findImagesInPostByUserId(userId);
+            }
+            @PostMapping("/newsfeed")
+            public Page<PostResponse> getNewsFeed(@RequestBody PageInfo pageInfo){
+                PageRequest pageRequest = PageRequest.of(pageInfo.getIndex(), pageInfo.getSize());
+                return postService.getNewsFeedUserId(profile.getId(),pageRequest);
             }
         }

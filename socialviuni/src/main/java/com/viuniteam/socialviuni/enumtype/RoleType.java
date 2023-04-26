@@ -2,6 +2,7 @@
         public enum RoleType {
             ROLE_ADMIN("ROLE_ADMIN"),
             ROLE_USER("ROLE_USER");
+
             private String name;
             RoleType(String name) {
                 this.name = name;

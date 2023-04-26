@@ -66,7 +66,7 @@
                 if(share==null) throw new ObjectNotFoundException("Bài viết không tồn tại");
                 if(share.getUser().getId().equals(profile.getId()) || userService.isAdmin(profile)){
                     shareRepository.deleteById(shareId);
-                    createNotification(share.getPost(),share.getUser(),NotificationSeenType.SEEN);
+//                    createNotification(share.getPost(),share.getUser(),NotificationSeenType.SEEN);
                     throw new OKException("Xóa thành công");
                 }
                 throw new BadRequestException("Không có quyền xóa");
@@ -106,6 +106,16 @@
                 return null;
             }
             @Override
+            public Page<ShareResponse> findAllSharedPost(Pageable pageable){
+                Page<Share> shares = shareRepository.findAllOrderByIdDesc(pageable);
+                List<ShareResponse> shareResponseList = new ArrayList<>();
+                shares.stream().forEach(share -> {
+                        ShareResponse shareResponse = shareResponseUtils.convert(share);
+                        shareResponseList.add(shareResponse);
+                });
+                return new PageImpl<>(shareResponseList, pageable, shareResponseList.size());
+            }
+            @Override
             public ShareResponse newShare(Long userId) {
                 Share share = ListUtils.getFirst(shareRepository.findByUserOrderByIdDesc(userService.findOneById(userId)));
                 return share==null ? null : shareResponseUtils.convert(share);
@@ -132,8 +142,8 @@
                         content = fullName+" đã chia sẻ bài viết: "+postShortContent;
                     else
                         content = fullName +" và "+(shareCount-1) +" người khác đã chia sẻ bài viết: "+postShortContent;
-                    NotificationPost notificationPost = notificationPostRepository.findOneByPostAndNotificationPostType(post,NotificationPostType.SHARE);
-                    notificationService.updateNotification(content,notificationPost,status);
+//                    NotificationPost notificationPost = notificationPostRepository.findOneByPostAndNotificationPostType(post,NotificationPostType.SHARE);
+//                    notificationService.updateNotification(content,notificationPost,status);
                 }
             }
             private void createNotification(Post post, User user, NotificationSeenType status){

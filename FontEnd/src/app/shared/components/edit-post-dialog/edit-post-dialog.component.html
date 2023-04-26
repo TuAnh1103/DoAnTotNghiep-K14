@@ -19,32 +19,46 @@
           </a></ins
         >
         <span>Ngày đăng: {{ post.created_date|date}}</span>
+        <span  (click)="openPrivacy()" class="quyen"><i class="fa fa-unlock-alt" aria-hidden="true"></i>   Quyền riêng tư   <i class="fa fa-angle-down" aria-hidden="true"></i></span>
     </div>
     </div>
-    <div>
-      <input type="radio" [(ngModel)]="privacy" value="1">Công khai
-      <input type="radio" [(ngModel)]="privacy" value="2">Chỉ Bạn bè
-      <input type="radio" [(ngModel)]="privacy" value="3">Chỉ mình tôi
-    </div>
-    <div class="description">
-      <textarea rows="2" placeholder="write something" [(ngModel)]="content">
-      </textarea>
-    </div>
-    <div class="post-meta">
-        <label class="fileContainer">
-             <i class="fa fa-image" style="color:black;font-size:20px;"></i>
-            <input type="file" multiple (change)="selectFiles($event)">
-        </label>
-      <div
-        style="width: 100%; height: 500px; margin: 0 auto"
-        [hidden]="slides.length == 0 ? true : false"
-      >
-        <app-image-slider
-          [slides]="slides"
-          *ngIf="slides.length > 0"
-        ></app-image-slider>
+    <mat-dialog-content>
+      <!-- <div>
+        <input type="radio" name="privacy" [(ngModel)]="privacy" value="1"><i class="check-box"></i>Công khai
+        <input type="radio" name="privacy" [(ngModel)]="privacy" value="2"><i class="check-box"></i>Bạn bè
+        <input type="radio" name="privacy" [(ngModel)]="privacy" value="3"><i class="check-box"></i>Chỉ mình tôi
+      </div> -->
+      <div class="description">
+        <textarea rows="2" placeholder="write something" [(ngModel)]="content" style="border: solid 2px #e4e6eb;">
+        </textarea>
       </div>
-    </div>
+      <mat-icon id="delete" style="float:right"  [hidden]="slides.length == 0 ? true : false"(click)="clearImage()">cancel</mat-icon>
+      <div class="post-meta">
+          <!-- <label class="fileContainer">
+               <i class="fa fa-image" style="color:black;font-size:20px;"></i>
+              <input type="file" multiple (change)="selectFiles($event)">
+          </label> -->
+        <div
+          style="width: 100%; height: 500px; margin: 0 auto"
+          [hidden]="slides.length == 0 ? true : false"
+        >
+          <app-image-slider
+            [slides]="slides"
+            *ngIf="slides.length > 0"
+          ></app-image-slider>
+        </div>
+      </div>
+      </mat-dialog-content>
+  </div>
+  <div style="display: flex;justify-content: space-between; border: 1px solid black;border-radius: 5px;">
+    <p style="margin: 10px;
+            color: black;
+            font-weight: 600;
+            font-family: 'Roboto';">Thêm ảnh vào bài viết của bạn</p>
+    <label class="fileContainer" style="margin:10px">
+      <i class="fa fa-image" style="color:green;font-size:20px;"></i>
+    <input type="file" multiple (change)="selectFiles($event)" style="font-size:20px;">
+    </label>
   </div>
   <mat-dialog-actions align="center">
     <button mat-raised-button color="primary" (click)="onConfirmClick()" tabindex="1">Lưu</button>

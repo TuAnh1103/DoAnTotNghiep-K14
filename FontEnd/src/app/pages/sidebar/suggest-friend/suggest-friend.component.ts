@@ -43,7 +43,7 @@ export class SuggestFriendComponent implements OnInit {
   ngOnInit(): void {
   }
   getAllSuggestFriend() {
-    return this.http.post(`${this.baseUrl}/friends/friend-suggestion`,'', {
+    return this.http.post(`${this.baseUrl}/friends/suggest`,'', {
       headers: this.headers
     });
   }

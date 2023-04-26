@@ -2,11 +2,12 @@ import { first, map } from 'rxjs';
 import { UserDetail } from './../../../core/models/user-detail';
 import { CommonService } from 'src/app/shared/common.service';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Friend, Friends } from 'src/app/core/models/friends.model';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { ApiService, Chat, User } from 'src/app/core/service/api/api.service';
 import { HelperService } from 'src/app/core/service/helper/helper.service';
+import { ScrollToBottomDirective } from 'src/app/core/directive/scroll-to-bottom-directive';
 
 @Component({
   selector: 'app-list-friend',
@@ -14,6 +15,8 @@ import { HelperService } from 'src/app/core/service/helper/helper.service';
   styleUrls: ['./list-friend.component.css'],
 })
 export class ListFriendComponent implements OnInit {
+  @ViewChild(ScrollToBottomDirective)
+  scroll: ScrollToBottomDirective;
   public config: PerfectScrollbarConfigInterface = {};
   private baseUrl: string;
   private headers: any;

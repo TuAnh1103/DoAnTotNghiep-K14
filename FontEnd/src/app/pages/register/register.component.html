@@ -1,29 +1,22 @@
 <div class="theme-layout">
   <div class="container-fluid pdng0">
     <div class="row merged">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="background-color: #f791ca;">
+				<div>
+					<img src="assets/images/register-removebg-preview.png" alt="" height="70%" style="margin-top: 70px;margin-left: 30%;">
+				</div>
+			</div>
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <div class="land-featurearea">
-          <div class="land-meta">
-            <h1>Tú Anh</h1>
-            <p>Bắt đầu tạo tài khoản!</p>
-            <div class="friend-logo">
-              <span><img src="assets/images/wink.png" alt="" /></span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-        <div class="login-reg-bg">
-          <div class="log-reg-area sign">
-            <h2 class="log-title">Đăng ký</h2>
+        <div class="login-reg-bg" style="background-color: #f791ca;">
+          <div class="log-reg-area" style="width:90%;border-radius: 20px;">
+            <h2 class="log-title" style="color: #a67df7;">Đăng ký</h2>
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
               <div class="row">
-                <div class="col-md-6 mb-6">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                   <div class="form-group">
                     <input
                       type="text"
                       formControlName="firstName"
-                      name="firstName"
                       [(ngModel)]="firstName"
                       id="first_name"
                     />
@@ -31,6 +24,8 @@
                     ><i class="mtrl-select"></i>
                     <span
                       class="text-danger"
+                      stype="font-size: 12px;
+                      font-family: cursive;"
                       *ngIf="
                         (form.get('firstName').touched ||
                           form.get('firstName').dirty) &&
@@ -41,7 +36,7 @@
                     </span>
                   </div>
                 </div>
-                <div class="col-md-6 mb-6">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                   <div class="form-group">
                     <input
                       type="text"
@@ -54,6 +49,8 @@
                     ><i class="mtrl-select"></i>
                     <span
                       class="text-danger"
+                      stype="font-size: 12px;
+                      font-family: cursive;"
                       *ngIf="
                         (form.get('lastName').touched ||
                           form.get('lastName').dirty) &&
@@ -79,6 +76,8 @@
                     ><i class="mtrl-select"></i>
                     <span
                       class="text-danger"
+                      stype="font-size: 12px;
+                      font-family: cursive;"
                       *ngIf="
                         (form.get('dob').touched || form.get('dob').dirty) &&
                         form.get('dob').invalid
@@ -101,6 +100,8 @@
                     ><i class="mtrl-select"></i>
                     <span
                       class="text-danger"
+                      stype="font-size: 12px;
+                      font-family: cursive;"
                       *ngIf="
                         (form.get('email').touched ||
                           form.get('email').dirty) &&
@@ -114,7 +115,7 @@
               </div>
               <div class="row">
                 <div class="form-group">
-                  <label>Giới tính</label>
+                  <label style="font-size: .8rem;color:#088dcd">Giới tính</label>
                   <div class="form-radio">
                     <div class="radio">
                       <label>
@@ -145,14 +146,14 @@
               </div>
               <div class="row">
                 <div class="form-group">
-                  <label for="pass">Sở thích</label>
-                  <div style="justify-content: space-between">
-                    <div *ngFor="let favorite of favoriteList; let i=index">
+                  <label for="pass" style="font-size: .8rem;color:#088dcd">Sở thích</label>
+                  <ul class="photos">
+                    <li *ngFor="let favorite of favoriteList; let i=index">
                       <mat-checkbox [value]="favorite.id.toString()" (change)="onChange($event)">
                         {{favorite.favorite_name}}
                       </mat-checkbox>
-                    </div>
-                  </div>
+                    </li>
+                  </ul>
                 </div>
               </div>
               <div class="row">
@@ -169,6 +170,8 @@
                   ><i class="mtrl-select"></i>
                   <span
                     class="text-danger"
+                    stype="font-size: 12px;
+                      font-family: cursive;"
                     *ngIf="
                       (form.get('username').touched ||
                         form.get('username').dirty) &&
@@ -192,6 +195,8 @@
                   ><i class="mtrl-select"></i>
                   <span
                     class="text-danger"
+                    stype="font-size: 12px;
+                      font-family: cursive;"
                     *ngIf="
                       (form.get('password').touched ||
                         form.get('password').dirty) &&
@@ -213,10 +218,13 @@
                     id="password_confirmation"
                   />
                   <label class="control-label" for="input"
+
                     >Nhập lại mật khẩu :</label
                   ><i class="mtrl-select"></i>
                   <span
                     class="text-danger"
+                    stype="font-size: 12px;
+                      font-family: cursive;"
                     *ngIf="
                       (form.get('password_confirmation').touched ||
                         form.get('password_confirmation').dirty) &&

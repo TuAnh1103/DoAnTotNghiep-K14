@@ -17,8 +17,8 @@
       <i class="ti-image"></i>
       <a [routerLink]="['/timeline', id, 'photos']" title="">Hình ảnh</a>
   </li>
-  <li>
+  <li [hidden]="!checkUser">
     <i class="ti-image"></i>
-    <a [routerLink]="['/timeline', id, 'share']" title="">Chia sẻ</a>
+    <a [routerLink]="['/timeline', id, 'share']" title="">Đã lưu</a>
 </li>
 </ul>

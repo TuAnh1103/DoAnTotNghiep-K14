@@ -1,167 +1,159 @@
-<div class="container" style="width: 60%">
-  <main class="has-dflex-center">
-    <section>
-      <div class="lx-container-70">
-        <div class="lx-row" style="margin-left: 40%">
-          <h1 class="title" style="font-weight: bolder; font-size: 30px">
-            Chỉnh sửa hồ sơ cá nhân
-          </h1>
-        </div>
-        <div class="lx-row" style="margin-left: 5%">
-          <div class="lx-column column-user-pic">
-            <div class="profile-pic bs-md">
-              <h1 class="pic-label">Ảnh đại diện</h1>
-              <div class="pic bs-md">
-                <img [src]="!image?'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg':image.link_image"
-                  alt=""
-                  width="4024"
-                  height="6048"
-                  loading="lazy"
-                />
-                <p class="lx-btn">
-                  <i class="fas fa-camera-retro"></i>&nbsp;&nbsp;
-                  <label class="fileContainer">
-                    chỉnh sửa ảnh
-                    <input type="file" (change)="selectFile($event)" />
-                  </label>
-                </p>
-              </div>
-              <div class="pic-info">
-                <p>
-                  <i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp;
-                  Ảnh này sẽ xuất hiện trên nền tảng, trong phần đóng góp của bạn hoặc nơi nó được đề cập.
-                </p>
+<div>
+  <div class="container" style="width: 60%">
+    <main class="has-dflex-center">
+      <section>
+        <div class="lx-container-70">
+          <div class="lx-row" style="margin-left: 40%">
+            <h1 class="title" style="font-weight: bolder; font-size: 30px">
+              Chỉnh sửa hồ sơ cá nhân
+            </h1>
+          </div>
+          <div class="lx-row" style="margin-left: 5%">
+            <div class="lx-column column-user-pic">
+              <div class="profile-pic bs-md">
+                <h1 class="pic-label">Ảnh đại diện</h1>
+                <div class="pic bs-md">
+                  <img [src]="!image?'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg':image.link_image"
+                    alt=""
+                    width="4024"
+                    height="6048"
+                    loading="lazy"
+                  />
+                  <p class="lx-btn">
+                    <i class="fas fa-camera-retro"></i>&nbsp;&nbsp;
+                    <label class="fileContainer">
+                      chỉnh sửa ảnh
+                      <input type="file" (change)="selectFile($event)" />
+                    </label>
+                  </p>
+                </div>
+                <div class="pic-info">
+                  <p>
+                    <i class="fas fa-exclamation-triangle"></i>&nbsp;&nbsp;
+                    Ảnh này sẽ xuất hiện trên nền tảng, trong phần đóng góp của bạn hoặc nơi nó được đề cập.
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="lx-column">
-            <form action="post" [formGroup]="form" (ngSubmit)="updateProfile()">
-              <div class="fieldset">
-                <label>Họ đệm:</label>
-                <div class="input-wrapper">
-                  <span class="icon"><i class="fas fa-user"></i></span>
-                  <input
-                    type="text"
-                    formControlName="last_name"
-                    [(ngModel)]="last_name"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="fieldset">
-                <label for="user-id">Tên:</label>
-                <div class="input-wrapper">
-                  <span class="icon"><i class="fas fa-address-card"></i></span>
-                  <input
-                    type="text"
-                    formControlName="first_name"
-                    [(ngModel)]="first_name"
-                    required
-                  />
-                </div>
-                <div id="user-id-helper" class="helper"></div>
-              </div>
-              <div class="fieldset">
-                <label for="email">Ngày sinh</label>
-                <div class="input-wrapper">
-                  <span class="icon"><i class="fas fa-envelope"></i></span>
-                  <input type="date" formControlName="dob" [(ngModel)]="dob" />
-                </div>
-                <div id="email-helper" class="helper"></div>
-              </div>
-              <div class="fieldset">
-                <label for="pass">Giới thiệu bản thân:</label>
-                <div class="input-wrapper">
-                  <span class="icon"><i class="fas fa-key"></i></span>
-                  <textarea formControlName="bio" [(ngModel)]="bio"></textarea>
-                </div>
-                <div id="pass-helper" class="helper"></div>
-              </div>
-              <div class="fieldset">
-                <label for="pass">Giới tính:</label>
-                <div class="form-radio" stype="font-size:14px;font-weight:italic;">
-                  <div class="radio" style="margin-right: 50px">
-                    <label>
-                      <input
-                        type="radio"
-                        name="gender"
-                        [checked]="gender=='true'?true:false"
-                        formControlName="gender"
-                        [(ngModel)]="gender"
-                        value="true"
-                      /><i class="check-box"></i>Nam
-                    </label>
-                  </div>
-                  <div class="radio">
-                    <label>
-                      <input
-                        type="radio"
-                        name="gender"
-                        formControlName="gender"
-                        [(ngModel)]="gender"
-                        value="false"
-                        [checked]="gender=='false'?true:false"
-                      /><i class="check-box"></i>Nữ
-                    </label>
+            <div class="lx-column">
+              <form action="post" [formGroup]="form" (ngSubmit)="updateProfile()">
+                <div class="fieldset">
+                  <label>Họ đệm:</label>
+                  <div class="input-wrapper">
+                    <span class="icon"><i class="fas fa-user"></i></span>
+                    <input
+                      type="text"
+                      formControlName="last_name"
+                      [(ngModel)]="last_name"
+                      required
+                    />
                   </div>
                 </div>
-                <div id="pass-helper" class="helper"></div>
-              </div>
-              <div class="fieldset" style="width:500px;">
-                <label for="pass">Sở thích</label>
-                <div style="display: block;">
-                  <div style="width:100px" *ngFor="let favorite of favoriteList; let i=index">
-                    <mat-checkbox [value]="favorite.id.toString()" (change)="onChange($event)"  [checked]="favorites.lastIndexOf(favorite.id)!=-1?true:false">
-                      {{favorite.favorite_name}}
-                    </mat-checkbox>
+                <div class="fieldset">
+                  <label for="user-id">Tên:</label>
+                  <div class="input-wrapper">
+                    <span class="icon"><i class="fas fa-address-card"></i></span>
+                    <input
+                      type="text"
+                      formControlName="first_name"
+                      [(ngModel)]="first_name"
+                      required
+                    />
                   </div>
+                  <div id="user-id-helper" class="helper"></div>
+                </div>
+                <div class="fieldset">
+                  <label for="email">Ngày sinh</label>
+                  <div class="input-wrapper">
+                    <span class="icon"><i class="fas fa-envelope"></i></span>
+                    <input type="date" formControlName="dob" [(ngModel)]="dob" />
                   </div>
-                <div id="pass-helper" class="helper"></div>
-              </div>
-              <div class="fieldset">
-                <label for="user-name">Quê quán:</label>
-                <div class="input-wrapper">
-                  <span class="icon"><i class="fas fa-user"></i></span>
-                  <input
-                    type="text"
-                    formControlName="hometown"
-                    [(ngModel)]="hometown"
-                    required
-                  />
+                  <div id="email-helper" class="helper"></div>
                 </div>
-              </div>
-              <div class="fieldset">
-                <label for="user-name">Thành phố:</label>
-                <div class="input-wrapper">
-                  <span class="icon"><i class="fas fa-user"></i></span>
-                  <input
-                    type="text"
-                    formControlName="current_city"
-                    [(ngModel)]="current_city"
-                    required
-                  />
+                <div class="fieldset">
+                  <label for="pass">Giới thiệu bản thân:</label>
+                  <div class="input-wrapper">
+                    <span class="icon"><i class="fas fa-key"></i></span>
+                    <textarea formControlName="bio" [(ngModel)]="bio"></textarea>
+                  </div>
+                  <div id="pass-helper" class="helper"></div>
                 </div>
-                <div id="user-name-helper" class="helper">
-                  <p *ngIf="status==0" style="color:green">
-                     Cập nhật hồ sơ cá nhân thành công!
-                  </p>
-                  <p *ngIf="status==1" style="color:red">
-                    Cập nhật hồ sơ cá nhân thất bại!
-                  </p>
+                <div class="fieldset">
+                  <label for="pass">Giới tính:</label>
+                  <div class="form-radio" stype="font-size:14px;font-weight:italic;">
+                    <div class="radio" style="margin-right: 50px">
+                      <label>
+                        <input
+                          type="radio"
+                          name="gender"
+                          [checked]="gender=='true'?true:false"
+                          formControlName="gender"
+                          [(ngModel)]="gender"
+                          value="true"
+                        /><i class="check-box"></i>Nam
+                      </label>
+                    </div>
+                    <div class="radio">
+                      <label>
+                        <input
+                          type="radio"
+                          name="gender"
+                          formControlName="gender"
+                          [(ngModel)]="gender"
+                          value="false"
+                          [checked]="gender=='false'?true:false"
+                        /><i class="check-box"></i>Nữ
+                      </label>
+                    </div>
+                  </div>
+                  <div id="pass-helper" class="helper"></div>
                 </div>
-              </div>
-              <div class="actions">
-                <a id="cancel" class="lx-btn" routerLink="/home"
-                  ><i class="fas fa-ban"></i>&nbsp;&nbsp;Quay lại</a
-                >
-                <button type="submit" id="save" class="lx-btn">
-                  <i class="fas fa-save"></i>&nbsp;&nbsp;Lưu
-                </button>
-              </div>
-            </form>
+                <div class="fieldset" style="width:500px;">
+                  <label for="pass">Sở thích</label>
+                  <ul class="photos">
+                    <li style="width:100px" *ngFor="let favorite of favoriteList; let i=index">
+                      <mat-checkbox [value]="favorite.id.toString()" (change)="onChange($event)"  [checked]="favorites.lastIndexOf(favorite.id)!=-1?true:false">
+                        {{favorite.favorite_name}}
+                      </mat-checkbox>
+                    </li>
+                  </ul>
+                  <div id="pass-helper" class="helper"></div>
+                </div>
+                <div class="fieldset">
+                  <label for="pass">Địa chỉ</label>
+                  <div class="input-wrapper">
+                    <span class="icon"><i class="fas fa-user"></i></span>
+                  <mat-form-field appearance="fill" style="width:90%;height:90%;background-color: white;">
+                    <mat-label>Địa chỉ</mat-label>
+                    <mat-select formControlName="hometown" [(ngModel)]="hometown">
+                      <mat-option *ngFor="let x of addressList" [value]="x.id">
+                        {{x.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  </div>
+                </div>
+                <div class="fieldset">
+                  <div id="user-name-helper" class="helper">
+                    <p *ngIf="status==0" style="color:green">
+                       Cập nhật hồ sơ cá nhân thành công!
+                    </p>
+                    <p *ngIf="status==1" style="color:red">
+                      Cập nhật hồ sơ cá nhân thất bại!
+                    </p>
+                  </div>
+                </div>
+                <div class="actions">
+
+                  <button mat-flat-button color="warning" type="button"><a [routerLink]="['/home']">Quay lại</a></button>
+                  <button mat-flat-button color="primary" type="submit">Cập nhật</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-  </main>
+      </section>
+    </main>
+  </div>
 </div>
+

@@ -18,4 +18,9 @@
             Long countByPostGroupByUser(@Param("postId") Long postId);
             Page<Share> findAllByUserOrderByIdDesc(User user, Pageable pageable);
             List<Share> findByUserOrderByIdDesc(User user);
+
+            @Query(value = "select * from Share order by Share.id desc",
+                    countQuery = "select * from Share",
+                    nativeQuery = true)
+            Page<Share> findAllOrderByIdDesc(Pageable pageable);
         }

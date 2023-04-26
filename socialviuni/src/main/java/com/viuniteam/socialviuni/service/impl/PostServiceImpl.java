@@ -2,6 +2,7 @@
                 import com.viuniteam.socialviuni.dto.Profile;
                 import com.viuniteam.socialviuni.dto.request.post.PostFilterRequest;
                 import com.viuniteam.socialviuni.dto.request.post.PostSaveRequest;
+                import com.viuniteam.socialviuni.dto.response.image.ImageResponse;
                 import com.viuniteam.socialviuni.dto.response.post.PostResponse;
                 import com.viuniteam.socialviuni.dto.utils.post.PostResponseUtils;
                 import com.viuniteam.socialviuni.entity.*;
@@ -10,7 +11,9 @@
                 import com.viuniteam.socialviuni.exception.OKException;
                 import com.viuniteam.socialviuni.exception.ObjectNotFoundException;
                 import com.viuniteam.socialviuni.mapper.request.post.PostRequestMapper;
+                import com.viuniteam.socialviuni.mapper.response.image.ImageReponseMapper;
                 import com.viuniteam.socialviuni.repository.PostRepository;
+                import com.viuniteam.socialviuni.repository.ShareRepository;
                 import com.viuniteam.socialviuni.repository.notification.NotificationFollowRepository;
                 import com.viuniteam.socialviuni.repository.notification.NotificationRepository;
                 import com.viuniteam.socialviuni.repository.specification.PostSpecification;
@@ -31,6 +34,7 @@
     @AllArgsConstructor
     public class PostServiceImpl implements PostService {
         private final PostRepository postRepository;
+        private final ShareRepository shareRepository;
         private final NotificationRepository notificationRepository;
         private final PostRequestMapper postRequestMapper;
         private final Profile profile;
@@ -39,6 +43,8 @@
         private final ImageService imageService;
         private final PostResponseUtils postResponseUtils;
         private final NotificationService notificationService;
+
+        private final ImageReponseMapper imageReponseMapper;
         private final NotificationFollowRepository notificationFollowRepository;
     //    private final HandlingOffensive handlingOffensive;
         @Override
@@ -53,10 +59,10 @@
                 post.setImages(images);
             Post postSuccess = postRepository.save(post);
             //create notification to follower
-            List<Follower> followers = author.getFollowers();
-            followers.stream()
-                    .filter(follower -> checkPrivacy(postSuccess, follower.getUser().getId())==true)
-                    .forEach(follower -> createNotificationToFollower(follower.getUser(),postSuccess));
+//            List<Follower> followers = author.getFollowers();
+//            followers.stream()
+//                    .filter(follower -> checkPrivacy(postSuccess, follower.getUser().getId())==true)
+//                    .forEach(follower -> createNotificationToFollower(follower.getUser(),postSuccess));
             return postResponseUtils.convert(postSuccess);
         }
         @Override
@@ -68,12 +74,17 @@
                 throw new ObjectNotFoundException("Bài viết không tồn tại");
             if(this.myPost(id)){
                 Post newPost = postRequestMapper.to(postSaveRequest);
+
                 newPost.setId(id);
+
                 newPost.setAuthor(oldPost.getAuthor());
+
                 newPost.setCreatedDate(oldPost.getCreatedDate());
+
                 List<Image> images = listImageFromRequest(postSaveRequest);
                 if(images!=null)
                     newPost.setImages(images);
+
                 Post postUpdate = postRepository.save(newPost);
                 return postResponseUtils.convert(postUpdate);
             }
@@ -84,10 +95,10 @@
             if(postRepository.findOneById(id) == null)
                 throw new ObjectNotFoundException("Bài viết không tồn tại");
             if(this.myPost(id) || userService.isAdmin(profile)){
-                notificationRepository.deleteNotificationByNotificationPostAndPostId(id);
-                notificationRepository.deleteNotificationByNotificationFollowAndPostId(id);
-                notificationRepository.deleteNotificationPostByPostId(id);
-                notificationRepository.deleteNotificationFollowByPostId(id);
+//                notificationRepository.deleteNotificationByNotificationPostAndPostId(id);
+//                notificationRepository.deleteNotificationByNotificationFollowAndPostId(id);
+//                notificationRepository.deleteNotificationPostByPostId(id);
+//                notificationRepository.deleteNotificationFollowByPostId(id);
                 postRepository.deleteById(id);
                 throw new OKException("Xóa bài viết thành công");
             }
@@ -109,6 +120,52 @@
                 return new PageImpl<>(postResponseList, pageable, postResponseList.size());
             }
             return null;
+        }
+        @Override
+        public Page<PostResponse> findAllPost(Pageable pageable){
+            Page<Post> posts = postRepository.findAllOrderByIdDesc(pageable);
+            List<PostResponse> postResponseList = new ArrayList<>();
+            posts.stream().forEach(post -> {
+                    PostResponse postResponse = postResponseUtils.convert(post);
+                    postResponseList.add(postResponse);
+            });
+            return new PageImpl<>(postResponseList, pageable, postResponseList.size());
+        }
+        @Override
+        public Page<PostResponse> getNewsFeedUserId(Long userId, Pageable pageable){
+            User user = userService.findOneById(userId);
+            if(user==null) throw new ObjectNotFoundException("Tài khoản không tồn tại");
+            if(user.isActive() || (!user.isActive() && userService.isAdmin(profile))){ // tai khoan hoat dong, neu k hoat dong thi chi admin moi dc xem
+                Page<Post> posts = postRepository.getPostNewsfeed(userId,pageable);
+                List<PostResponse> postResponseList = new ArrayList<>();
+                posts.stream().forEach(post -> {
+                    if(checkPrivacy(post,profile)){
+                        PostResponse postResponse = postResponseUtils.convert(post);
+                        postResponseList.add(postResponse);
+                    }
+                });
+
+                return new PageImpl<>(postResponseList, pageable, postResponseList.size());
+            }
+            return null;
+        }
+        @Override
+        public List<ImageResponse> findImagesInPostByUserId(Long userId){
+            User user = userService.findOneById(userId);
+            if(user==null) throw new ObjectNotFoundException("Tài khoản không tồn tại");
+                List<Post> posts = postRepository.findByAuthorOrderByIdDesc(user);
+                List<ImageResponse> ImageResponseList = new ArrayList<>();
+                posts.stream().forEach(post -> {
+                    if(checkPrivacy(post,profile)){
+                        PostResponse postResponse = postResponseUtils.convert(post);
+                        List<ImageResponse>images = postResponse.getImages();
+                        images.stream().forEach(image->{
+
+                            ImageResponseList.add(image);
+                        });
+                    }
+                });
+                return ImageResponseList;
         }
         @Override
         public Page<PostResponse> search(PostFilterRequest postFilterRequest) {

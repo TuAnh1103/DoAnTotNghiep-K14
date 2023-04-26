@@ -172,10 +172,11 @@
                     </div>
                   </div>
                 </div>
-                <div *ngIf="showMessages" class="d-flex flex-row mb-3 navigation-mobile scrollable-chat-panel chat-panel-scroll" style="overflow-x: overlay;max-height:500px;min-height:500px;">
+                <div *ngIf="showMessages" #scrollMe [scrollTop]="scrollMe.scrollHeight" class="d-flex flex-row mb-3 navigation-mobile scrollable-chat-panel chat-panel-scroll" style="overflow-x: overlay;max-height:500px;min-height:500px;">
                   <div class="w-100 p-3">
                     <div class="svg36 loader-animate3 horizontal-margin-auto mb-2"></div>
                     <div class="text-center letter-space drop-shadow text-uppercase fs-12 w-100 mb-3">Today</div>
+
                     <div *ngFor="let x of messages" [ngClass]="x.senderId !== api.currentUser.uid?'left-chat-message fs-13 mb-2':'d-flex flex-row-reverse mb-2'">
                      <div *ngIf="x.senderId !== api.currentUser.uid">
                       <p class="mb-0 mr-3 pr-4" >{{ x.content }}</p>
@@ -184,7 +185,7 @@
                         <div class="message-arrow"><i class="text-muted la la-angle-down fs-17"></i></div>
                       </div>
                      </div>
-                     <div class="right-chat-message fs-13 mb-2" *ngIf="x.senderId === api.currentUser.uid">
+                     <div  class="right-chat-message fs-13 mb-2" *ngIf="x.senderId === api.currentUser.uid">
                       <div class="mb-0 mr-3 pr-4">
                         <div class="d-flex flex-row">
                           <div class="pr-2">{{ x.content }}</div>

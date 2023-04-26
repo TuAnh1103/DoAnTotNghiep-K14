@@ -31,4 +31,8 @@
                 PageRequest pageRequest = PageRequest.of(pageInfo.getIndex(), pageInfo.getSize());
                 return friendRequestService.getAllByUser(pageRequest);
             }
+            @GetMapping("/count")
+            public int countAllFriendRequest(){
+                return friendRequestService.getAll().size();
+            }
         }

@@ -35,3 +35,9 @@
 a:hover{
   color: #367AF6;
 }
+#frends a.add-butn.more-action:hover{
+  background-color: #1877F2;
+}
+#frends a.add-butn:hover{
+  background-color: #9aa4b0;
+}

@@ -33,10 +33,10 @@
             private List<Share> shares = new ArrayList<>();
             @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
             private List<Bookmark> bookmarks = new ArrayList<>();
-            @OneToMany(mappedBy = "post",cascade = CascadeType.ALL, orphanRemoval = true)
-            private List<NotificationPost> notificationPostList;
-            @OneToMany(mappedBy = "post",cascade = CascadeType.ALL, orphanRemoval = true)
-            private List<NotificationFollow> notificationFollowList;
+//            @OneToMany(mappedBy = "post",cascade = CascadeType.ALL, orphanRemoval = true)
+//            private List<NotificationPost> notificationPostList;
+//            @OneToMany(mappedBy = "post",cascade = CascadeType.ALL, orphanRemoval = true)
+//            private List<NotificationFollow> notificationFollowList;
             @OneToMany(mappedBy = "post")
             private List<Report> reportList;
         }

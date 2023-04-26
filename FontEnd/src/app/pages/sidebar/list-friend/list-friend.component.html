@@ -24,7 +24,7 @@
       </div>
   </div>
   <div class="chat-list">
-      <ul style="height:90%;overflow:auto;">
+      <ul style="height:90%;overflow:auto;" #scrollChatBox [scrollTop]="scrollChatBox.scrollHeight">
           <li *ngFor="let x of messages" [ngClass]="x.senderId === api.currentUser.uid?'you':'me'">
               <div class="chat-thumb" *ngIf="x.senderId === api.currentUser.uid"><img [src]="!my.avatar_image?'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg':my.avatar_image.link_image" alt=""></div>
               <div class="chat-thumb" *ngIf="x.senderId !== api.currentUser.uid"><img [src]="!chatUser.avatar_image?'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg':chatUser.avatar_image.link_image" alt=""></div>

@@ -1,23 +1,15 @@
 <div class="theme-layout">
 	<div class="container-fluid pdng0">
 		<div class="row merged">
-			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-				<div class="land-featurearea">
-					<div class="land-meta">
-						<h1>Tú Anh</h1>
-						<p>
-							Bắt đầu đăng nhập nào!
-						</p>
-						<div class="friend-logo">
-							<span><img src="assets/images/wink.png" alt=""></span>
-						</div>
-					</div>
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="background-color: #94e3f3;">
+				<div>
+					<img src="assets/images/connect-removebg-preview.png" alt="" height="70%" style="margin-top: 70px;margin-left: 30%;">
 				</div>
 			</div>
-			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-				<div class="login-reg-bg">
-					<div class="log-reg-area sign">
-						<h2 class="log-title">Đăng nhập</h2>
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
+				<div class="login-reg-bg" style="background-color: #94e3f3;">
+					<div class="log-reg-area sign" style=" left:250px;border-radius: 20px;">
+						<h2 class="log-title" style="color: #b65d5d;">Đăng nhập</h2>
 						<p *ngIf="error" style="color:red;font-weight:bold;">{{error}}</p>
 						<form method="post" [formGroup]="form" (ngSubmit)="onSubmit()" >
 							<div class="form-group">

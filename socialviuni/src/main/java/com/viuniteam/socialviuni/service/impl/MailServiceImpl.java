@@ -28,9 +28,9 @@
                     String content = "<h1 style='color:red;'>Xin chào "+username+"!</h1>\n" +
                             "<p>Mã bảo mật của bạn là: <i><b><u>%s</u></b></i></p>"+
                             "<p>Để xác nhận yêu cầu %s của bạn trên Social Viuni, chúng tôi cần xác minh địa chỉ email của bạn. Hãy dán mã này vào trình duyệt.</p>" +
-                            "<p>Đây là mã dùng một lần và thời gian sử dụng tối đa 5 phút.</p>"+
+                            "<p>Đây là mã dùng một lần và thời gian sử dụng tối đa 1 phút.</p>"+
                             "<p>Trân trọng cảm ơn!</p>" +
-                            "<p>-The Social Viuni Security Team-</p>";
+                            "<p>-The SV-Connect-</p>";
                     String code  = String.valueOf(renderRandom());
                     String type;
                     if (sendCodeType == SendCodeType.REGISTER)

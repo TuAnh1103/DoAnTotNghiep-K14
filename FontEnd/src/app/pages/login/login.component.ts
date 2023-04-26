@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
                     localStorage.setItem("userId",this.user.id.toString());
                     this.router.navigateByUrl("/home");
                     this.router.navigateByUrl("/home");
-                   this.auth.login(this.user.email,this.loginModel.password).then(datas=>{
+                   this.auth.login(this.user.email,'Ta110301').then(datas=>{
                       console.log('data', datas);
                       console.log(datas.user.uid);
                       this.router.navigateByUrl("/home");

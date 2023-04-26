@@ -175,7 +175,6 @@ export class UserPostComponent implements OnInit, OnChanges {
   openDialogShare(){
     const dialogRef=this.dialog.open(ShareDialogComponent,{
       autoFocus: false,
-      maxHeight: '95vh',
       hasBackdrop:false,
       width:"700px",
       data:{
@@ -188,7 +187,6 @@ export class UserPostComponent implements OnInit, OnChanges {
     const dialogRef=this.dialog.open(EditPostDialogComponent,{
       hasBackdrop:false,
       autoFocus: false,
-      maxHeight: '95vh',
       width:"700px",
       data:{
         post:this.post,

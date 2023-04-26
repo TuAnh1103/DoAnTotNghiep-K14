@@ -112,6 +112,12 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import {MatListModule} from '@angular/material/list'
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+import { ScrollToBottomDirective } from './core/directive/scroll-to-bottom-directive';
+import { MatSelectModule } from '@angular/material/select';
+import { AddNewPostComponent } from './shared/components/add-new-post/add-new-post.component';
+import { PrivacyDialogComponent } from './shared/components/privacy-dialog/privacy-dialog.component';
+import {MatRadioModule} from '@angular/material/radio';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   wheelPropagation: true
 };
@@ -122,6 +128,7 @@ export function getToken() {
 @NgModule({
   declarations: [
     AppComponent,
+    ScrollToBottomDirective,
     LoginComponent,
     SearchComponent,
     HomeComponent,
@@ -200,7 +207,9 @@ export function getToken() {
     UserViewComponent,
     SuggestFriendComponent,
     ChatMessageComponent,
-    ChatMessageContentComponent
+    ChatMessageContentComponent,
+    AddNewPostComponent,
+    PrivacyDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -212,6 +221,7 @@ export function getToken() {
     MatDialogModule,
     MatExpansionModule,
     MatBadgeModule,
+    MatRadioModule,
     MatCheckboxModule,
     MatExpansionModule,
     MatIconModule,
@@ -229,6 +239,7 @@ export function getToken() {
     MatListModule,
     PerfectScrollbarModule,
     MatFormFieldModule,
+    ScrollToModule.forRoot(),
     JwtModule.forRoot({
       config: {
         tokenGetter: getToken
@@ -240,7 +251,8 @@ export function getToken() {
     AngularFirestoreModule,
     AngularFireStorageModule,
     ScrollingModule,
-    FilterPipeModule
+    FilterPipeModule,
+    MatSelectModule,
   ],
   exports: [
     FormsModule,

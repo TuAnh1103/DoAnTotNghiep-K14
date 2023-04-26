@@ -7,6 +7,7 @@
             import org.apache.catalina.filters.RemoteIpFilter;
             import org.springframework.beans.factory.annotation.Autowired;
             import org.springframework.context.annotation.Bean;
+            import org.springframework.context.annotation.ComponentScan;
             import org.springframework.context.annotation.Configuration;
             import org.springframework.security.authentication.AuthenticationManager;
             import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -57,7 +58,7 @@
                 public RemoteIpFilter remoteIpFilter() { // get ip from client
                     return new RemoteIpFilter();
                 }
-                private static final String[] listUrlPermitAll= new String[]{"/auth/**","/home","/","/upload"};
+                private static final String[] listUrlPermitAll= new String[]{"/auth/**","/home","/","/upload","/chat/**","/api/**"};
                 @Override
                 protected void configure(HttpSecurity httpSecurity) throws Exception {
                     // We don't need CSRF for this example

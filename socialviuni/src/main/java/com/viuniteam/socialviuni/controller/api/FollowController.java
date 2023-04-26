@@ -41,6 +41,14 @@
             public List<FollowResponse> getAllFollowing(){
                 return followService.getAllFollowing(profile.getId());
             }*/
+            @GetMapping("/follower/count/{id}")
+            public int countFollowerById(@PathVariable("id")Long id){
+                return followService.getAllFollower(id).size();
+            }
+            @GetMapping("/following/count/{id}")
+            public int countFollowingById(@PathVariable("id")Long id){
+                return followService.getAllFollowing(id).size();
+            }
             @PostMapping("/follower/{id}")
             public Page<FollowResponse> getAllFollower(@PathVariable("id") Long id, @RequestBody PageInfo pageInfo){
                 PageRequest pageRequest = PageRequest.of(pageInfo.getIndex(), pageInfo.getSize());

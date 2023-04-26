@@ -8,20 +8,47 @@
   border: none;
   font-size:12px;
   color: #fff;
-  background: linear-gradient(180deg, #4B91F7 0%, #367AF6 100%);
+  background:#3c86f5;
    background-origin: border-box;
   box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  margin-right:10px;
 }
 .button-10:hover{
-  background: linear-gradient(180deg, #d368eb 0%, #dc57e8 100%);
+  background:#206af4;
 }
 .button-10:focus {
   box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
   outline: 0;
 }
+.button-11 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2px 4px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+  border-radius: 6px;
+  border: none;
+  font-size:12px;
+  color: #fff;
+  background: #bbcdfb;
+   background-origin: border-box;
+  box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin-right:10px;
+}
+.button-11:hover{
+  background: rgb(140, 147, 162);
+}
+.button-11:focus {
+  box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  outline: 0;
+}
+
 ::ng-deep .custom-style {
   background-color: green;
   color: white;

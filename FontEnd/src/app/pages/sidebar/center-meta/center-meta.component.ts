@@ -4,9 +4,12 @@ import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/app/shared/common.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { first, Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { AddNewPostComponent } from 'src/app/shared/components/add-new-post/add-new-post.component';
+import { UserDetail } from 'src/app/core/models/user-detail.js';
 
 @Component({
   selector: 'app-center-meta',
@@ -14,31 +17,52 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./center-meta.component.css'],
 })
 export class CenterMetaComponent implements OnInit {
+  @Output() updateNewFeed = new EventEmitter<string>();
   form: FormGroup;
   content: string;
   selectedFiles: FileList;
   message = '';
   baseUrl = '';
+  headers:any;
   images: FileResponse[];
   imagesid: any = [];
   body: any;
   privacy:number;
+  user:UserDetail;
   constructor(
     private fb: FormBuilder,
     private commonService: CommonService,
     private http: HttpClient,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {
     this.form = this.fb.group({
       content: ['', Validators.required],
       privacy: ['', Validators.required],
     });
     this.baseUrl = this.commonService.webApiUrl;
+    this.headers=this.commonService.createHeadersOption(localStorage.getItem('token'));
   }
 
-  ngOnInit(): void {}
-
+  ngOnInit(): void {
+    this.getUserInfo();
+  }
+  getUserInfo() {
+    return this.http
+      .get(`${this.baseUrl}/user/id/${localStorage.getItem('userId')}`, {
+        headers: this.headers,
+      })
+      .pipe(first())
+      .subscribe(
+        (data) => {
+          this.user = data as UserDetail;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
   onSubmit() {
     this.message = '';
     if(this.selectedFiles)
@@ -116,6 +140,19 @@ export class CenterMetaComponent implements OnInit {
       horizontalPosition: "center",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
       panelClass: ["custom-style"]
   })}
+  openDialog(){
+    const dialogRef=this.dialog.open(AddNewPostComponent,{
+      autoFocus: false,
+      hasBackdrop:false,
+      width:"600px",
+      data:{}
+    });
+    dialogRef.afterClosed().subscribe(()=>
+    {
+      this.updateNewFeed.emit("load");
+    }
+    );
+  }
   showSnackbarError(content, action, duration) {
     this.snackBar.open(content, action, {
       duration: 5000,

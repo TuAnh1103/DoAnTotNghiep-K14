@@ -1,6 +1,7 @@
         package com.viuniteam.socialviuni.dto.request.user;
         import com.fasterxml.jackson.annotation.JsonProperty;
         import com.viuniteam.socialviuni.annotation.offensivekeyword.ValidOffensiveKeyword;
+        import com.viuniteam.socialviuni.dto.response.favorite.FavoriteResponse;
         import lombok.Data;
         import org.hibernate.validator.constraints.Length;
         import org.springframework.format.annotation.DateTimeFormat;
@@ -9,6 +10,9 @@
         import javax.validation.constraints.NotEmpty;
         import javax.validation.constraints.NotNull;
         import javax.validation.constraints.Pattern;
+        import java.util.ArrayList;
+        import java.util.List;
+
         @Data
         public class UserUpdateInfoRequest {
         //    @NotEmpty(message = "Họ tên đệm không được để trống")
@@ -40,4 +44,6 @@
             private Long idAvatarImage;
             @JsonProperty("cover_image")
             private Long idCoverImage;
+            @JsonProperty("favoriteIds")
+            private List<Long> favoriteIds = new ArrayList<>();
         }

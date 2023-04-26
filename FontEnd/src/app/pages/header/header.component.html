@@ -159,7 +159,7 @@
                     </li>
                 </ul>
                 <div class="user-img">
-                    <img [src]="!user.avatar_image?'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg':user.avatar_image.link_image" alt="" id="avatar">
+                    <img [src]="!user.avatar_image?'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg':user.avatar_image.link_image" style="width:60px;height:60px;"alt="" id="avatar">
                     <span class="status f-online"></span>
                     <div class="user-setting">
                         <a [routerLink]="['/account/editProfile']" title=""><i class="ti-pencil-alt"></i>hồ sơ cá nhân</a>

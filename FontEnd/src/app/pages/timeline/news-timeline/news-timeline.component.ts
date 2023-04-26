@@ -20,6 +20,8 @@ export class NewsTimelineComponent implements OnInit {
   postList: PostResponse[];
   postShareList: sharePost[];
   size: number = 0;
+  index:number=0;
+  posts:PostResponse[];
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
@@ -42,6 +44,7 @@ export class NewsTimelineComponent implements OnInit {
             this.data = datas;
             this.postList = this.data.content;
             this.size = this.page.size;
+            this.index=this.page.index;
           },
           (error) => console.log(error)
         );
@@ -57,9 +60,10 @@ export class NewsTimelineComponent implements OnInit {
     });
   }
   loadAdd() {
-    this.size = this.page.size + 2;
+    this.size = this.page.size;
+    this.index=this.page.index+1;
     this.page = {
-      index: 0,
+      index: this.index,
       size: this.size,
     };
     this.http
@@ -70,10 +74,27 @@ export class NewsTimelineComponent implements OnInit {
       .subscribe(
         (datas) => {
           this.data = datas;
-          this.postList = this.data.content;
+          this.posts= this.data.content;
+          for(var i = 0; i < this.posts.length ; i++){
+            this.postList.push(this.posts[i]);
+        }
+          console.log(this.postList);
         },
         (error) => console.log(error)
       );
+  }
+  updateNewfeed(event:any)
+  {
+    this.getAllPost()
+    .pipe(first())
+    .subscribe(
+      (datas) => {
+        this.data = datas;
+        this.postList = this.data.content;
+        this.size = this.page.size;
+      },
+      (error) => console.log(error)
+    );
   }
   updatePost($event:any){
     this.getAllPost()

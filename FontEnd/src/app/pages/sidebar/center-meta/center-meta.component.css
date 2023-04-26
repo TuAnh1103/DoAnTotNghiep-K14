@@ -16,3 +16,19 @@
   background-color: #CC9966;
   color: white;
 }
+#post{
+  width: 100%;
+    background-color: #f0f2f5;
+    color: black;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 10px;
+    text-align: left;
+    font-size: 18px;
+    font-weight: 500;
+    font-family: 'Font Awesome 5 Free';
+    margin:5px 0px;
+}
+#post:hover{
+  background-color: #EBEDF0;
+}

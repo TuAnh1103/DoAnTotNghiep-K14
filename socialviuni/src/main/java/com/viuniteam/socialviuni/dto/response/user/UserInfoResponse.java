@@ -2,16 +2,19 @@
         import com.fasterxml.jackson.annotation.JsonProperty;
         import com.viuniteam.socialviuni.dto.BaseDTO;
         import com.viuniteam.socialviuni.dto.response.address.AddressResponse;
+        import com.viuniteam.socialviuni.dto.response.favorite.FavoriteResponse;
         import com.viuniteam.socialviuni.dto.response.image.ImageResponse;
         import lombok.Data;
 
         import java.time.LocalDate;
         import java.util.Date;
+        import java.util.List;
+
         @Data
         public class UserInfoResponse extends BaseDTO {
             private String username;
             //private String password;
-            //private String email;
+            private String email;
         //    private boolean active;
             private boolean gender;
             @JsonProperty("last_name")
@@ -29,4 +32,6 @@
             private AddressResponse homeTown;
             @JsonProperty("current_city")
             private AddressResponse currentCity;
+            @JsonProperty("user_favorite")
+            private List<FavoriteResponse> favorites;
         }

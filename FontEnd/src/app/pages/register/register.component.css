@@ -275,3 +275,15 @@ input[type=checkbox], input[type=radio] {
   background-color:brown;
   color:white;
 }
+span{
+  font-size: 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+p{
+  font-size: 10px;
+}
+.log-reg-area .checkbox label,
+.form-radio label {
+    color: #999;
+    font-size: 14px;
+}

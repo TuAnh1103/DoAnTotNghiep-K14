@@ -1,0 +1,56 @@
+<h2 mat-dialog-title style="border-bottom: 1px solid black;text-align: center;font-size: 22px;font-weight: 700;padding-bottom:20px;">
+  Đối tượng bài viết</h2>
+<mat-dialog-content class="mat-typography" stype="margin-top:-30px;">
+  <div class="tab-content" style="margin-top: -30px;">
+    <div class="tab-pane active fade show" id="frends">
+      <ul class="nearby-contct">
+        <li style="margin-bottom:5px;">
+          <div class="nearly-pepls">
+              <a  title=""><i class="fa fa-globe" aria-hidden="true" style="font-size: 20px;"></i></a>
+            <div class="pepl-info">
+              <div>
+                <h3 style="font-weight: bolder;margin:0 0 -5px;">Công khai</h3>
+                <p>Bất kì ai cũng có thể xem</p>
+              </div>
+              <a class="add-butn" style="background: none;float:right">
+                <input type="radio" name="privacy" value="1" [(ngModel)]="privacy"><i class="check-box"></i>
+              </a>
+            </div>
+          </div>
+        </li>
+        <li style="margin-bottom:5px;">
+          <div class="nearly-pepls">
+              <a  title=""><i class="fa fa-users" aria-hidden="true" style="font-size: 20px;"></i></a>
+            <div class="pepl-info">
+              <div>
+                <h3 style="font-weight: bolder;margin:0 0px -5px;">Bạn bè</h3>
+                <p>Bạn bè của bạn</p>
+              </div>
+              <a class="add-butn" style="background: none;float:right">
+                <input type="radio" name="privacy" value="2" [(ngModel)]="privacy"><i class="check-box"></i>
+              </a
+              >
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="nearly-pepls" style="margin-top:5px;">
+              <a  title=""><i class="fa fa-lock" aria-hidden="true" style="font-size: 20px;"></i></a>
+            <div class="pepl-info">
+              <div>
+                <h3 style="font-weight: bolder;margin-top: 10px;">Chỉ mình tôi</h3>
+              </div>
+              <a class="add-butn" style="background: none;float:right">
+                <input type="radio" name="privacy" value="3" [(ngModel)]="privacy"><i class="check-box"></i>
+              </a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" tabindex="1" (click)="Done()">Xong</button>
+  <button mat-raised-button mat-dialog-close tabindex="-1" (click)="Cancel()">Hủy</button>
+</mat-dialog-actions>

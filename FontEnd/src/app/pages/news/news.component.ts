@@ -17,8 +17,10 @@ export class NewsComponent implements OnInit {
   page: any;
   data: any;
   postList: PostResponse[];
+  posts: PostResponse[];
   postShareList: sharePost[];
   size: number = 0;
+  index:number=0;
   constructor(
     private http: HttpClient,
     private commonService: CommonService,
@@ -38,23 +40,38 @@ export class NewsComponent implements OnInit {
             this.data = datas;
             this.postList = this.data.content;
             this.size = this.page.size;
+            this.index=this.page.index;
           },
           (error) => console.log(error)
         );
   }
   getAllPostNewsFeed() {
     this.page = {
-      index: 7,
+      index: 0,
       size: 5,
     };
     return this.http.post(`${this.baseUrl}/post/newsfeed`, this.page, {
       headers: this.headers,
     });
   }
+  updateNewfeed(event:any)
+  {
+    this.getAllPostNewsFeed()
+    .pipe(first())
+    .subscribe(
+      (datas) => {
+        this.data = datas;
+        this.postList = this.data.content;
+        this.size = this.page.size;
+      },
+      (error) => console.log(error)
+    );
+  }
   loadAdd() {
-    this.size = this.page.size + 5;
+    this.index=this.page.index+1;
+    this.size = this.page.size;
     this.page = {
-      index: 0,
+      index: this.index,
       size: this.size,
     };
     this.http
@@ -65,7 +82,11 @@ export class NewsComponent implements OnInit {
       .subscribe(
         (datas) => {
           this.data = datas;
-          this.postList = this.data.content;
+          this.posts=this.data.content;
+          for(var i = 0; i < this.posts.length ; i++){
+            this.postList.push(this.posts[i]);
+        }
+          console.log(this.postList);
         },
         (error) => console.log(error)
       );

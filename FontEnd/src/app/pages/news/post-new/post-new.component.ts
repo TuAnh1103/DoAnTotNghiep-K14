@@ -155,7 +155,6 @@ export class PostNewComponent implements OnInit, OnChanges {
   openDialogShare(){
     const dialogRef=this.dialog.open(ShareDialogComponent,{
       autoFocus: false,
-      maxHeight: '95vh',
       hasBackdrop:false,
       width:"700px",
       data:{

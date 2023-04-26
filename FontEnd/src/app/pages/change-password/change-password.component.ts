@@ -10,8 +10,7 @@ import { AlertDialogComponent } from 'src/app/shared/components/alert-dialog/ale
 import { ApiService } from 'src/app/core/service/api/api.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MessageResponse } from 'src/app/core/models/message-response.ts';
-import { AuthFirebaseService } from 'src/app/core/service/auth-firebase/auth-firebase.service';
-
+import { getAuth, updatePassword } from "firebase/auth";
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
@@ -25,7 +24,6 @@ export class ChangePasswordComponent implements OnInit {
   message:{};
   messageResponse:MessageResponse;
   constructor(
-    private auth:AuthFirebaseService,
     private snackBar: MatSnackBar,
     private api:ApiService,private dialog: MatDialog,
     private commonService:CommonService,
@@ -53,7 +51,18 @@ export class ChangePasswordComponent implements OnInit {
     .subscribe(
       response=>{
         this.message=response;
-        this.openDialog();
+        //this.openDialog();
+        this. showSnackbarSucsess("Thay đổi mật khẩu thành công!",'',1000);
+        this.router.navigateByUrl("/home");
+        const auth = getAuth();
+
+        const user = auth.currentUser;
+
+        updatePassword(user, this.newPassword).then(() => {
+          console.log("firebase pass");
+        }).catch((error) => {
+          console.log(error);
+        });
       },
       (error:HttpErrorResponse)=>{
         this. showSnackbarError(error.error.message,'',1000);
@@ -67,7 +76,7 @@ export class ChangePasswordComponent implements OnInit {
       }
     });
   }
-  
+
   cancel(){
     this.router.navigateByUrl("home");
   }

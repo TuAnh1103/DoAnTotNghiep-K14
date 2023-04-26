@@ -1,48 +1,31 @@
 <div class="central-meta">
     <div class="new-postbox">
         <figure>
-            <img src="assets/images/resources/admin2.jpg" alt="">
+            <img [src]="!user.avatar_image?'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg':user.avatar_image.link_image" style="width:60px;height:60px" alt="">
         </figure>
         <div class="newpst-input">
             <form method="post" [formGroup]="form" (ngSubmit)="onSubmit()">
-                <div>
+                <!-- <div>
                   <input type="radio" formControlName="privacy" value="1">Công khai
                   <input type="radio" formControlName="privacy" value="2">Chỉ bạn bè
                   <input type="radio" formControlName="privacy" value="3">Chỉ mình tôi
-                </div>
-                <textarea rows="2" placeholder="write something" formControlName="content" [(ngModel)]="content">
+                </div> -->
+                <button (click)="openDialog()" id="post" type="button">Bạn đang nghĩ gì ...</button>
+                <!-- <textarea rows="2" (click)="openDialog()" placeholder="write something" formControlName="content" [(ngModel)]="content">
                 </textarea>
                 <div class="attachments">
                     <ul>
-                        <!-- <li>
-                            <i class="fa fa-music"></i>
-                            <label class="fileContainer">
-                                <input type="file">
-                            </label>
-                        </li> -->
                         <li>
                             <i class="fa fa-image"></i>
                             <label class="fileContainer">
                                 <input type="file" multiple (change)="selectFiles($event)">
                             </label>
                         </li>
-                        <!-- <li>
-                            <i class="fa fa-video-camera"></i>
-                            <label class="fileContainer">
-                                <input type="file">
-                            </label>
-                        </li>
-                        <li>
-                            <i class="fa fa-camera"></i>
-                            <label class="fileContainer">
-                                <input type="file">
-                            </label>
-                        </li> -->
                         <li>
                             <button type="submit">Đăng</button>
                         </li>
                     </ul>
-                </div>
+                </div> -->
             </form>
         </div>
     </div>

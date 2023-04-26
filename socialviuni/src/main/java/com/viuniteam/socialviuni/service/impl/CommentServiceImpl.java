@@ -97,9 +97,9 @@
                     if(post.getAuthor().isActive() || userService.isAdmin(profile)){
                         comment.setPost(post);
                         Comment commentSuccess = commentRepository.save(comment);
-//                        if(typeComment.equals("CREATE")){
+                        if(typeComment.equals("CREATE")){
 //                            createNotification(post,comment.getUser(),NotificationSeenType.NOT_SEEN);
-//                        }
+                        }
                         return commentResponseUtils.convert(commentSuccess);
                     }
                     throw new ObjectNotFoundException("Bài viết không tồn tại");
@@ -163,8 +163,8 @@
                         content = fullName+" đã bình luận bài viết: "+postShortContent;
                     else
                         content = fullName +" và "+(commentCount-1) +" người khác đã bình luận bài viết: "+postShortContent;
-//                    NotificationPost notificationPost = notificationPostRepository.findOneByPostAndNotificationPostType(post,NotificationPostType.COMMENT);
-//                    notificationService.updateNotification(content,notificationPost,status);
+                    NotificationPost notificationPost = notificationPostRepository.findOneByPostAndNotificationPostType(post,NotificationPostType.COMMENT);
+                    notificationService.updateNotification(content,notificationPost,status);
                 }
             }
             private void createNotification(Post post, User user, NotificationSeenType status){

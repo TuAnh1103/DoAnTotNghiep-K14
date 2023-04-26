@@ -1,0 +1,61 @@
+<div class="user-post">
+        <div class="friend-info">
+          <div class="friend-info" style="float: left;">
+            <figure>
+              <img
+                [src]="
+                  !user.avatar_image
+                    ? 'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg'
+                    : user.avatar_image.link_image
+                "
+                alt=""
+              />
+            </figure>
+          <div class="friend-name">
+              <ins style="font-size:18px"
+                ><a href="" title=""
+                  >{{ user.first_name }} {{ user.last_name }}
+                </a></ins
+              >
+              <span  (click)="openPrivacy()" class="quyen"><i class="fa fa-unlock-alt" aria-hidden="true"></i>   Quyền riêng tư   <i class="fa fa-angle-down" aria-hidden="true"></i></span>
+          </div>
+          </div>
+          <mat-dialog-content>
+            <!-- <div>
+              <input type="radio" name="privacy" [(ngModel)]="privacy" value="1"><i class="check-box"></i>Công khai
+              <input type="radio" name="privacy" [(ngModel)]="privacy" value="2"><i class="check-box"></i>Bạn bè
+              <input type="radio" name="privacy" [(ngModel)]="privacy" value="3"><i class="check-box"></i>Chỉ mình tôi
+            </div> -->
+            <div class="description">
+              <textarea rows="2" placeholder="Bạn đang nghĩ gì đấy..." [(ngModel)]="content" style="border: none;">
+              </textarea>
+            </div>
+            <mat-icon id="delete" style="float:right"  [hidden]="!uploadCheck" (click)="clearImage()">cancel</mat-icon>
+            <div class="post-meta">
+              <div
+                style="width: 100%; height: 500px; margin: 0 auto;display:block;"
+                [hidden]="!uploadCheck"
+              >
+                <app-image-slider
+                  [slides]="slides"
+                  *ngIf="slides.length>0"
+                ></app-image-slider>
+              </div>
+            </div>
+            </mat-dialog-content>
+        </div>
+        <div style="display: flex;justify-content: space-between; border: 1px solid black;border-radius: 5px;">
+          <p style="margin: 10px;
+                  color: black;
+                  font-weight: 600;
+                  font-family: 'Roboto';">Thêm ảnh vào bài viết của bạn</p>
+          <label class="fileContainer" style="margin:10px">
+            <i class="fa fa-image" style="color:green;font-size:20px;"></i>
+          <input type="file" multiple (change)="selectFiles($event)" style="font-size:20px;">
+          </label>
+        </div>
+        <mat-dialog-actions align="center">
+          <button mat-raised-button color="primary" (click)="onConfirmClick()" tabindex="1">Lưu</button>
+          <button mat-raised-button mat-dialog-close tabindex="-1">Hủy</button>
+        </mat-dialog-actions>
+</div>

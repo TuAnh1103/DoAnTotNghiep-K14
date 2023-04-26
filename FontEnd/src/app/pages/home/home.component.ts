@@ -166,5 +166,7 @@ export class HomeComponent implements OnInit {
 
     });//document ready end
 }
-
+updateNewfeed(){
+  
+}
 }

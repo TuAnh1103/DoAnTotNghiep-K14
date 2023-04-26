@@ -18,7 +18,9 @@ export class PostShare_newComponent implements OnInit {
   page: any;
   data:any;
   postShareList:sharePost[];
+  postShares:sharePost[];
   size:number=0;
+  index:number=0;
   constructor(private route:ActivatedRoute,private http:HttpClient,private commonService:CommonService,private router:Router) {
     this.baseUrl=this.commonService.webApiUrl;
     this.headers=this.commonService.createHeadersOption(localStorage.getItem("token"));
@@ -33,6 +35,7 @@ export class PostShare_newComponent implements OnInit {
           this.data=datas;
           this.postShareList=this.data.content;
           this.size=this.page.size;
+          this.index=this.page.index;
         },
         (error)=>{
           console.log(error);
@@ -50,9 +53,10 @@ export class PostShare_newComponent implements OnInit {
     });
   }
   loadAdd(){
-    this.size=this.page.size + 2;
+    this.size=this.page.size;
+    this.index=this.page.index+1;
     this.page={
-      index:0,
+      index:this.index,
       size:this.size
     }
     this.http.post(`${this.baseUrl}/share/all/${this.id}`, this.page, {
@@ -61,8 +65,12 @@ export class PostShare_newComponent implements OnInit {
     .subscribe(
       (datas)=>{
         this.data = datas;
-        this.postShareList = this.data.content;
+        this.postShares = this.data.content;
+        for(var i = 0; i <  this.postShares.length ; i++){
+          this.postShareList.push(this.postShares[i]);
+      }
         this.size=this.page.size;
+        console.log(this.postShareList);
       },
       error=>console.log(error)
     )
@@ -73,7 +81,7 @@ export class PostShare_newComponent implements OnInit {
       .subscribe(
         (datas)=>{
           this.data=datas;
-          this.postShareList=this.data.content;
+          this.postShares=this.data.content;
           this.size=this.page.size;
           this.router.navigate(['/timeline', this.id, 'share']);
         },

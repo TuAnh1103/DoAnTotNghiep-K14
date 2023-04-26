@@ -11,4 +11,5 @@
             ShareResponse update(ShareSaveRequest shareSaveRequest, Long shareId);
             Page<ShareResponse> listShare(Long userId, Pageable pageable);
             ShareResponse newShare(Long userId);
+            Page<ShareResponse> findAllSharedPost(Pageable pageable);
         }

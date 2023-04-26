@@ -6,17 +6,14 @@
         import lombok.AllArgsConstructor;
         import org.springframework.data.domain.Page;
         import org.springframework.data.domain.PageRequest;
-        import org.springframework.web.bind.annotation.GetMapping;
-        import org.springframework.web.bind.annotation.RequestBody;
-        import org.springframework.web.bind.annotation.RequestMapping;
-        import org.springframework.web.bind.annotation.RestController;
+        import org.springframework.web.bind.annotation.*;
 
         @RestController
         @AllArgsConstructor
         @RequestMapping("/admin/user")
         public class AdminUserController {
             private final UserService userService;
-            @GetMapping("/all")
+            @PostMapping("/all")
             public Page<UserInfoResponse> findAll(@RequestBody PageInfo pageInfo){
                 PageRequest pageRequest = PageRequest.of(pageInfo.getIndex(), pageInfo.getSize());
                 Page<UserInfoResponse> userInfoResponsePage = userService.findAll(pageRequest);

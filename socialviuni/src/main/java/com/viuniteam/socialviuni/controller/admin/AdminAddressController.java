@@ -37,7 +37,7 @@
             public List<AddressResponse> getAll(){
                 return addressService.findAll();
             }
-            @PutMapping("/{id}")
+            @PostMapping("/{id}")
             public void updateAddress(@PathVariable("id") Long  id,@RequestBody AddressSaveRequest addressSaveRequest){
                 addressService.update(id,addressSaveRequest);
             }

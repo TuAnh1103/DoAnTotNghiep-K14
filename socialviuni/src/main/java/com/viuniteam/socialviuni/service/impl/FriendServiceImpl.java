@@ -36,7 +36,6 @@
             public List<UserInfoResponse> listFriendSuggestions(Long userId) {
                 User user = userService.findOneById(userId);
                 List<UserFriends> friendList = friendRepository.findByUserOrderByIdDesc(user.getId());
-                System.out.println(friendList.size());
                 List<Long> userIdList = new ArrayList<>();
                 userIdList.add(user.getId());
                 friendList.stream().forEach(friend -> userIdList.add(friend.getUserId()));

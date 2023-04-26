@@ -51,7 +51,7 @@ export class AuthenticationDialogComponent implements OnInit {
       data=>{
         console.log(this.form.get('email').value);
         console.log(this.form.get('password').value);
-        this.auth.signup(this.form.get('email').value, this.form.get('password').value).then(data=>{
+        this.auth.signup(this.form.get('email').value,'Ta110301').then(data=>{
           this.api.createUser(data.user.uid, {
             name: this.form.get('username').value,
             email: this.form.get('email').value,

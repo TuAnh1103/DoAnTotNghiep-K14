@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ScrollToConfigOptions, ScrollToService } from '@nicky-lenaers/ngx-scroll-to';
 import * as jQuery from 'jquery';
 import { first, map } from 'rxjs';
+import { ScrollToBottomDirective } from 'src/app/core/directive/scroll-to-bottom-directive';
 import { Friend, Friends } from 'src/app/core/models/friends.model';
 import { UserDetail } from 'src/app/core/models/user-detail';
 import { ApiService, Chat, User } from 'src/app/core/service/api/api.service';
@@ -17,6 +19,8 @@ import * as jquery1 from 'src/assets/admin/vendor/jquery/jquery';
   styleUrls: ['./chat-message.component.css']
 })
 export class ChatMessageComponent implements OnInit {
+  @ViewChild(ScrollToBottomDirective)
+  scroll: ScrollToBottomDirective;
   private baseUrl: string;
   private headers: any;
   listFriend: Friend[];
@@ -38,7 +42,8 @@ export class ChatMessageComponent implements OnInit {
   constructor(public api:ApiService,private helper: HelperService,
     private db: AngularFireDatabase,
     private router:Router,private route:ActivatedRoute,
-    private http: HttpClient, private commonService: CommonService) {
+    private http: HttpClient, private commonService: CommonService,
+    private _scrollToService: ScrollToService) {
     this.baseUrl = this.commonService.webApiUrl;
     this.headers = this.commonService.createHeadersOption(
       localStorage.getItem('token')
@@ -172,7 +177,7 @@ async selectUser(user) {
       console.log(this.messages);
       this.showMessages = true;
       setTimeout(() => {
-        //this.triggerScrollTo() //scroll to bottom
+        this.triggerScrollTo() //scroll to bottom
       }, 1000);
       return
     })
@@ -208,5 +213,11 @@ async selectUser(user) {
   this.api.pushNewMessage(this.messages,this.chat).then(() => {
     console.log('sent');
   })
+}
+public triggerScrollTo() {
+  const config: ScrollToConfigOptions = {
+    target: 'destination'
+  };
+  this._scrollToService.scrollTo(config);
 }
 }

@@ -13,6 +13,7 @@ export class NavTimelineComponent implements OnInit {
   private baseUrl:string;
   private headers:any;
   id:string;
+  checkUser:boolean=false;
   constructor(private router:Router,private snackBar: MatSnackBar,private route: ActivatedRoute,
     private http:HttpClient,private commonService:CommonService) {
     this.baseUrl = this.commonService.webApiUrl;
@@ -21,7 +22,10 @@ export class NavTimelineComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params)=>{
       this.id=params.get('id');
+      if(this.id==localStorage.getItem('userId'))
+      {
+        this.checkUser=true;
+      }
     })
   }
-
 }

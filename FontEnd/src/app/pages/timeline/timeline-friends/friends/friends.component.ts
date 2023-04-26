@@ -78,6 +78,7 @@ export class FriendsComponent implements OnInit {
     .subscribe(
       (datas)=>{
         this.countFriend = datas as number;
+        console.log(this.countFriend);
       },
       error=>console.log(error)
     )
@@ -89,6 +90,7 @@ export class FriendsComponent implements OnInit {
     .subscribe(
       (datas)=>{
         this.countFriendRequest = datas as number;
+        console.log(this.countFriendRequest);
       },
       error=>console.log(error)
     )

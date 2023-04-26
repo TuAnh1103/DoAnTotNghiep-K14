@@ -3,6 +3,7 @@
         import com.viuniteam.socialviuni.dto.response.friend.FriendResponse;
         import com.viuniteam.socialviuni.dto.response.user.UserInfoResponse;
         import com.viuniteam.socialviuni.service.FriendService;
+        import com.viuniteam.socialviuni.service.UserService;
         import com.viuniteam.socialviuni.utils.PageInfo;
         import lombok.AllArgsConstructor;
         import org.springframework.data.domain.Page;
@@ -15,6 +16,7 @@
         @RequestMapping("/friends/")
         public class FriendController {
             private final FriendService friendService;
+            private final UserService userService;
             private final Profile profile;
         //    @PostMapping("/add/{id}")
         //    public void addFriend(@PathVariable("id") Long idTarget){
@@ -42,8 +44,16 @@
                 PageRequest pageRequest = PageRequest.of(pageInfo.getIndex(), pageInfo.getSize());
                 return friendService.getAllByUserId(profile.getId(),pageRequest);
             }
+            @GetMapping("/count/{id}")
+            public int countFriendById(@PathVariable("id") Long id){
+                    return friendService.getAll(id).size();
+            }
             @PostMapping("/friend-suggestion")
             public List<UserInfoResponse> getListFriendSuggestion(){
                 return friendService.listFriendSuggestions(profile.getId());
+            }
+            @PostMapping("/suggest")
+            public List<UserInfoResponse> getSuggestionFriend(){
+                return userService.suggestFriendByUserId(profile.getId());
             }
         }

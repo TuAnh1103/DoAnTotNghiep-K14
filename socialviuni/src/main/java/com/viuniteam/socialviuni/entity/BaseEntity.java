@@ -13,4 +13,5 @@
             @Column(updatable = false)
             @CreationTimestamp
             private Date createdDate;
+
         }

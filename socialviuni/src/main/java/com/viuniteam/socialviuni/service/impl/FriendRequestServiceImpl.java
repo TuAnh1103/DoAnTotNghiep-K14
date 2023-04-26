@@ -34,6 +34,7 @@
             public void save(FriendRequest friendRequest) {
                 friendRequestRepository.save(friendRequest);
             }
+
             @Override
             public void addFriendRequest(Long idTarget) {
                 Long idSource = profile.getId();

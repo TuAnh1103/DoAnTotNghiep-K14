@@ -1,3 +1,4 @@
+<app-center-meta (updateNewFeed)="updateNewfeed($event)"></app-center-meta>
 <div class="loadMore">
   <div class="central-meta item" *ngFor="let post of postList">
   <app-user-post  [post]="post"  (updatePostEvent)="updatePost($event)"></app-user-post>

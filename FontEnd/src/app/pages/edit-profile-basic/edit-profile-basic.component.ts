@@ -9,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Favorite } from 'src/app/core/models/favorite.model';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { Address } from 'src/app/core/models/address.model';
 
 @Component({
   selector: 'app-edit-profile-basic',
@@ -31,6 +32,7 @@ export class EditProfileBasicComponent implements OnInit {
   status: number;
   userDetail: UserDetail;
   imageUrl: string;
+  addressList:Address[];
   favoriteList: Favorite[];
   favorites:any=[];
   private headers: any;
@@ -55,11 +57,25 @@ export class EditProfileBasicComponent implements OnInit {
     this.headers = this.commonService.createHeadersOption(
       localStorage.getItem('token')
     );
+    this.getAllAddress();
+    this.loadData();
   }
 
   ngOnInit(): void {
-    this.loadData();
     this.getAllFavorites();
+  }
+  getAllAddress(){
+    this.http.get(`${this.baseUrl}/user/getAddress`,{headers:this.headers})
+    .pipe(first())
+    .subscribe(
+      (datas)=>{
+        this.addressList=datas as Address[];
+        console.log(datas);
+      },
+      (error)=>{
+        console.log(error);
+      }
+    )
   }
   getAllFavorites(){
     this.http.get(`${this.baseUrl}/auth/favorite`)
@@ -87,8 +103,10 @@ export class EditProfileBasicComponent implements OnInit {
     }
   }
   loadData() {
-    this.userService
-      .getUserDetal(`${this.baseUrl}/user/me`, { headers: this.headers })
+    const favorites = (<FormArray>(
+      this.form.get("favorites")
+    )) as FormArray;
+    this.http.get(`${this.baseUrl}/user/id/${localStorage.getItem('userId')}`, { headers: this.headers })
       .pipe(first())
       .subscribe(
         (data) => {
@@ -102,7 +120,7 @@ export class EditProfileBasicComponent implements OnInit {
           this.image = this.userDetail.avatar_image as FileResponse;
           this.userDetail.user_favorite.forEach((e)=>{
             this.favorites.push(e.id);
-
+            favorites.push(new FormControl(e.id));
           });
         },
         (error) => {

@@ -1,4 +1,5 @@
         package com.viuniteam.socialviuni.dto.request.user;
+        import com.fasterxml.jackson.annotation.JsonProperty;
         import com.viuniteam.socialviuni.annotation.offensivekeyword.ValidOffensive;
         import com.viuniteam.socialviuni.annotation.offensivekeyword.ValidOffensiveKeyword;
         import lombok.Data;
@@ -9,6 +10,9 @@
         import javax.validation.constraints.NotBlank;
         import javax.validation.constraints.NotEmpty;
         import javax.validation.constraints.Pattern;
+        import java.util.ArrayList;
+        import java.util.List;
+
         @Data
         public class UserSaveRequest {
             @NotEmpty(message = "Tên người dùng không được để trống")
@@ -45,6 +49,8 @@
             @DateTimeFormat(pattern="yyyyMMdd")
             private String dob;
             private boolean gender;
+            @JsonProperty("favoriteIds")
+            private List<Long> favoriteIds = new ArrayList<>();
             @Length(min = 8, max = 8, message = "Mã xác nhận không chính xác")
             private String code;
         }

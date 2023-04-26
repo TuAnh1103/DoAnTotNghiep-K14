@@ -25,7 +25,7 @@
              Authentication in the context, to specify that the current user is authenticated.
              */
             @Component
-            public class JwtRequestFilter extends OncePerRequestFilter {
+            public class  JwtRequestFilter extends OncePerRequestFilter {
                 @Autowired
                 private UserService userService;
                 @Autowired

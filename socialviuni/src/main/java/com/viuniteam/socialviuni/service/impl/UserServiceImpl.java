@@ -1,15 +1,14 @@
         package com.viuniteam.socialviuni.service.impl;
         import com.viuniteam.socialviuni.dto.Profile;
+        import com.viuniteam.socialviuni.dto.request.post.PostSaveRequest;
         import com.viuniteam.socialviuni.dto.request.user.UserFilterRequest;
         import com.viuniteam.socialviuni.dto.request.user.UserRecoveryPasswordRequest;
         import com.viuniteam.socialviuni.dto.request.user.UserSaveRequest;
         import com.viuniteam.socialviuni.dto.request.user.UserUpdateInfoRequest;
+        import com.viuniteam.socialviuni.dto.response.post.PostResponse;
         import com.viuniteam.socialviuni.dto.response.user.UserInfoResponse;
         import com.viuniteam.socialviuni.dto.utils.user.UserInfoResponseUtils;
-        import com.viuniteam.socialviuni.entity.Address;
-        import com.viuniteam.socialviuni.entity.Image;
-        import com.viuniteam.socialviuni.entity.Role;
-        import com.viuniteam.socialviuni.entity.User;
+        import com.viuniteam.socialviuni.entity.*;
         import com.viuniteam.socialviuni.enumtype.RoleType;
         import com.viuniteam.socialviuni.enumtype.SendCodeType;
         import com.viuniteam.socialviuni.exception.BadRequestException;
@@ -17,28 +16,25 @@
         import com.viuniteam.socialviuni.exception.ObjectNotFoundException;
         import com.viuniteam.socialviuni.mapper.request.user.UserRequestMapper;
         import com.viuniteam.socialviuni.repository.AddressRepository;
+        import com.viuniteam.socialviuni.repository.FavoriteRepository;
         import com.viuniteam.socialviuni.repository.RoleRepository;
         import com.viuniteam.socialviuni.repository.UserRepository;
         import com.viuniteam.socialviuni.repository.specification.UserSpecification;
-        import com.viuniteam.socialviuni.service.ImageService;
-        import com.viuniteam.socialviuni.service.MailService;
-        import com.viuniteam.socialviuni.service.PostService;
-        import com.viuniteam.socialviuni.service.UserService;
+        import com.viuniteam.socialviuni.service.*;
         import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.data.domain.Page;
-        import org.springframework.data.domain.PageImpl;
-        import org.springframework.data.domain.PageRequest;
-        import org.springframework.data.domain.Pageable;
+        import org.springframework.data.domain.*;
         import org.springframework.security.core.GrantedAuthority;
         import org.springframework.security.core.authority.SimpleGrantedAuthority;
         import org.springframework.security.core.userdetails.UserDetails;
         import org.springframework.security.core.userdetails.UsernameNotFoundException;
         import org.springframework.security.crypto.password.PasswordEncoder;
         import org.springframework.stereotype.Service;
+        import org.thymeleaf.spring5.processor.SpringOptionFieldTagProcessor;
 
         import java.time.LocalDate;
         import java.time.LocalDateTime;
         import java.util.*;
+        import java.util.function.Function;
         import java.util.stream.Collectors;
         @Service
         public class UserServiceImpl implements UserService {
@@ -61,6 +57,10 @@
             @Autowired
             private PostService postService;
             @Autowired
+            private FavoriteRepository favoriteRepository;
+            @Autowired
+            private FavoriteService favoriteService;
+            @Autowired
             private UserInfoResponseUtils userInfoResponseUtils;
         //    @Autowired
         //    private HandlingOffensive handlingOffensive;
@@ -74,8 +74,10 @@
                 user.setActive(true);
                 List<Long> roleIds = Arrays.asList(roleRepository.findOneByName(RoleType.ROLE_USER.getName()).getId());
                 List<Role> roles = roleRepository.findAllByIdIn(roleIds);
+                List<Favorite> favorites = listFavoriteFromRequest(userSaveRequest);
                 user.setRoles(roles);
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
+                user.setFavorites(favorites);
                 userRepository.save(user);
                 throw new OKException("Đăng ký tài khoản thành công");
             }
@@ -171,6 +173,44 @@
                 }
             }
             @Override
+
+            public Page<UserInfoResponse> searchFriend(UserFilterRequest userFilterRequest) {
+                PageRequest pageRequest = PageRequest.of(userFilterRequest.getIndex(), userFilterRequest.getSize());
+                List<Long> userIds=userRepository.getUserByKeySearch(userFilterRequest.getKeyword(),profile.getId());
+                List<User> userSearchList= new ArrayList<>();
+                userIds.forEach(id->{
+                    User user=userRepository.findOneById(id);
+                    userSearchList.add(user);
+                });
+                List<UserInfoResponse>userInfoResponseList=new ArrayList<>();
+                userSearchList.stream().forEach(user ->{
+                    if(user.isActive())
+                    {
+                        UserInfoResponse userInfoResponse=userInfoResponseUtils.convert(user);
+                        userInfoResponseList.add(userInfoResponse);
+                    }
+                });
+                return new PageImpl<>(userInfoResponseList, pageRequest,userInfoResponseList.size());
+            }
+            @Override
+            public List<UserInfoResponse> suggestFriendByUserId(Long id){
+                List<Long> userIds=userRepository.getSuggestFriendByUserId(id);
+                List<User> userSuggestList= new ArrayList<>();
+                userIds.forEach(a ->{
+                    User user=userRepository.findOneById(a);
+                    userSuggestList.add(user);
+                });
+                List<UserInfoResponse>userInfoResponseList=new ArrayList<>();
+                userSuggestList.stream().forEach(user ->{
+                    if(user.isActive())
+                    {
+                        UserInfoResponse userInfoResponse=userInfoResponseUtils.convert(user);
+                        userInfoResponseList.add(userInfoResponse);
+                    }
+                });
+                return userInfoResponseList;
+            }
+            @Override
             public User findOneById(Long id) {
                 return userRepository.findOneById(id);
             }
@@ -194,6 +234,9 @@
             public List<User> findByCurrentCity(Address address) {
                 return userRepository.findByCurrentCity(address);
             }
+            public  List<User> findByFavorite(Favorite favorite){
+                return userRepository.findByFavorites(favorite);
+            }
         //    update  thong tin ca nhan user
             @Override
             public void updateInfo(UserUpdateInfoRequest userUpdateInfoRequest) {
@@ -207,6 +250,7 @@
                 Long idCurrentCity = userUpdateInfoRequest.getIdCurrentCity();
                 Long idAvatarImage = userUpdateInfoRequest.getIdAvatarImage();
                 Long idCoverImage = userUpdateInfoRequest.getIdCoverImage();
+                List<Favorite> favorites = listFavoriteFromUpdateRequest(userUpdateInfoRequest);
                 if(lastName!=null)
                     user.setLastName(lastName);
                 if(firstName!=null)
@@ -251,6 +295,11 @@
                         postService.autoCreatePost(String.format("%s đã thay đổi ảnh bìa của %s ấy",profile.getFirstName(),genderUser),newCover);
                     }
                 }
+                if(favorites!=null&&favorites.size()>0)
+                {
+                    user.setFavorites(favorites);
+                }
+
                 update(user);
                 throw new OKException("Cập nhật thông tin thành công");
             }
@@ -265,6 +314,33 @@
             @Override
             public Boolean existsByUsername(String username) {
                 return userRepository.existsByUsername(username);
+            }
+
+            public List<Favorite> listFavoriteFromRequest(UserSaveRequest userSaveRequest){
+                if(userSaveRequest.getFavoriteIds()!=null){
+                    List<Favorite> favorites = new ArrayList<>();
+                    userSaveRequest.getFavoriteIds().forEach(favoriteId->{
+                        Favorite favorite = favoriteRepository.findOneById(favoriteId);
+                        if(favorite!=null)
+                        {
+                            favorites.add(favorite);
+                        }
+                    });
+                    return favorites;
+                }
+                return null;
+            }
+            public List<Favorite> listFavoriteFromUpdateRequest(UserUpdateInfoRequest userUpdateInfoRequest){
+                if(userUpdateInfoRequest.getFavoriteIds()!=null){
+                    List<Favorite> favorites = new ArrayList<>();
+                    userUpdateInfoRequest.getFavoriteIds().forEach(favoriteId->{
+                        Favorite favorite = favoriteRepository.findOneById(favoriteId);
+                        if(favorite!=null)
+                            favorites.add(favorite);
+                    });
+                    return favorites;
+                }
+                return null;
             }
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

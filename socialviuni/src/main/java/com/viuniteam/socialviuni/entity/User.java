@@ -1,5 +1,8 @@
         package com.viuniteam.socialviuni.entity;
+        import lombok.AllArgsConstructor;
+        import lombok.Builder;
         import lombok.Data;
+        import lombok.NoArgsConstructor;
 
         import javax.persistence.*;
         import java.awt.print.Book;
@@ -10,6 +13,10 @@
         import java.util.Set;
         @Entity
         @Data
+        @Builder
+        @AllArgsConstructor
+        @NoArgsConstructor
+
         public class User extends BaseEntity{
             @Column(unique = true, columnDefinition = "varchar(15)",updatable = false)
             private String username;
@@ -43,7 +50,10 @@
             @JoinTable(name = "user_avatar",joinColumns = @JoinColumn(name = "user_id",nullable = false),
                     inverseJoinColumns = @JoinColumn(name = "image_id",nullable = false))
             private List<Image> avatarImage = new ArrayList<>();
-
+            @ManyToMany
+            @JoinTable(name = "user_favorite",joinColumns = @JoinColumn(name = "user_id",nullable = false),
+                    inverseJoinColumns = @JoinColumn(name = "favorite_id",nullable = false))
+            private List<Favorite> favorites  = new ArrayList<>();
             @ManyToMany
             @JoinTable(name = "user_cover",joinColumns = @JoinColumn(name = "user_id",nullable = false),
                     inverseJoinColumns = @JoinColumn(name = "image_id",nullable = false))
@@ -80,4 +90,5 @@
             private List<Report> reports = new ArrayList<>();
             @OneToMany(mappedBy = "user")
             private List<Browser> browsers = new ArrayList<>();
+
         }

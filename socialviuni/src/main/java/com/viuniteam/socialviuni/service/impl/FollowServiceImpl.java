@@ -190,7 +190,6 @@
                         following -> {
                             FollowResponse followResponse = followingResponseMapper.from(following);
                             followResponse.setUserInfoResponse(userInfoResponseMapper.from(following.getUser()));
-                            System.out.println(following.getId());
                             followResponseList.add(followResponse);
                         }
                 );

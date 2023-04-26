@@ -31,6 +31,8 @@ import { UserAdminComponent } from './admin/user-admin/user-admin.component';
 import { UserdetailViewComponent } from './admin/userdetail-view/userdetail-view.component';
 import { ChatMessageComponent } from './pages/chat-message/chat-message.component';
 import { ChatMessageContentComponent } from './pages/chat-message/chat-message-content/chat-message-content.component';
+import { AddNewPostComponent } from './shared/components/add-new-post/add-new-post.component';
+import { PrivacyDialogComponent } from './shared/components/privacy-dialog/privacy-dialog.component';
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, /* redirect without clear GET params */
   { path: 'login', component: LoginComponent },
@@ -119,10 +121,15 @@ const routes: Routes = [
         path:'view/:userId',
         component:UserdetailViewComponent,
         canActivate:[AuthGuardService]
-      }
+      },
+
     ],
   },
   {path:'messager/t/:chatId',component:ChatMessageComponent,canActivate:[AuthGuardService]},
+  {
+    path:'privacy',
+    component:PrivacyDialogComponent
+  },
   { path: '**', redirectTo: 'home' }
 ];
 
