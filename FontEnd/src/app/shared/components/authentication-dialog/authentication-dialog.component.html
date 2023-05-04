@@ -4,8 +4,8 @@
         <input type="text" id="input" formControlName="code"/>
         <label class="control-label" for="input">Vui lòng nhập mã xác nhận</label><i class="mtrl-select"></i>
       </div>
-      <div class="submit-btns">
-        <button class="mtr-btn" type="submit"><span>Xác thực</span></button>
-        <button class="mtr-btn" type="button" (click)="close()"><span>Hủy</span></button>
-      </div>
+      <mat-dialog-actions align="right">
+        <button mat-raised-button type="submit" color="primary" tabindex="1">Xác thực</button>
+        <button mat-raised-button mat-dialog-close tabindex="-1" type="button" (click)="close()">Hủy</button>
+      </mat-dialog-actions>
     </form>

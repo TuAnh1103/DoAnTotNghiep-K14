@@ -8,6 +8,7 @@
         import org.springframework.data.jpa.repository.Query;
 
         import javax.transaction.Transactional;
+        import java.util.List;
         @Transactional
         public interface FriendRequestRepository extends JpaRepository<FriendRequest,Long> {
             void deleteById(Long id);
@@ -27,4 +28,11 @@
                     countQuery = "select count(*) from friend_request fr join user_friend_requests ufr on fr.id = ufr.friend_requests_id and ufr.user_id=?1",
                     nativeQuery = true)
             Page<FriendRequest> findByUser(Long id, Pageable pageable);
+            @Query(value="select distinct friend_request.* from user_friend_requests inner join friend_request on user_friend_requests.friend_requests_id=friend_request.id where user_friend_requests.user_id=?1",
+                    nativeQuery = true)
+            List<FriendRequest>getFriendRequestByUserId(Long id);
+            @Query(value = "select distinct user_friend_requests.user_id from user_friend_requests inner join friend_request on user_friend_requests.friend_requests_id=friend_request.id where friend_request.user_id=?1",nativeQuery = true)
+            List<Long>getListFriendRequestByMe(Long id);
+            @Query(value = "select distinct friend_request.user_id from user_friend_requests inner join friend_request on user_friend_requests.friend_requests_id=friend_request.id where user_friend_requests.user_id=?1",nativeQuery = true)
+            List<Long>getListFriendRequestToMe(Long id);
         }

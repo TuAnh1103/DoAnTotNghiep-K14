@@ -33,7 +33,7 @@
                     {{ user.first_name }}</a
                   >
                 </h4>
-                <a
+                <!-- <a
                   class="add-butn more-action"
                   style="
                     background-color: #e4e6eb;
@@ -47,8 +47,7 @@
                   [hidden]="
                   user.id.toString() != myId ? false : true
                   "
-                  >Theo dõi</a
-                >
+                  >Theo dõi</a>
                 <a
                   title=""
                   class="add-butn"
@@ -64,7 +63,62 @@
                       ? false
                       : true
                   "
+                  >Thêm bạn bè</a> -->
+
+                  <a
+                  class="add-butn"
+                  style="
+                    background-color: #3c86f5;
+                    border-radius: 5px;
+                    line-height: 20px;
+                    color: white;
+                  "
+                  title=""
+                  data-ripple=""
+                  [hidden]="(myId!==user.id.toString()&&!myFriends.includes(user.id)&&!myRequestFriendsByMy.includes(user.id)&&!myRequestFriendsToMy.includes(user.id))?false:true"
+                  (click)="addFriend(user.id)"
                   >Thêm bạn bè</a
+                >
+                <a
+                class="add-butn"
+                style="
+                  background-color: #3c86f5;
+                  border-radius: 5px;
+                  line-height: 20px;
+                  color: white;
+                "
+                [routerLink]="['/messager/t',user.id]"
+                title=""
+                data-ripple=""
+                [hidden]="(myId!==user.id.toString()&&myFriends.includes(user.id))?false:true"
+                >Nhắn tin</a
+              >
+              <a
+              class="add-butn"
+              style="
+                background-color: #3c86f5;
+                border-radius: 5px;
+                line-height: 20px;
+                color: white;
+              "
+                  title=""
+                  data-ripple=""
+                  [hidden]="(myId!==user.id.toString()&&!myFriends.includes(user.id)&&myRequestFriendsByMy.includes(user.id))?false:true"
+                  >Đã gửi lời mời kết bạn</a
+                >
+                <a
+                class="add-butn"
+                style="
+                  background-color: #3c86f5;
+                  border-radius: 5px;
+                  line-height: 20px;
+                  color: white;
+                "
+                  title=""
+                  data-ripple=""
+                  [hidden]="(myId!==user.id.toString()&&!myFriends.includes(user.id)&&!myRequestFriendsByMy.includes(user.id)&&myRequestFriendsToMy.includes(user.id))?false:true"
+                  (click)="confirmReqest(user.id)"
+                  >Xác nhận lời mời</a
                 >
               </div>
             </div>

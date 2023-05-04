@@ -13,4 +13,6 @@
             Page<FollowResponse> getAllFollowingByUserId(Long id, Pageable pageable);
             boolean isFollower(Long idSource,Long idTarget);
             boolean isFollowing(Long idSource,Long idTarget);
+
+            List<Long> getFollowingIdByUserId();
         }

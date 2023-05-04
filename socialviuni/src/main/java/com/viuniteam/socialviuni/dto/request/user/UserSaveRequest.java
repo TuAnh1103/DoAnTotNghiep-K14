@@ -49,6 +49,7 @@
             @DateTimeFormat(pattern="yyyyMMdd")
             private String dob;
             private boolean gender;
+            private String address;
             @JsonProperty("favoriteIds")
             private List<Long> favoriteIds = new ArrayList<>();
             @Length(min = 8, max = 8, message = "Mã xác nhận không chính xác")

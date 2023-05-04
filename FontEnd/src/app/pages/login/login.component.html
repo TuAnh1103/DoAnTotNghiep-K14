@@ -15,10 +15,15 @@
 							<div class="form-group">
 							  <input type="text" id="input" formControlName="username" required="required"/>
 							  <label class="control-label" for="input">Tên đăng nhập</label><i class="mtrl-select"></i>
-							</div>
-							<div class="form-group">
-							  <input type="password" formControlName="password" required="required"/>
-							  <label class="control-label" for="input">Mật khẩu</label><i class="mtrl-select"></i>
+              </div>
+							<div class="form-group"  style="display:flex;">
+                  <input type="password" formControlName="password" name="password" required="required"  id="ipnPassword" />
+                  <label class="control-label" for="input">Mật khẩu</label><i class="mtrl-select"></i>
+                  <div class="input-group-append">
+                    <button style="font-size: 12px;" class="btn btn-outline-secondary" type="button" id="btnPassword">
+                      <span class="fas fa-eye"></span>
+                    </button>
+                  </div>
 							</div>
 							<div class="submit-btns">
                 <mat-dialog-actions align="center">

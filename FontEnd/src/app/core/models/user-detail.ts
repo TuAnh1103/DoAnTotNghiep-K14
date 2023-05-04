@@ -18,4 +18,5 @@ export class UserDetail {
     avatar_image:FileResponse;
     created_date:Date;
     user_favorite:Favorite[];
+    address:string;
 }

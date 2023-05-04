@@ -22,7 +22,7 @@
                         </div>
                     </li>
                     <li><a [routerLink]="['/home']" title="Home" data-ripple=""><i class="ti-home"></i></a></li>
-                    <li>
+                    <!-- <li>
                         <a href="#" title="Notification" data-ripple="">
                             <i class="ti-bell"></i><span>20</span>
                         </a>
@@ -151,7 +151,7 @@
                             </ul>
                             <a href="messages.html" title="" class="more-mesg">view more</a>
                         </div>
-                    </li>
+                    </li> -->
                     <li><a href="#" title="Languages" data-ripple=""><i class="fa fa-globe"></i></a>
                         <div class="dropdowns languages">
                             <a href="#" title=""><i class="ti-check"></i>Tiếng việt</a>
@@ -164,7 +164,8 @@
                     <div class="user-setting">
                         <a [routerLink]="['/account/editProfile']" title=""><i class="ti-pencil-alt"></i>hồ sơ cá nhân</a>
                         <a [routerLink]="['/account/changePassword']" title=""><i class="ti-settings"></i>Cài đặt</a>
-                        <a href="#" [routerLink]="['/login']"  title="" (click)="logout()"><i class="ti-power-off"></i>Đăng xuất</a>
+                        <a [routerLink]="['/email']" title=""><i class="ti-settings"></i>Thay đổi email</a>
+                        <a [routerLink]="['/login']"  title="" (click)="logout()"><i class="ti-power-off"></i>Đăng xuất</a>
                     </div>
                 </div>
                 <span class="ti-menu main-menu" data-ripple=""></span>

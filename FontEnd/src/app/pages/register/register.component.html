@@ -83,7 +83,7 @@
                         form.get('dob').invalid
                       "
                     >
-                      Yêu cầu nhập ngày sinh
+                      Yêu cầu nhập đúng định dạng ngày sinh
                     </span>
                   </div>
                 </div>
@@ -95,6 +95,7 @@
                       [(ngModel)]="email"
                       name="email"
                       id="email"
+
                     />
                     <label class="control-label" for="input">Email :</label
                     ><i class="mtrl-select"></i>
@@ -108,12 +109,13 @@
                         form.get('email').invalid
                       "
                     >
-                      Yêu cầu nhập email
+                      Yêu cầu nhập đúng định dang email
                     </span>
                   </div>
                 </div>
               </div>
               <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="form-group">
                   <label style="font-size: .8rem;color:#088dcd">Giới tính</label>
                   <div class="form-radio">
@@ -129,7 +131,7 @@
                         /><i class="check-box"></i>Nam
                       </label>
                     </div>
-                    <div class="radio">
+                    <div class="radio" style="margin-left:10px;">
                       <label>
                         <input
                           type="radio"
@@ -144,7 +146,20 @@
                   <div></div>
                 </div>
               </div>
-              <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="form-group">
+                  <label for="pass" style="font-size: .8rem;color:#088dcd">Sở thích</label>
+                  <div>
+                    <mat-form-field style="width: 18vw;">
+                      <mat-select placeholder="Sở thích" multiple formControlName="favorites">
+                        <mat-option *ngFor="let favorite of favoriteList" [value]="favorite.id.toString()">{{favorite.favorite_name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+                </div>
+              </div>
+              <!-- <div class="row">
                 <div class="form-group">
                   <label for="pass" style="font-size: .8rem;color:#088dcd">Sở thích</label>
                   <ul class="photos">
@@ -155,6 +170,25 @@
                     </li>
                   </ul>
                 </div>
+              </div> -->
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group">
+                  <label style="font-size: .8rem;color:#088dcd">Địa chỉ</label>
+                  <div>
+                      <mat-form-field style="width: 17vw;margin-right:2vw">
+                        <mat-select placeholder="Chọn tỉnh" [(ngModel)]="tinh" formControlName="tinh">
+                          <mat-option *ngFor="let c of city" [value]="c"(onSelectionChange)="choose($event,c)">{{c.name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <mat-form-field style="width: 17vw;">
+                        <mat-select placeholder="Chọn huyện" [(ngModel)]="huyen" formControlName="huyen">
+                          <mat-option *ngFor="let d of district" [value]="d">{{d.name}}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                  </div>
+                </div>
+              </div>
               </div>
               <div class="row">
                 <div class="form-group">
@@ -178,21 +212,28 @@
                       form.get('username').invalid
                     "
                   >
-                    Yêu cầu nhập tên người dùng
+                  Tên người dùng phải có độ dài từ 5 đến 15
                   </span>
                 </div>
               </div>
               <div class="row">
                 <div class="form-group">
-                  <input
+                  <div style="display:flex;">
+                    <input
                     type="password"
                     formControlName="password"
                     [(ngModel)]="password"
                     name="password"
-                    id="password"
+                    id="ipnPassword"
                   />
                   <label class="control-label" for="input">Mật khẩu:</label
                   ><i class="mtrl-select"></i>
+                  <div class="input-group-append">
+                    <button style="font-size: 12px;" class="btn btn-outline-secondary" type="button" id="btnPassword">
+                      <span class="fas fa-eye"></span>
+                    </button>
+                  </div>
+                  </div>
                   <span
                     class="text-danger"
                     stype="font-size: 12px;
@@ -210,6 +251,7 @@
               </div>
               <div class="row">
                 <div class="form-group">
+                  <div style="display:flex;">
                   <input
                     type="password"
                     formControlName="password_confirmation"
@@ -221,6 +263,12 @@
 
                     >Nhập lại mật khẩu :</label
                   ><i class="mtrl-select"></i>
+                  <div class="input-group-append">
+                    <button style="font-size: 12px;" class="btn btn-outline-secondary" type="button" id="btnPasswordConfim">
+                      <span class="fas fa-eye"></span>
+                    </button>
+                  </div>
+                  </div>
                   <span
                     class="text-danger"
                     stype="font-size: 12px;

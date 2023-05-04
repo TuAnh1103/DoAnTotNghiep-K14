@@ -1,6 +1,7 @@
         package com.viuniteam.socialviuni.service.impl;
         import com.viuniteam.socialviuni.dto.Profile;
         import com.viuniteam.socialviuni.dto.response.friendrequest.FriendRequestResponse;
+        import com.viuniteam.socialviuni.dto.response.image.ImageResponse;
         import com.viuniteam.socialviuni.entity.FriendRequest;
         import com.viuniteam.socialviuni.entity.User;
         import com.viuniteam.socialviuni.exception.BadRequestException;
@@ -34,11 +35,18 @@
             public void save(FriendRequest friendRequest) {
                 friendRequestRepository.save(friendRequest);
             }
-
+            @Override
+            public List<Long> getFriendRequestByMe(Long id){
+                return friendRequestRepository.getListFriendRequestByMe(id);
+            }
+            @Override
+            public  List<Long>getListFriendRequestToMe(Long id){
+                return friendRequestRepository.getListFriendRequestToMe(id);
+            }
             @Override
             public void addFriendRequest(Long idTarget) {
                 Long idSource = profile.getId();
-                if(friendService.isFriend(idSource,idTarget))
+                    if(friendService.isFriend(idSource,idTarget))
                     throw new BadRequestException("Đã kết bạn rồi");
                 else {
                     if (this.isFriendRequest(idSource,idTarget))
@@ -80,12 +88,13 @@
                             throw new OKException("Chấp nhận lời mời kết bạn thành công");
                         }
                         else {
-                            List<FriendRequest> friendRequestTargetList = userTarget.getFriendRequests();
+                            //List<FriendRequest> friendRequestTargetList = userTarget.getFriendRequests();
+                            List<FriendRequest> friendRequestTargetList =friendRequestRepository.getFriendRequestByUserId(userTarget.getId());
                             // add friend request source to list target
                             FriendRequest friendTarget = new FriendRequest();
                             friendTarget.setUser(userSource);
-                            this.save(friendTarget);
-                            friendRequestTargetList.add(friendTarget);
+                           this.save(friendTarget);
+                           friendRequestTargetList.add(friendTarget);
                             userTarget.setFriendRequests(friendRequestTargetList);
                             userService.update(userTarget);
                             throw new OKException("Đã gửi lời mời kết bạn thành công");
@@ -160,7 +169,7 @@
                 User user = userService.findOneById(profile.getId());
                 if(user == null)
                     throw new ObjectNotFoundException("Người dùng không tồn tại");
-                List<FriendRequest> friendRequestList = user.getFriendRequests();
+                List<FriendRequest> friendRequestList = friendRequestRepository.getFriendRequestByUserId(profile.getId());
                 List<FriendRequestResponse> friendRequestResponseList = new ArrayList<>();
                 friendRequestList.forEach(friend -> {
                     FriendRequestResponse friendRequestResponse = friendRequestResponseMapper.from(friend);
@@ -179,7 +188,16 @@
                 friendRequestPage.stream().forEach(
                         friendRequest -> {
                             FriendRequestResponse friendRequestResponse = friendRequestResponseMapper.from(friendRequest);
+                            ImageResponse x=new ImageResponse();
                             friendRequestResponse.setUserInfoResponse(userInfoResponseMapper.from(friendRequest.getUser()));
+                            int i=friendRequest.getUser().getAvatarImage().size();
+                            if(i!=0)
+                            {
+                                i-=1;
+                                x.setLinkImage(friendRequest.getUser().getAvatarImage().get(i).getLinkImage());
+                                x.setId(friendRequest.getUser().getAvatarImage().get(i).getId());
+                                friendRequestResponse.getUserInfoResponse().setAvatar(x);
+                            }
                             friendRequestResponseList.add(friendRequestResponse);
                         }
                 );

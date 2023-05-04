@@ -74,7 +74,6 @@ export class ApiService {
     return this.afs.collection('users/').doc(localStorage.getItem('uid')).valueChanges();
   }
 
-
   /* USERS */
 
 

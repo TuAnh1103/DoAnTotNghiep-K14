@@ -15,7 +15,7 @@
         </figure>
       <div class="friend-name">
           <ins
-            ><a href="" title=""
+            ><a  [routerLink]="['/timeline', post.author.id]" title=""
               >{{ post.author.first_name }} {{ post.author.last_name }}
             </a></ins
           >
@@ -69,7 +69,7 @@
   <div class="coment-area">
     <ul class="we-comet">
       <li *ngFor="let comment of commentList" [hidden]="!open">
-        <app-comment-post [comment]="comment"></app-comment-post>
+        <app-comment-post [comment]="comment"  (updateComment)="updateComment($event)"></app-comment-post>
       </li>
       <li [hidden]="!open">
         <a href="#" title="" class="showmore underline">xem thêm</a>

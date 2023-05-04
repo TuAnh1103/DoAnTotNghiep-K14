@@ -9,6 +9,8 @@
         import org.springframework.data.jpa.repository.Query;
 
         import javax.transaction.Transactional;
+        import java.util.List;
+
         public interface FollowingRepository extends JpaRepository<Following,Long> {
             @Override
             void deleteById(Long id);
@@ -30,4 +32,7 @@
             @Modifying
             @Transactional
             void deleteFollowingById(Long id);
+            @Query(value="select distinct following.user_id from user_followings inner join following on user_followings.followings_id=following.id where user_followings.user_id=?1",
+                    nativeQuery = true)
+            List<Long> getFollowingIdByUserId(Long id);
         }

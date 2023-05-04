@@ -1,6 +1,6 @@
 import { first } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Follower, Followers } from 'src/app/core/models/Followers.model';
 import { CommonService } from 'src/app/shared/common.service';
@@ -15,7 +15,7 @@ import { UserDetail } from 'src/app/core/models/user-detail';
   styleUrls: ['./suggest-friend.component.css']
 })
 export class SuggestFriendComponent implements OnInit {
-
+  
   private baseUrl: string;
   private headers: any;
   listSuggestFriend: UserDetail[];
@@ -47,6 +47,21 @@ export class SuggestFriendComponent implements OnInit {
       headers: this.headers
     });
   }
+
+  getSuggest(){
+    this.getAllSuggestFriend()
+    .pipe(first())
+    .subscribe(
+      (datas)=>{
+        this.data=datas as UserDetail[];
+        this.listSuggestFriend=this.data;
+        console.log(datas);
+      },
+      (error)=>{
+        console.log(error);
+      }
+    )
+  };
   addFriend(id:number)
   {
     const headers = new HttpHeaders({
@@ -57,10 +72,13 @@ export class SuggestFriendComponent implements OnInit {
     }).pipe(first())
     .subscribe(
     (message)=>{
+      console.log(message);
       this.messageResponse=message;
       this.showSnackbarSucsess(this.messageResponse.message,'',2000);
+      this.getSuggest();
     },
     (error:HttpErrorResponse)=>{
+      console.log(error);
       this.messageResponse=error.error;
       this.showSnackbarError(this.messageResponse.message,'',2000);
     })
@@ -86,15 +104,15 @@ export class SuggestFriendComponent implements OnInit {
   showSnackbarSucsess(content, action, duration) {
     this.snackBar.open(content, action, {
       duration: 1000,
-      verticalPosition: "bottom", // Allowed values are  'top' | 'bottom'
-      horizontalPosition: "left",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
+      verticalPosition: "top", // Allowed values are  'top' | 'bottom'
+      horizontalPosition: "center",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
       panelClass: ["custom-style"]
   })}
   showSnackbarError(content, action, duration) {
     this.snackBar.open(content, action, {
       duration: 1000,
-      verticalPosition: "bottom", // Allowed values are  'top' | 'bottom'
-      horizontalPosition: "left",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
+      verticalPosition: "top", // Allowed values are  'top' | 'bottom'
+      horizontalPosition: "center",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
       panelClass: ["error-custom-style"]
   })}
 }

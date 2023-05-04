@@ -18,16 +18,24 @@ export class SearchUserComponent implements OnInit {
   private headers:any;
   key:string;
   users:UserDetail[];
+  usersList:UserDetail[];
   userFilterRequest:any;
   messageResponse:MessageResponse;
   checkUser:boolean;
   myId:string;
+  index:number=0;
   size:number=0;
   data:any;
+  myFriends:Number[];
+  myRequestFriendsByMy:Number[];
+  myRequestFriendsToMy:Number[];
   constructor(private snackBar: MatSnackBar,private http:HttpClient,private commonService:CommonService,private route:ActivatedRoute) {
     this.baseUrl=this.commonService.webApiUrl;
     this.headers=this.commonService.createHeadersOption(localStorage.getItem('token'));
     this.myId=localStorage.getItem('userId');
+    this.getAllFriend();
+    this.getAllRequestFriendByMy();
+    this.getAllRequestFriendToMy();
    }
 
   ngOnInit(): void {
@@ -37,13 +45,77 @@ export class SearchUserComponent implements OnInit {
       this.getUsersByKey();
     })
   }
+  getAllFriend() {
+    this.http.get(`${this.baseUrl}/friends/myfriend`, {
+      headers: this.headers
+    }).pipe(first())
+    .subscribe(
+      (datas)=>{
+        this.myFriends=datas as number[];
+        console.log( this.myFriends);
+      },
+      (error)=>{
+        console.log(error);
+      }
+    )
+  }
+  getAllRequestFriendByMy()
+  {
+    this.http.get(`${this.baseUrl}/friendrequest/friendRequestByMe/${localStorage.getItem('userId')}`, {
+      headers: this.headers
+    }).pipe(first())
+    .subscribe(
+      (datas)=>{
+        this.myRequestFriendsByMy=datas as number[];
+        console.log( this.myRequestFriendsByMy);
+      },
+      (error)=>{
+        console.log(error);
+      }
+    )
+  }
+  getAllRequestFriendToMy()
+  {
+    this.http.get(`${this.baseUrl}/friendrequest/friendRequestToMe/${localStorage.getItem('userId')}`, {
+      headers: this.headers
+    }).pipe(first())
+    .subscribe(
+      (datas)=>{
+        this.myRequestFriendsToMy=datas as number[];
+        console.log( this.myRequestFriendsToMy);
+      },
+      (error)=>{
+        console.log(error);
+      }
+    )
+  }
+  confirmReqest(userId:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    })
+    return this.http.post(`${this.baseUrl}/friendrequest/add/${userId}`,'',{
+      headers: headers
+    }).pipe(first())
+    .subscribe(
+    (message)=>{
+      this.messageResponse=message;
+      this.showSnackbarSucsess(this.messageResponse.message,'',1000);
+      this.getAllFriend();
+      this.getAllRequestFriendByMy();
+      this.getAllRequestFriendToMy();
+    },
+    (error:HttpErrorResponse)=>{
+      this.messageResponse=error.error;
+      this.showSnackbarError(this.messageResponse.message,'',1000);
+    })
+  }
   getUsersByKey(){
     this.userFilterRequest={
       size:5,
       index:0,
       keyword:this.key
     };
-    this.http.post(`${this.baseUrl}/user/searchKey`,this.userFilterRequest,{headers:this.headers})
+    this.http.post(`${this.baseUrl}/user/searchByKey`,this.userFilterRequest,{headers:this.headers})
     .pipe(first())
     .subscribe(
       (datas)=>{
@@ -92,6 +164,9 @@ export class SearchUserComponent implements OnInit {
     (message)=>{
       this.messageResponse=message;
       this.showSnackbarSucsess(this.messageResponse.message,'',1000);
+      this.getAllFriend();
+      this.getAllRequestFriendByMy();
+      this.getAllRequestFriendToMy();
     },
     (error:HttpErrorResponse)=>{
       this.messageResponse=error.error;
@@ -99,19 +174,22 @@ export class SearchUserComponent implements OnInit {
     })
   }
   loadAdd(){
-    this.size=this.userFilterRequest.size + 5;
+    this.size=this.userFilterRequest.size;
+    this.index=this.userFilterRequest.index+1;
     this.userFilterRequest={
-      index:0,
+      index:this.index,
       size:this.size,
       keyword:this.key
     }
-    this.http.post(`${this.baseUrl}/user/searchKey`,this.getUsersByKey,{headers:this.headers})
+    this.http.post(`${this.baseUrl}/user/searchByKey`,this.userFilterRequest,{headers:this.headers})
     .pipe(first())
     .subscribe(
       (datas)=>{
-        console.log(datas);
-
-        this.users=datas as UserDetail[];
+        this.data=datas;
+        this.usersList=this.data.content as UserDetail[];
+        for(var i = 0; i < this.usersList.length ; i++){
+          this.users.push(this.usersList[i]);
+      }
       }
     )
   }

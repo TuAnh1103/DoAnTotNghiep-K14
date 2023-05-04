@@ -1,0 +1,6 @@
+.warning-dialog {
+  z-index: 500 !important;
+}
+*{
+  z-index: 0 !important;
+}

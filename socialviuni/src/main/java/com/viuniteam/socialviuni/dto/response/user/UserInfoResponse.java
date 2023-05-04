@@ -23,6 +23,7 @@
             private String firstName;
             private LocalDate dob;
             private String bio;
+            private String address;
 
             @JsonProperty("avatar_image")
             private ImageResponse avatar;

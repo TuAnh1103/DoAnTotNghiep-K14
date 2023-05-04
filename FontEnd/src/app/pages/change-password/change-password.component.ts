@@ -54,15 +54,15 @@ export class ChangePasswordComponent implements OnInit {
         //this.openDialog();
         this. showSnackbarSucsess("Thay đổi mật khẩu thành công!",'',1000);
         this.router.navigateByUrl("/home");
-        const auth = getAuth();
+        // const auth = getAuth();
 
-        const user = auth.currentUser;
+        // const user = auth.currentUser;
 
-        updatePassword(user, this.newPassword).then(() => {
-          console.log("firebase pass");
-        }).catch((error) => {
-          console.log(error);
-        });
+        // updatePassword(user, this.newPassword).then(() => {
+        //   console.log("firebase pass");
+        // }).catch((error) => {
+        //   console.log(error);
+        // });
       },
       (error:HttpErrorResponse)=>{
         this. showSnackbarError(error.error.message,'',1000);

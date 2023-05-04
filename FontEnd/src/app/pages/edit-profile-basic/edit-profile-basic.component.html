@@ -110,6 +110,18 @@
                 </div>
                 <div class="fieldset" style="width:500px;">
                   <label for="pass">Sở thích</label>
+                  <mat-form-field style="background-color: white;
+                  border-radius: 5px;
+                  height: 50px;
+                  width: 26vw;">
+                    <mat-select multiple formControlName="favorites">
+                      <mat-option *ngFor="let favorite of favoriteList" [value]="favorite.id.toString()">{{favorite.favorite_name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <div id="pass-helper" class="helper"></div>
+                </div>
+                <!-- <div class="fieldset" style="width:500px;">
+                  <label for="pass">Sở thích</label>
                   <ul class="photos">
                     <li style="width:100px" *ngFor="let favorite of favoriteList; let i=index">
                       <mat-checkbox [value]="favorite.id.toString()" (change)="onChange($event)"  [checked]="favorites.lastIndexOf(favorite.id)!=-1?true:false">
@@ -118,17 +130,27 @@
                     </li>
                   </ul>
                   <div id="pass-helper" class="helper"></div>
-                </div>
+                </div> -->
                 <div class="fieldset">
                   <label for="pass">Địa chỉ</label>
                   <div class="input-wrapper">
                     <span class="icon"><i class="fas fa-user"></i></span>
-                  <mat-form-field appearance="fill" style="width:90%;height:90%;background-color: white;">
+                  <!-- <mat-form-field appearance="fill" style="width:90%;height:90%;background-color: white;">
                     <mat-label>Địa chỉ</mat-label>
                     <mat-select formControlName="hometown" [(ngModel)]="hometown">
                       <mat-option *ngFor="let x of addressList" [value]="x.id">
                         {{x.name}}
                       </mat-option>
+                    </mat-select>
+                  </mat-form-field> -->
+                  <mat-form-field style="width: 17vw;margin-right:2vw">
+                    <mat-select placeholder="Chọn tỉnh" [(ngModel)]="tinh" formControlName="tinh">
+                      <mat-option *ngFor="let c of city" [value]="c.name"(onSelectionChange)="choose($event,c)">{{c.name}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field style="width: 17vw;">
+                    <mat-select placeholder="Chọn huyện" [(ngModel)]="huyen" formControlName="huyen">
+                      <mat-option *ngFor="let d of district" [value]="d.name">{{d.name}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                   </div>

@@ -118,6 +118,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { AddNewPostComponent } from './shared/components/add-new-post/add-new-post.component';
 import { PrivacyDialogComponent } from './shared/components/privacy-dialog/privacy-dialog.component';
 import {MatRadioModule} from '@angular/material/radio';
+import { EditCommentComponent } from './shared/components/edit-comment/edit-comment.component';
+import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-password.component';
+import { AuthenRecoveryComponent } from './shared/components/authen-recovery/authen-recovery.component';
+import { ChangeEmailComponent } from './pages/change-email/change-email.component';
+import { DetailPostComponent } from './pages/detail-post/detail-post.component';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   wheelPropagation: true
 };
@@ -209,7 +214,12 @@ export function getToken() {
     ChatMessageComponent,
     ChatMessageContentComponent,
     AddNewPostComponent,
-    PrivacyDialogComponent
+    PrivacyDialogComponent,
+    EditCommentComponent,
+    RecoveryPasswordComponent,
+    AuthenRecoveryComponent,
+    ChangeEmailComponent,
+    DetailPostComponent
   ],
   imports: [
     BrowserModule,

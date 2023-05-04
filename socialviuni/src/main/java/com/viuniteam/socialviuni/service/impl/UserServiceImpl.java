@@ -31,6 +31,7 @@
         import org.springframework.stereotype.Service;
         import org.thymeleaf.spring5.processor.SpringOptionFieldTagProcessor;
 
+        import java.math.BigInteger;
         import java.time.LocalDate;
         import java.time.LocalDateTime;
         import java.util.*;
@@ -193,6 +194,45 @@
                 return new PageImpl<>(userInfoResponseList, pageRequest,userInfoResponseList.size());
             }
             @Override
+            public Page<UserInfoResponse> seachKey(UserFilterRequest userFilterRequest){
+                PageRequest pageRequest = PageRequest.of(userFilterRequest.getIndex(), userFilterRequest.getSize());
+                Page<BigInteger> userIds=userRepository.searchUserByKey(userFilterRequest.getKeyword(),profile.getId(),pageRequest);
+                List<BigInteger>Ids=userIds.getContent();
+                List<User> userSearchList= new ArrayList<>();
+                Ids.forEach(id->{
+                    User user=userRepository.findOneById(Long.valueOf(id.toString()));
+                    userSearchList.add(user);
+                });
+//                for(int i=0;i<Ids.size();i++)
+//                {
+//                    User user=userRepository.findOneById(Long.parseLong(Ids.get(i).toString()));
+//                    userSearchList.add(user);
+//                }
+
+                List<UserInfoResponse>userInfoResponseList=new ArrayList<>();
+                userSearchList.stream().forEach(user ->{
+                    if(user.isActive())
+                    {
+                        UserInfoResponse userInfoResponse=userInfoResponseUtils.convert(user);
+                        userInfoResponseList.add(userInfoResponse);
+                    }
+                });
+                return new PageImpl<>(userInfoResponseList, pageRequest,userInfoResponseList.size());
+            }
+            @Override
+            public Page<UserInfoResponse> suggestFriend(Pageable pageable,Long id){
+                Page<User> users = userRepository.getSuggestFriend(id,pageable);
+                if(isAdmin(profile))
+                    return users.map(userInfoResponseUtils::convert);
+                else {
+                    List<UserInfoResponse> userInfoResponseList =  users.stream()
+                            .filter(user -> user.isActive())
+                            .map(userInfoResponseUtils::convert)
+                            .collect(Collectors.toList());
+                    return new PageImpl<>(userInfoResponseList,pageable, userInfoResponseList.size());
+                }
+            }
+            @Override
             public List<UserInfoResponse> suggestFriendByUserId(Long id){
                 List<Long> userIds=userRepository.getSuggestFriendByUserId(id);
                 List<User> userSuggestList= new ArrayList<>();
@@ -251,6 +291,7 @@
                 Long idAvatarImage = userUpdateInfoRequest.getIdAvatarImage();
                 Long idCoverImage = userUpdateInfoRequest.getIdCoverImage();
                 List<Favorite> favorites = listFavoriteFromUpdateRequest(userUpdateInfoRequest);
+                String address=userUpdateInfoRequest.getAddress();
                 if(lastName!=null)
                     user.setLastName(lastName);
                 if(firstName!=null)
@@ -274,6 +315,10 @@
                     Address currentCity  = addressRepository.findOneById(idCurrentCity);
                     if(currentCity!=null)
                         user.setCurrentCity(currentCity);
+                }
+                if(address!=null)
+                {
+                    user.setAddress(address);
                 }
                 if(idAvatarImage!=null){
                     Image image = imageService.findOneById(idAvatarImage);

@@ -46,6 +46,10 @@
 
         private final ImageReponseMapper imageReponseMapper;
         private final NotificationFollowRepository notificationFollowRepository;
+        @Override
+        public Long countPostByUserId(Long id){
+            return postRepository.countPostByUserId(id);
+        }
     //    private final HandlingOffensive handlingOffensive;
         @Override
         public PostResponse save(PostSaveRequest postSaveRequest) {

@@ -18,6 +18,7 @@
             public void addFriendRequest(@PathVariable("id") Long idTarget){
                 friendRequestService.addFriendRequest(idTarget);
             }
+
             @PostMapping("/remove/{id}")
             public void removeFriendRequest(@PathVariable("id") Long idTarget){
                 friendRequestService.removeFriendRequest(idTarget);
@@ -34,5 +35,13 @@
             @GetMapping("/count")
             public int countAllFriendRequest(){
                 return friendRequestService.getAll().size();
+            }
+            @GetMapping("/friendRequestByMe/{id}")
+            List<Long> getFriendRequestByMe(@PathVariable("id") Long id){
+                return friendRequestService.getFriendRequestByMe(id);
+            }
+            @GetMapping("/friendRequestToMe/{id}")
+            List<Long> getFriendRequestToMe(@PathVariable("id") Long id){
+                return friendRequestService.getListFriendRequestToMe(id);
             }
         }

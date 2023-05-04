@@ -9,7 +9,7 @@
           (click)="loadDataFriend()"
           >Bạn bè</a
         >
-        <span>{{countFriend-1}}</span>
+        <span>{{countFriend}}</span>
       </li>
       <li class="nav-item">
         <a
@@ -54,56 +54,94 @@
                     background-color:#1b74e4;
                     border-radius: 20px;
                     color: white;
-                    margin-right:40px;
                   "
                   data-ripple=""
                   (click)="follow(friend.user_info.id)"
                   [hidden]="
-                    friend.user_info.id.toString() != myId ? false : true
+                    friend.user_info.id.toString() != myId&&!myFollowing.includes(friend.user_info.id) ? false : true
                   "
                   >Theo dõi</a
                 >
                 <a
-                  title=""
-                  class="add-butn"
-                  style="
-                    background-color: #e4e6eb;
-                    border-radius: 20px;
-                    color: black;
-                    margin-right:30px;
-                  "
-                  data-ripple=""
-                  (click)="unfriend(friend.user_info.id)"
-                  [hidden]="checkUser ? false : true"
-                  >Hủy theo dõi</a
-                >
+                class="add-butn more-action"
+                style="
+                 background-color: #e4e6eb;
+                  border-radius: 20px;
+                  color: black;
+                "
+                data-ripple=""
+                (click)="unfollow(friend.user_info.id)"
+                [hidden]="
+                  friend.user_info.id.toString() != myId &&myFollowing.includes(friend.user_info.id) ? false : true
+                "
+                >Hủy theo dõi</a
+              >
+
                 <a
-                  title=""
-                  class="add-butn"
-                  style="
-                    background-color:#1b74e4;
-                    border-radius: 20px;
-                    color: white;
-                  "
-                  data-ripple=""
-                  (click)="addFriend(friend.user_info.id)"
-                  [hidden]="
-                    !checkUser && friend.user_info.id.toString() != myId
-                      ? false
-                      : true
-                  "
-                  >Thêm bạn bè</a
-                >
+                class="add-butn"
+                style="
+                  background-color: #3c86f5;
+                  border-radius: 20px;
+                  color: white;
+                  margin-right:-20px;
+                "
+                title=""
+                data-ripple=""
+                [hidden]="(friend.user_info.id.toString() != myId&&!myFriends.includes(friend.user_info.id)&&!myRequestFriendsByMy.includes(friend.user_info.id)&&!myRequestFriendsToMy.includes(friend.user_info.id))?false:true"
+                (click)="addFriend(friend.user_info.id)"
+                >Thêm bạn bè</a
+              >
+              <a
+              [routerLink]="['/messager/t',friend.user_info.id]"
+              class="add-butn"
+              style="
+                background-color: #3c86f5;
+                border-radius: 20px;
+                color: white;
+                margin-left:20px;
+              "
+              title=""
+              data-ripple=""
+              [hidden]="(friend.user_info.id.toString() != myId&&myFriends.includes(friend.user_info.id))?false:true"
+              >Nhắn tin</a
+            >
+            <a
+            class="add-butn"
+            style="
+              background-color: #3c86f5;
+              border-radius: 20px;
+              color: white;
+              margin-right:-20px;
+            "
+                title=""
+                data-ripple=""
+                [hidden]="(friend.user_info.id.toString() != myId&&!myFriends.includes(friend.user_info.id)&&myRequestFriendsByMy.includes(friend.user_info.id))?false:true"
+                >Đã gửi lời mời</a
+              >
+              <a
+              class="add-butn"
+              style="
+                background-color: #3c86f5;
+                border-radius: 20px;
+                color: white;
+                margin-right:-35px;
+              "
+                title=""
+                data-ripple=""
+                [hidden]="(friend.user_info.id.toString() != myId&&!myFriends.includes(friend.user_info.id)&&!myRequestFriendsByMy.includes(friend.user_info.id)&&myRequestFriendsToMy.includes(friend.user_info.id))?false:true"
+                (click)="confirmReqest(friend.user_info.id)"
+                >Xác nhận lời mời</a
+              >
               </div>
             </div>
           </li>
         </ul>
-        <div class="lodmore">
+        <div class="lodmore" [hidden]="listFriend.length==countFriend?true:false">
           <button class="btn-view btn-load-more" (click)="loadAdd()"></button>
         </div>
       </div>
       <div class="tab-pane fade" id="frends-req" [hidden]="!checkUser">
-        <app-friend-request></app-friend-request>
+        <app-friend-request (update)="update()"></app-friend-request>
       </div>
     </div>
   </div>

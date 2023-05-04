@@ -231,4 +231,8 @@
                         return true;
                 return false;
             }
+            @Override
+            public List<Long> getFollowingIdByUserId(){
+                return followingRepository.getFollowingIdByUserId(profile.getId());
+            }
         }

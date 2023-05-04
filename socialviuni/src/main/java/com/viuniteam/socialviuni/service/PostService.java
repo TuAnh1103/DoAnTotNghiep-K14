@@ -25,4 +25,6 @@
             PostResponse newPost(Long userId);
             Page<PostResponse> getNewsFeedUserId(Long userId, Pageable pageable);
             Page<PostResponse> findAllPost(Pageable pageable);
+
+            Long countPostByUserId(Long id);
         }

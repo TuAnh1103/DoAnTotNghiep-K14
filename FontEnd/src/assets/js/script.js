@@ -63,31 +63,31 @@ $('.notification-box > ul li > i.del').on("click", function(){
 	  return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase())>=0;
 	};
 
-	function listFilter(searchDir, list) {
-	  var form = $("<form>").attr({"class":"filterform","action":"#"}),
-	  input = $("<input>").attr({"class":"filterinput","type":"text","placeholder":"Search Contacts..."});
-	  $(form).append(input).appendTo(searchDir);
+	// function listFilter(searchDir, list) {
+	//   var form = $("<form>").attr({"class":"filterform","action":"#"}),
+	//   input = $("<input>").attr({"class":"filterinput","type":"text","placeholder":"Search Contacts..."});
+	//   $(form).append(input).appendTo(searchDir);
 
-	  $(input)
-	  .change( function () {
-		var filter = $(this).val();
-		if(filter) {
-		  $(list).find("li:not(:Contains(" + filter + "))").slideUp();
-		  $(list).find("li:Contains(" + filter + ")").slideDown();
-		} else {
-		  $(list).find("li").slideDown();
-		}
-		return false;
-	  })
-	  .keyup( function () {
-		$(this).change();
-	  });
-	}
+	//   $(input)
+	//   .change( function () {
+	// 	var filter = $(this).val();
+	// 	if(filter) {
+	// 	  $(list).find("li:not(:Contains(" + filter + "))").slideUp();
+	// 	  $(list).find("li:Contains(" + filter + ")").slideDown();
+	// 	} else {
+	// 	  $(list).find("li").slideDown();
+	// 	}
+	// 	return false;
+	//   })
+	//   .keyup( function () {
+	// 	$(this).change();
+	//   });
+	// }
 
 //search friends widget
-	$(function () {
-	  listFilter($("#searchDir"), $("#people-list"));
-	});
+	// $(function () {
+	//   listFilter($("#searchDir"), $("#people-list"));
+	// });
 	}(jQuery));
 
 //progress line for page loader

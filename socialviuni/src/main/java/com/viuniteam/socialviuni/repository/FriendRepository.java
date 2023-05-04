@@ -1,5 +1,6 @@
         package com.viuniteam.socialviuni.repository;
         import com.viuniteam.socialviuni.entity.Friend;
+        import com.viuniteam.socialviuni.entity.FriendRequest;
         import com.viuniteam.socialviuni.entity.User;
         import com.viuniteam.socialviuni.entity.mapper.UserFollowings;
         import com.viuniteam.socialviuni.entity.mapper.UserFriends;
@@ -38,4 +39,11 @@
                     countQuery = "select count(*) from friend fr join user_friends u_fr on fr.id=u_fr.friends_id join user u on u.id = u_fr.user_id and u_fr.user_id=?1",
                     nativeQuery = true)
             List<UserFriends> findByUserOrderByIdDesc(Long userId);
+            @Query(value="select distinct friend.* from user_friends inner join friend on user_friends.friends_id=friend.id where user_friends.user_id=?1",
+                    nativeQuery = true)
+            List<Friend>getFriendByUserId(Long id);
+            @Query(value="select distinct friend.user_id from user_friends inner join friend on user_friends.friends_id=friend.id where user_friends.user_id=?1",
+                    nativeQuery = true)
+            List<Long>getFriendId(Long id);
+
         }

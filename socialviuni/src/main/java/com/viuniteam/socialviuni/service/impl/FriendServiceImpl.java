@@ -59,6 +59,8 @@
 
                     List<Friend> friendSourceList = userSource.getFriends();
                     List<Friend> friendTargetList = userTarget.getFriends();
+//                    List<Friend> friendSourceList1 = friendRepository.getFriendByUserId(idSource);
+//                    List<Friend> friendTargetList1 = friendRepository.getFriendByUserId(idTarget);
                     // add friend target to list
                     Friend friendSource = new Friend();
                     friendSource.setUser(userTarget);
@@ -85,7 +87,7 @@
                     Friend friendTargetSave = friendRepository.save(friendTarget);
                     friendRepository.insertUserFriend(userTarget.getId(),friendTargetSave.getId());
                     */
-        //            throw new OKException("Kết bạn thành công");
+                    //throw new OKException("Kết bạn thành công");
                 }
             }
             @Override
@@ -138,10 +140,9 @@
                 User user = userService.findOneById(id);
                 if(user == null)
                     throw new ObjectNotFoundException("Người dùng không tồn tại");
-                List<Friend> friendList = user.getFriends();
+                List<Friend> friendList = friendRepository.getFriendByUserId(id);
                 List<FriendResponse> friendResponseList = new ArrayList<>();
                 friendList.forEach(friend -> {
-                    System.out.println(friend.getUser().getId());
                     FriendResponse friendResponse = friendResponseMapper.from(friend);
         //            friendResponse.setUserInfoResponse(userInfoResponseMapper.from(friend.getUser()));
                     friendResponse.setUserInfoResponse(userInfoResponseUtils.convert(friend.getUser()));
@@ -196,5 +197,9 @@
             @Override
             public boolean itIsMe(Long idSource, Long idTarget) {
                 return idSource == idTarget;
+            }
+            @Override
+            public List<Long> getFriendId(Long id){
+               return friendRepository.getFriendId(id);
             }
         }

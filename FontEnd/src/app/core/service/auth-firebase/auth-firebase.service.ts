@@ -1,5 +1,7 @@
+import { Page } from './../../models/pageable.model';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { updateEmail } from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root'

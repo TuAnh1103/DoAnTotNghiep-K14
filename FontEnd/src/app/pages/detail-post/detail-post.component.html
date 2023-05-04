@@ -1,0 +1,172 @@
+
+<div class="row">
+  <div class="col-md-9 col-12" style="background-color: black;">
+    <div class="card shadow-line chat" style="background-color: black;">
+      <img src="https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg" style="width:63%;margin:o auto;">
+    </div>
+  </div>
+  <div class="col-md-3 col-12" >
+    <div class="card shadow-line chat chat-panel">
+      <div class="p-3 chat-header">
+        <div class="d-flex">
+          <div class="flex-shrink-0 margin-auto">
+            <a href="#" class="btn btn-sm btn-icon btn-light active text-dark ml-2">
+              <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="feather">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+            </a>
+            <a href="#" class="btn btn-sm btn-icon btn-light active text-dark ml-2">
+              <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="feather">
+                <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+              </svg>
+            </a>
+            <a href="#" class="btn btn-sm btn-icon btn-light active text-dark ml-2">
+              <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="feather">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </a>
+            <a href="#" class="btn btn-sm btn-icon btn-light active text-dark ml-2">
+              <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="feather">
+                <circle cx="12" cy="12" r="1"></circle>
+                <circle cx="12" cy="5" r="1"></circle>
+                <circle cx="12" cy="19" r="1"></circle>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div  #scrollMe [scrollTop]="scrollMe.scrollHeight" class="d-flex flex-row mb-3 navigation-mobile scrollable-chat-panel chat-panel-scroll" style="overflow-x: overlay;max-height:500px;min-height:500px;">
+        <div class="w-100 p-3">
+          <div class="central-meta item">
+            <div class="user-post">
+              <div class="friend-info">
+                <div style="display:flex">
+                  <div class="friend-info" style="float: left;">
+                    <figure>
+                      <img
+
+                        alt=""
+                        style="width: 60px; height: 60px"
+                      />
+                    </figure>
+                  </div>
+                  <div style="float: right;" >
+                    <mat-icon id="edit"> border_color</mat-icon>
+                    <mat-icon id="delete">cancel</mat-icon>
+                  </div>
+                </div>
+                <div class="description">
+                  <p style="color: black; font-size: 16px; font-weight: bold">
+                  </p>
+                </div>
+                <div class="post-meta">
+                  <div
+                    style="width: 100%; height: 500px; margin: 0 auto"
+
+                  >
+
+                  </div>
+                  <div class="we-video-info">
+                    <ul>
+                      <li>
+                        <span  data-toggle="tooltip" title="like">
+                          <a ><i class="fa fa-thumbs-up"></i></a>
+                          <ins></ins>
+                        </span>
+                      </li>
+                      <li>
+                        <span class="comment" data-toggle="tooltip" title="Comments">
+                          <a ><i class="fa fa-comments-o"></i></a>
+                          <ins></ins>
+                        </span>
+                      </li>
+                      <li class="social-media">
+                        <span data-toggle="tooltip" title="share">
+                          <a ><i class="fa fa-share-alt"></i></a>
+                          <ins></ins>
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="coment-area">
+                <ul class="we-comet">
+                  <li>
+                    <app-comment-post ></app-comment-post>
+                  </li>
+                  <li>
+                    <a href="#" title="" class="showmore underline">xem thêm</a>
+                  </li>
+                  <li class="post-comment">
+                    <div class="comet-avatar">
+                      <img
+
+                        style="min-width:50px;min-height:50px;max-height:50px;max-height: 50px;" alt=""
+                      />
+                    </div>
+                    <div class="post-comt-box">
+                      <form >
+                        <textarea
+                          placeholder="Viết bình luận"
+                          formControlName="content"
+
+                        ></textarea>
+                        <button type="submit"></button>
+                      </form>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="chat-search pl-3 pr-3">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Write a message" >
+          <div class="input-group-append prepend-white">
+            <span class="input-group-text pl-2 pr-2">
+              <i class="chat-upload-trigger fs-19 bi bi-file-earmark-plus ml-2 mr-2"></i>
+              <i class="fs-19 bi bi-emoji-smile ml-2 mr-2"></i>
+              <i class="fs-19 bi bi-camera ml-2 mr-2"></i>
+              <i class="fs-19 bi bi-cursor ml-2 mr-2"></i>
+              <div class="chat-upload">
+                <div class="d-flex flex-column">
+                  <div class="p-2">
+                    <button type="button" class="btn btn-secondary btn-md btn-icon btn-circle btn-blushing">
+                      <i class="fs-15 bi bi-camera"></i>
+                    </button>
+                  </div>
+                  <div class="p-2">
+                    <button type="button" class="btn btn-success btn-md btn-icon btn-circle btn-blushing">
+                      <i class="fs-15 bi bi-file-earmark-plus"></i>
+                    </button>
+                  </div>
+                  <div class="p-2">
+                    <button type="button" class="btn btn-warning btn-md btn-icon btn-circle btn-blushing">
+                      <i class="fs-15 bi bi-person"></i>
+                    </button>
+                  </div>
+                  <div class="p-2">
+                    <button type="button" class="btn btn-danger btn-md btn-icon btn-circle btn-blushing">
+                      <i class="fs-15 bi bi-card-image"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

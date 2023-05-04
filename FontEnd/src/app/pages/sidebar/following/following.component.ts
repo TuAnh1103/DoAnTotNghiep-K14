@@ -30,8 +30,6 @@ export class FollowingComponent implements OnInit {
       (datas)=>{
         this.data=datas as Followings;
         this.listFollowing=this.data.content;
-        console.log(this.data.content);
-        console.log(this.listFollowing);
       },
       (error)=>{
         console.log(error);
@@ -60,6 +58,17 @@ export class FollowingComponent implements OnInit {
     (message)=>{
       this.messageResponse=message;
       this.showSnackbarSucsess(this.messageResponse.message,'','2000');
+      this.getAllFollowing()
+        .pipe(first())
+        .subscribe(
+          (datas)=>{
+            this.data=datas as Followings;
+            this.listFollowing=this.data.content;
+          },
+          (error)=>{
+            console.log(error);
+          }
+    )
     },
     (error:HttpErrorResponse)=>{
       this.messageResponse=error.error;
@@ -70,15 +79,15 @@ export class FollowingComponent implements OnInit {
   showSnackbarSucsess(content, action, duration) {
     this.snackBar.open(content, action, {
       duration: 1000,
-      verticalPosition: "bottom", // Allowed values are  'top' | 'bottom'
-      horizontalPosition: "left",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
+      verticalPosition: "top", // Allowed values are  'top' | 'bottom'
+      horizontalPosition: "center",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
       panelClass: ["custom-style"]
   })}
   showSnackbarError(content, action, duration) {
     this.snackBar.open(content, action, {
       duration: 1000,
-      verticalPosition: "bottom", // Allowed values are  'top' | 'bottom'
-      horizontalPosition: "left",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
+      verticalPosition: "top", // Allowed values are  'top' | 'bottom'
+      horizontalPosition: "center",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
       panelClass: ["error-custom-style"]
   })}
 }

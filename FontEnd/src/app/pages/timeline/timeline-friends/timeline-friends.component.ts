@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { first } from 'rxjs';
@@ -20,7 +20,8 @@ export class TimelineFriendsComponent implements OnInit {
   page: any;
   data:Friends;
   checkUser:boolean;
-  constructor(private route: ActivatedRoute,private http: HttpClient, private commonService: CommonService) {
+  count:number;
+  constructor(private route: ActivatedRoute,private http: HttpClient, private commonService: CommonService,private router:Router) {
     this.baseUrl = this.commonService.webApiUrl;
     this.headers = this.commonService.createHeadersOption(
       localStorage.getItem('token')
@@ -38,5 +39,7 @@ export class TimelineFriendsComponent implements OnInit {
       }
     })
   }
-
+  update($event:number){
+    this.count=$event;
+  }
 }

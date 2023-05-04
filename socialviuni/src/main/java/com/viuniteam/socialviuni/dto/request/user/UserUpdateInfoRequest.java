@@ -46,4 +46,6 @@
             private Long idCoverImage;
             @JsonProperty("favoriteIds")
             private List<Long> favoriteIds = new ArrayList<>();
+            private String address;
+
         }

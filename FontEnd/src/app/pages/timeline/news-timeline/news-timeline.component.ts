@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs';
 import { PostResponse, sharePost } from 'src/app/core/models/post.model.ts';
+import { UserDetail } from 'src/app/core/models/user-detail';
 import { SlideInterface } from 'src/app/core/types/slide.interface';
 import { CommonService } from 'src/app/shared/common.service';
 
@@ -22,6 +23,9 @@ export class NewsTimelineComponent implements OnInit {
   size: number = 0;
   index:number=0;
   posts:PostResponse[];
+  my:string;
+  user:UserDetail;
+  count:number;
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
@@ -32,11 +36,14 @@ export class NewsTimelineComponent implements OnInit {
     this.headers = this.commonService.createHeadersOption(
       localStorage.getItem('token')
     );
+    this.my=localStorage.getItem('userId');
   }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.id = params.get('id');
+      this.getUserByUserId();
+      this.countPostByUserId();
       this.getAllPost()
         .pipe(first())
         .subscribe(
@@ -49,6 +56,18 @@ export class NewsTimelineComponent implements OnInit {
           (error) => console.log(error)
         );
     });
+  }
+  getUserByUserId(){
+    this.http.get(`${this.baseUrl}/user/id/${this.id}`,{headers:this.headers})
+    .pipe(first())
+    .subscribe(
+      (data)=>{
+        this.user=data as UserDetail;
+      },
+      (error)=>{
+        console.log(error)
+      }
+    )
   }
   getAllPost() {
     this.page = {
@@ -82,6 +101,19 @@ export class NewsTimelineComponent implements OnInit {
         },
         (error) => console.log(error)
       );
+  }
+  countPostByUserId()
+  {
+    return this.http.get(`${this.baseUrl}/post/count/${this.id}`,{headers:this.headers})
+    .pipe(first())
+    .subscribe(
+      (datas)=>{
+        this.count=datas as number;
+      },
+      (error)=>{
+        console.log(error);
+      }
+    )
   }
   updateNewfeed(event:any)
   {

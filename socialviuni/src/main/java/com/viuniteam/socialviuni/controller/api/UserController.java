@@ -23,11 +23,11 @@
             private final UserService userService;
             private final AddressService addressService;
             private final Profile profile;
-            @GetMapping( "/id/{id}")//ok
+            @GetMapping( "/id/{id}")
             public UserInfoResponse findById(@PathVariable("id") Long id){
                 return userService.findById(id);
             }
-            @GetMapping( "/{username}")//ok
+            @GetMapping( "/{username}")
             public UserInfoResponse findById(@PathVariable("username") String username){
                 return userService.findByUsername(username);
             }
@@ -35,15 +35,15 @@
             public UserInfoResponse findById(){
                 return userService.findById(profile.getId());
             }
-            @GetMapping("/username/{username}")//ok
+            @GetMapping("/username/{username}")
             public UserInfoResponse findByUsername(@PathVariable("username") String username){
                 return userService.findByUsername(username);
             }
-            @PostMapping("/update")//ok
+            @PostMapping("/update")
             public void updateInfo(@Valid @RequestBody UserUpdateInfoRequest userUpdateInfoRequest){
                 userService.updateInfo(userUpdateInfoRequest);
             }
-            @PostMapping("/search")//no
+            @PostMapping("/search")
             public Page<UserInfoResponse> search(@RequestBody UserFilterRequest userFilterRequest){
                 return userService.search(userFilterRequest);
             }
@@ -51,6 +51,11 @@
             public Page<UserInfoResponse> searchFriend(@RequestBody UserFilterRequest userFilterRequest)
             {
                 return userService.searchFriend(userFilterRequest);
+            }
+            @PostMapping("/searchByKey")
+            public Page<UserInfoResponse> searchByKey(@RequestBody UserFilterRequest userFilterRequest)
+            {
+                return userService.seachKey(userFilterRequest);
             }
             @GetMapping("/getAddress")
             public List<AddressResponse> getAddressList()

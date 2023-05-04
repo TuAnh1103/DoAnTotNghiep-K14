@@ -1,0 +1,11 @@
+<h2 class="log-title">Xác thực</h2>
+    <div>
+      <div class="form-group">
+        <input type="text" id="input" [(ngModel)]="code"/>
+        <label class="control-label" for="input">Vui lòng nhập mã xác thực</label><i class="mtrl-select"></i>
+      </div>
+      <mat-dialog-actions align="right">
+        <button mat-raised-button type="submit" color="primary" tabindex="1" (click)="authentication()">Xác thực</button>
+        <button mat-raised-button mat-dialog-close tabindex="-1" type="button" (click)="close()">Hủy</button>
+      </mat-dialog-actions>
+ </div>

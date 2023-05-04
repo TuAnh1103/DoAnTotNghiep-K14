@@ -13,4 +13,6 @@
             boolean isFriendRequest(Long idSource,Long idTarget);
             List<FriendRequestResponse> getAll();
             Page<FriendRequestResponse> getAllByUser(Pageable pageable);
+            List<Long> getFriendRequestByMe(Long id);
+            List<Long>getListFriendRequestToMe(Long id);
         }

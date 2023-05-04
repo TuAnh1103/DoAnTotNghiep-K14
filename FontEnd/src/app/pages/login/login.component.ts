@@ -89,7 +89,19 @@ export class LoginComponent implements OnInit {
     setTimeout(()=>{
       localStorage.clear();
     },1000)
+    const ipnElement = document.querySelector('#ipnPassword')
+    const btnElement = document.querySelector('#btnPassword')
 
+    // step 2
+    btnElement.addEventListener('click', function() {
+      // step 3
+      const currentType = ipnElement.getAttribute('type')
+      // step 4
+      ipnElement.setAttribute(
+        'type',
+        currentType === 'password' ? 'text' : 'password'
+      )
+    })
   }
   getUserByUsername(username:string,token:any)
   {

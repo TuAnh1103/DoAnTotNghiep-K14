@@ -36,6 +36,8 @@
             private LocalDate dob;
             @Column(columnDefinition = "nvarchar(160)")
             private String bio;
+            @Column(columnDefinition = "nvarchar(255)")
+            private String address;
             @OneToOne
             @JoinTable(name = "user_hometown",joinColumns = @JoinColumn(name = "user_id",nullable = false),
                     inverseJoinColumns = @JoinColumn(name = "address_id",nullable = false))
@@ -60,8 +62,10 @@
             private List<Image> coverImage = new ArrayList<>();
 
             @OneToMany
+
             private List<Friend> friends = new ArrayList<>();
             @OneToMany
+
             private List<FriendRequest> friendRequests = new ArrayList<>();
             @ManyToMany(fetch=FetchType.EAGER)
             @JoinTable(name = "permission",

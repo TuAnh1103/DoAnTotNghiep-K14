@@ -177,5 +177,23 @@ export class PostNewComponent implements OnInit, OnChanges {
       horizontalPosition: "center",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
       panelClass: ["error-custom-style"]
   })}
+  updateComment($event:string){
+    this.getAllCommentByPostId()
+    .pipe(first())
+    .subscribe(
+      (datas) => {
+        this.commentData = datas as CommentList;
+        this.commentList = this.commentData.content;
+        if($event==='delete')
+        {
+          this.post.cmt_count-=1;
+          this.open=true;
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 
 }

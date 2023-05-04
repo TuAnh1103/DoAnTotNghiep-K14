@@ -42,10 +42,10 @@
           "
           data-ripple=""
           (click)="confirmReqest(friendRequest.user_info.id)"
-          >Chấp nhận</a
+          >Xác nhận</a
         >
       </div>
     </div>
   </li>
 </ul>
-<button class="btn-view btn-load-more" (click)="loadAdd()"></button>
+<button class="btn-view btn-load-more" (click)="loadAdd()" [hidden]="listFriendRequest.length==countFriendRequest?true:false"></button>

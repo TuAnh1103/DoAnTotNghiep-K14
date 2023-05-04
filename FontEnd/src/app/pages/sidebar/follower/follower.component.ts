@@ -97,15 +97,15 @@ export class FollowerComponent implements OnInit {
   showSnackbarSucsess(content, action, duration) {
     this.snackBar.open(content, action, {
       duration: 1000,
-      verticalPosition: "bottom", // Allowed values are  'top' | 'bottom'
-      horizontalPosition: "left",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
+      verticalPosition: "top", // Allowed values are  'top' | 'bottom'
+      horizontalPosition: "center",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
       panelClass: ["custom-style"]
   })}
   showSnackbarError(content, action, duration) {
     this.snackBar.open(content, action, {
       duration: 1000,
-      verticalPosition: "bottom", // Allowed values are  'top' | 'bottom'
-      horizontalPosition: "left",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
+      verticalPosition: "top", // Allowed values are  'top' | 'bottom'
+      horizontalPosition: "center",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
       panelClass: ["error-custom-style"]
   })}
 }

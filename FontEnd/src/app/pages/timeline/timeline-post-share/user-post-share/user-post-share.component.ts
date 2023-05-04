@@ -239,4 +239,5 @@ export class UserPostShareComponent implements OnInit {
       horizontalPosition: "center",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
       panelClass: ["error-custom-style"]
   })}
+  
 }

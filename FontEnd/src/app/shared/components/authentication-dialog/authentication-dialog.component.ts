@@ -35,6 +35,7 @@ export class AuthenticationDialogComponent implements OnInit {
       username:[data.username],
       password:[data.password],
       favoriteIds:[data.favoriteIds],
+      address:[data.address],
       code:['',Validators.required]
     })
    }

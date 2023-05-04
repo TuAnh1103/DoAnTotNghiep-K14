@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Favorite } from 'src/app/core/models/favorite.model';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Address } from 'src/app/core/models/address.model';
+import { MatOptionSelectionChange } from '@angular/material/core';
 
 @Component({
   selector: 'app-edit-profile-basic',
@@ -34,7 +35,13 @@ export class EditProfileBasicComponent implements OnInit {
   imageUrl: string;
   addressList:Address[];
   favoriteList: Favorite[];
-  favorites:any=[];
+  favorites:any[];
+  selectedOption = [];
+  city:any[];
+  district:any[];
+  tinh:string;
+  huyen:string;
+  address:any[];
   private headers: any;
   constructor(
     private snackBar: MatSnackBar,
@@ -51,7 +58,10 @@ export class EditProfileBasicComponent implements OnInit {
       hometown: [''],
       current_city: [''],
       gender: ['', Validators.required],
-      favorites: this.fb.array([], Validators.required)
+      // favorites: this.fb.array([], Validators.required)
+      favorites:[this.selectedOption, [Validators.required]],
+      tinh:[this.tinh,Validators.required],
+      huyen:[this.huyen,Validators.required]
     });
     this.baseUrl = this.commonService.webApiUrl;
     this.headers = this.commonService.createHeadersOption(
@@ -59,10 +69,36 @@ export class EditProfileBasicComponent implements OnInit {
     );
     this.getAllAddress();
     this.loadData();
+    this.getAllCity();
   }
 
   ngOnInit(): void {
     this.getAllFavorites();
+  }
+  getAllCity()
+  {
+   const host="https://provinces.open-api.vn/api/";
+   this.http.get(`${host}`).pipe(first())
+   .subscribe((datas)=>{
+     this.city=datas as [];
+   },
+   error=>{
+     console.log(error);
+   })
+  }
+  choose(event:MatOptionSelectionChange,c:any){
+    if(event.source.selected)
+    {
+    this.district=[];
+    const host="https://provinces.open-api.vn/api/p";
+    this.http.get(`${host}/${c.code}/?depth=2`).pipe(first())
+    .subscribe((datas:any)=>{
+      this.district=datas.districts as [];
+    },
+    error=>{
+      console.log(error);
+    })
+   }
   }
   getAllAddress(){
     this.http.get(`${this.baseUrl}/user/getAddress`,{headers:this.headers})
@@ -101,11 +137,12 @@ export class EditProfileBasicComponent implements OnInit {
       );
       favorites.removeAt(i);
     }
+    console.log(favorites);
   }
   loadData() {
-    const favorites = (<FormArray>(
-      this.form.get("favorites")
-    )) as FormArray;
+    // const favorites = (<FormArray>(
+    //   this.form.get("favorites")
+    // )) as FormArray;
     this.http.get(`${this.baseUrl}/user/id/${localStorage.getItem('userId')}`, { headers: this.headers })
       .pipe(first())
       .subscribe(
@@ -118,10 +155,20 @@ export class EditProfileBasicComponent implements OnInit {
           this.bio = this.userDetail.bio;
           this.gender = this.userDetail.gender.toString();
           this.image = this.userDetail.avatar_image as FileResponse;
+          // this.userDetail.user_favorite.forEach((e)=>{
+          //   this.favorites.push(e.id);
+          //   favorites.push(new FormControl(e.id.toString()));
+          // });
           this.userDetail.user_favorite.forEach((e)=>{
-            this.favorites.push(e.id);
-            favorites.push(new FormControl(e.id));
+            this.selectedOption.push(e.id.toString());
           });
+          if(this.userDetail.address!=null)
+          {
+            this.address=this.userDetail.address.split('-');
+            this.tinh=this.address[1];
+            this.huyen=this.address[0];
+          }
+          console.log(this.address);
         },
         (error) => {
           console.log(error);
@@ -140,7 +187,9 @@ export class EditProfileBasicComponent implements OnInit {
       gender: this.gender,
       favoriteIds:this.form.get("favorites").value,
       avatar_image: '',
+      address:this.form.get("huyen").value+"-"+this.form.get("tinh").value
     };
+    console.log(this.body);
     if (this.selectedFile) {
       this.upload(this.selectedFile)
         .pipe(first())

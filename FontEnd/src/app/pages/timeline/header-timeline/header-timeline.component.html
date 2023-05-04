@@ -16,9 +16,33 @@
       href="#"
       title=""
       data-ripple=""
-      [hidden]="checkUser"
+      [hidden]="(!checkUser&&!myFriends.includes(friendId)&&!myRequestFriendsByMy.includes(friendId)&&!myRequestFriendsToMy.includes(friendId))?false:true"
       (click)="addFriend()"
       >Thêm bạn bè</a
+    >
+    <a
+    href="#"
+    title=""
+    data-ripple=""
+    [hidden]="(!checkUser&&myFriends.includes(friendId))?false:true"
+    (click)="unfriend(friendId)"
+    >Huỷ bạn bè</a
+  >
+  <a
+      href="#"
+      title=""
+      data-ripple=""
+      [hidden]="(!checkUser&&!myFriends.includes(friendId)&&myRequestFriendsByMy.includes(friendId))?false:true"
+      (click)="unfriendrequest(friendId)"
+      >Hủy lời mời</a
+    >
+    <a
+      href="#"
+      title=""
+      data-ripple=""
+      [hidden]="(!checkUser&&!myFriends.includes(friendId)&&!myRequestFriendsByMy.includes(friendId)&&myRequestFriendsToMy.includes(friendId))?false:true"
+      (click)="confirmReqest()"
+      >Xác nhận lời mời</a
     >
   </div>
   <form class="edit-phto" [hidden]="!checkUser">

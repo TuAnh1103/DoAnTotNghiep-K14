@@ -34,4 +34,6 @@
             Boolean existsByEmail(String email);
             Boolean existsByUsername(String username);
             List<UserInfoResponse> suggestFriendByUserId(Long id);
+            Page<UserInfoResponse> suggestFriend(Pageable pageable,Long id);
+            Page<UserInfoResponse> seachKey(UserFilterRequest userFilterRequest);
         }

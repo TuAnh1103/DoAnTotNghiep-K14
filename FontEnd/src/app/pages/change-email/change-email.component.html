@@ -1,0 +1,40 @@
+<div class="theme-layout">
+	<div class="container-fluid pdng0">
+		<div class="row merged">
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="background-color: #94e3f3;">
+				<div>
+					<img src="assets/images/connect-removebg-preview.png" alt="" height="70%" style="margin-top: 70px;margin-left: 30%;">
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" >
+				<div class="login-reg-bg" style="background-color: #94e3f3;">
+					<div class="log-reg-area sign" style=" left:250px;border-radius: 20px;">
+						<h2 class="log-title" style="color: #b65d5d;">Cài đặt email mới</h2>
+						<p *ngIf="error" style="color:red;font-weight:bold;">{{error}}</p>
+						<form method="post" [formGroup]="form" (ngSubmit)="onSubmit()" >
+							<div class="form-group">
+							  <input type="text" id="input" formControlName="email" [(ngModel)]="email" required="required"/>
+							  <label class="control-label" for="input">Email mới</label><i class="mtrl-select"></i>
+              </div>
+							<div class="form-group"  style="display:flex;">
+                  <input type="password" formControlName="password" name="password" [(ngModel)]="password" required="required"  id="ipnPassword" />
+                  <label class="control-label" for="input">Mật khẩu đăng nhập</label><i class="mtrl-select"></i>
+                  <div class="input-group-append">
+                    <button style="font-size: 12px;" class="btn btn-outline-secondary" type="button" id="btnPassword">
+                      <span class="fas fa-eye"></span>
+                    </button>
+                  </div>
+							</div>
+							<div class="submit-btns">
+                <mat-dialog-actions align="center">
+                  <button mat-raised-button color="primary" type="submit" tabindex="1"style="margin-right:30px">Đặt lại</button>
+                  <button color="blue" mat-raised-button mat-dialog-close tabindex="-1" type="button">Hủy</button>
+                </mat-dialog-actions>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

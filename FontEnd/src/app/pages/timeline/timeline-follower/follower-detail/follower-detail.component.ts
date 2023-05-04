@@ -18,19 +18,29 @@ export class FollowerDetailComponent implements OnInit {
   private headers: any;
   id:string;
   listFollower: Follower[];
+  followers: Follower[];
   page: any;
   data:Followers;
   messageResponse:MessageResponse;
   checkUser:boolean;
   myId:string;
   size:number=0;
+  index:number=0;
   count:number=0;
+  myFriends:Number[];
+  myRequestFriendsByMy:Number[];
+  myRequestFriendsToMy:Number[];
+  myFollowing:Number[];
   constructor(private snackBar: MatSnackBar,private route: ActivatedRoute,private http: HttpClient, private commonService: CommonService) {
     this.baseUrl = this.commonService.webApiUrl;
     this.headers = this.commonService.createHeadersOption(
       localStorage.getItem('token')
     );
     this.myId=localStorage.getItem("userId");
+    this.getAllMyFriend();
+    this.getAllRequestFriendByMy();
+    this.getAllRequestFriendToMy();
+    this.getAllFollowing();
   }
   ngOnInit(): void {
     this.route.paramMap.subscribe((params)=>{
@@ -60,7 +70,7 @@ export class FollowerDetailComponent implements OnInit {
   getAllFollower() {
     this.page={
       index:0,
-      size:10
+      size:5
     };
     return this.http.post(`${this.baseUrl}/follow/follower/${this.id}`, this.page, {
       headers: this.headers
@@ -78,9 +88,10 @@ export class FollowerDetailComponent implements OnInit {
     )
   }
   loadAdd(){
-    this.size=this.page.size + 5;
+    this.size=this.page.size;
+    this.index=this.page.index+1;
     this.page={
-      index:0,
+      index:this.index,
       size:this.size
     }
     this.http.post(`${this.baseUrl}/follow/follower/${this.id}`, this.page, {
@@ -89,8 +100,10 @@ export class FollowerDetailComponent implements OnInit {
     .subscribe(
       (datas)=>{
           this.data=datas as Followers;
-          this.listFollower=this.data.content;
-          this.size=this.page.size;
+          this.followers=this.data.content;
+          for(var i = 0; i < this.followers.length ; i++){
+            this.listFollower.push(this.followers[i]);
+        }
       },
       error=>console.log(error)
     )
@@ -106,6 +119,9 @@ export class FollowerDetailComponent implements OnInit {
     (message)=>{
       this.messageResponse=message;
       this.showSnackbarSucsess(this.messageResponse.message,'',1000);
+      this.getAllMyFriend();
+      this.getAllRequestFriendByMy();
+      this.getAllRequestFriendToMy();
     },
     (error:HttpErrorResponse)=>{
       this.messageResponse=error.error;
@@ -123,6 +139,7 @@ export class FollowerDetailComponent implements OnInit {
     (message)=>{
       this.messageResponse=message;
       this.getQuantityFollower();
+      this.getAllFollowing();
       this.showSnackbarSucsess(this.messageResponse.message,'','2000');
     },
     (error:HttpErrorResponse)=>{
@@ -145,4 +162,103 @@ export class FollowerDetailComponent implements OnInit {
       horizontalPosition: "center",// Allowed values are 'start' | 'center' | 'end' | 'left' | 'right'
       panelClass: ["error-custom-style"]
   })}
+  getAllMyFriend() {
+    this.http.get(`${this.baseUrl}/friends/myfriend`, {
+      headers: this.headers
+    }).pipe(first())
+    .subscribe(
+      (datas)=>{
+        this.myFriends=datas as number[];
+        console.log( this.myFriends);
+      },
+      (error)=>{
+        console.log(error);
+      }
+    )
+  }
+  getAllRequestFriendByMy()
+  {
+    this.http.get(`${this.baseUrl}/friendrequest/friendRequestByMe/${localStorage.getItem('userId')}`, {
+      headers: this.headers
+    }).pipe(first())
+    .subscribe(
+      (datas)=>{
+        this.myRequestFriendsByMy=datas as number[];
+        console.log( this.myRequestFriendsByMy);
+      },
+      (error)=>{
+        console.log(error);
+      }
+    )
+  }
+  getAllRequestFriendToMy()
+  {
+    this.http.get(`${this.baseUrl}/friendrequest/friendRequestToMe/${localStorage.getItem('userId')}`, {
+      headers: this.headers
+    }).pipe(first())
+    .subscribe(
+      (datas)=>{
+        this.myRequestFriendsToMy=datas as number[];
+        this.getAllRequestFriendByMy();
+        console.log( this.myRequestFriendsToMy);
+      },
+      (error)=>{
+        console.log(error);
+      }
+    )
+  }
+  confirmReqest(userid:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    })
+    return this.http.post(`${this.baseUrl}/friendrequest/add/${userid}`,'',{
+      headers: headers
+    }).pipe(first())
+    .subscribe(
+    (message)=>{
+      this.messageResponse=message;
+      this.showSnackbarSucsess(this.messageResponse.message,'',1000);
+      this.getAllMyFriend();
+      this.getAllRequestFriendByMy();
+      this.getAllRequestFriendToMy();
+    },
+    (error:HttpErrorResponse)=>{
+      this.messageResponse=error.error;
+      this.showSnackbarError(this.messageResponse.message,'',1000);
+    })
+  }
+  getAllFollowing(){
+    this.http.get(`${this.baseUrl}/follow/following/id`, {
+      headers: this.headers
+    }).pipe(first())
+    .subscribe(
+      (datas)=>{
+        this.myFollowing=datas as number[];
+        console.log(this.myFollowing);
+      },
+      (error)=>{
+        console.log(error);
+      }
+    )
+  }
+  unfollow(userId:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${localStorage.getItem('token')}`
+    })
+    return this.http.post(`${this.baseUrl}/follow/remove/${userId}`,'',{
+      headers: headers
+    }).pipe(first())
+    .subscribe(
+    (message)=>{
+      this.messageResponse=message;
+      this.showSnackbarSucsess(this.messageResponse.message,'','2000');
+      this.getQuantityFollower();
+      this.getAllFollowing();
+    },
+    (error:HttpErrorResponse)=>{
+      this.messageResponse=error.error;
+      console.log(error);
+      this.showSnackbarError(this.messageResponse.message,'','2000');
+    })
+  }
 }

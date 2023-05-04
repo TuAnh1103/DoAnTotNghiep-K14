@@ -34,41 +34,94 @@
                   >
                 </h4>
                 <a
-                  title=""
-                  class="add-butn more-action"
-                  style="
-                    background-color:#1b74e4;
-                    border-radius: 20px;
-                    color: white;
-                    margin-right:30px;
-                  "
-                  data-ripple=""
-                  (click)="follow(follower.user_info.id)"
-                  [hidden]="
-                    follower.user_info.id.toString() != myId ? false : true
-                  "
-                  >Theo dõi</a
-                >
-                <a
-                  title=""
-                  class="add-butn"
-                  data-ripple=""
-                  style="
-                    background-color:#1b74e4;
-                    border-radius: 20px;
-                    color: white;
-                  "
-                  [hidden]="
-                    follower.user_info.id.toString() != myId ? false : true
-                  "
-                  (click)="addFriend(follower.user_info.id.toString())"
-                  >Thêm bạn bè</a
-                >
+                class="add-butn more-action"
+                style="
+                  background-color:#1b74e4;
+                  border-radius: 20px;
+                  color: white;
+                "
+                data-ripple=""
+                (click)="follow(follower.user_info.id)"
+                [hidden]="
+                follower.user_info.id.toString() != myId&&!myFollowing.includes(follower.user_info.id) ? false : true
+                "
+                >Theo dõi</a
+              >
+              <a
+              class="add-butn more-action"
+              style="
+               background-color: #e4e6eb;
+                border-radius: 20px;
+                color: black;
+              "
+              data-ripple=""
+              (click)="unfollow(follower.user_info.id)"
+              [hidden]="
+              follower.user_info.id.toString() != myId &&myFollowing.includes(follower.user_info.id) ? false : true
+              "
+              >Hủy theo dõi</a
+            >
+
+              <a
+              class="add-butn"
+              style="
+                background-color: #3c86f5;
+                border-radius: 20px;
+                color: white;
+                margin-right:-20px;
+              "
+              title=""
+              data-ripple=""
+              [hidden]="(follower.user_info.id.toString() != myId&&!myFriends.includes(follower.user_info.id)&&!myRequestFriendsByMy.includes(follower.user_info.id)&&!myRequestFriendsToMy.includes(follower.user_info.id))?false:true"
+              (click)="addFriend(follower.user_info.id)"
+              >Thêm bạn bè</a
+            >
+            <a
+            [routerLink]="['/messager/t',follower.user_info.id]"
+            class="add-butn"
+            style="
+              background-color: #3c86f5;
+              border-radius: 20px;
+              color: white;
+              margin-left:20px;
+            "
+            title=""
+            data-ripple=""
+            [hidden]="(follower.user_info.id.toString() != myId&&myFriends.includes(follower.user_info.id))?false:true"
+            >Nhắn tin</a
+          >
+          <a
+          class="add-butn"
+          style="
+            background-color: #3c86f5;
+            border-radius: 20px;
+            color: white;
+            margin-right:-20px;
+          "
+              title=""
+              data-ripple=""
+              [hidden]="(follower.user_info.id.toString() != myId&&!myFriends.includes(follower.user_info.id)&&myRequestFriendsByMy.includes(follower.user_info.id))?false:true"
+              >Đã gửi lời mời</a
+            >
+            <a
+            class="add-butn"
+            style="
+              background-color: #3c86f5;
+              border-radius: 20px;
+              color: white;
+              margin-right:-35px;
+            "
+              title=""
+              data-ripple=""
+              [hidden]="(follower.user_info.id.toString() != myId&&!myFriends.includes(follower.user_info.id)&&!myRequestFriendsByMy.includes(follower.user_info.id)&&myRequestFriendsToMy.includes(follower.user_info.id))?false:true"
+              (click)="confirmReqest(follower.user_info.id)"
+              >Xác nhận lời mời</a
+            >
               </div>
             </div>
           </li>
         </ul>
-        <div class="lodmore">
+        <div class="lodmore" [hidden]="listFollower.length==count?true:false">
           <button class="btn-view btn-load-more" (click)="loadAdd()"></button>
         </div>
       </div>

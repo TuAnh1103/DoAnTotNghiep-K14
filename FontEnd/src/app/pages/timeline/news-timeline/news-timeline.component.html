@@ -1,9 +1,41 @@
-<app-center-meta (updateNewFeed)="updateNewfeed($event)"></app-center-meta>
+<app-center-meta (updateNewFeed)="updateNewfeed($event)" [hidden]="my===id?false:true"></app-center-meta>
 <div class="loadMore">
   <div class="central-meta item" *ngFor="let post of postList">
   <app-user-post  [post]="post"  (updatePostEvent)="updatePost($event)"></app-user-post>
   </div>
+  <div class="central-meta item" [hidden]="postList.length==count?false:true">
+    <div class="user-post">
+    <div class="friend-info">
+      <figure>
+        <img  [src]="
+        !user.avatar_image
+          ? 'https://res.cloudinary.com/viuni/image/upload/v1679817819/qcnaqac3vw1deasdfqt1.jpg'
+          : user.avatar_image.link_image
+      "  style="width: 60px; height: 60px" alt="">
+      </figure>
+      <div class="friend-name">
+        <ins><a href="time-line.html" title="">{{ user.first_name }} {{ user.last_name }}</a></ins>
+        <span>Ngày đăng: {{ user.created_date|date}}</span>
+      </div>
+      <div class="post-meta">
+                <img src="https://res.cloudinary.com/viuni/image/upload/v1682868335/fm21yh3neqknsshbsqwu.png" height="315" webkitallowfullscreen mozallowfullscreen allowfullscreen style="height: 100%;width: 100%;"/>
+        <div class="description">
+          <p style="font-size: 25px;
+          text-align: center;
+          color: #6c8de8;
+          font-weight: 700;">
+            Chào mừng bạn trở thành thành viên của SVConnect!
+          </p>
+          <p style="font-size: 20px;
+          margin-bottom: 20px;
+          text-align: center;
+          color: #0b0b12">Hãy bắt đầu tạo bài viết mới nào!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
   <div class="lodmore">
-    <button class="btn-view btn-load-more" (click)="loadAdd()"></button>
+    <button class="btn-view btn-load-more" (click)="loadAdd()" [hidden]="postList.length==count?true:false"></button>
   </div>
 </div>

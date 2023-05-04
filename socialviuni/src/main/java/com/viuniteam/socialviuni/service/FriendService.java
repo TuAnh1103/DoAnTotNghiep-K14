@@ -13,4 +13,6 @@
             Page<FriendResponse> getAllByUserId(Long userId, Pageable pageable);
             boolean isFriend(Long idSource, Long idTarget);
             boolean itIsMe(Long idSource,Long idTarget);
+
+            List<Long> getFriendId(Long id);
         }

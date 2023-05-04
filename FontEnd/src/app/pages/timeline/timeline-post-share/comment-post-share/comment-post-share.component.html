@@ -5,9 +5,9 @@
 </div>
 <div class="we-comment">
   <div class="coment-head">
-    <h5><a href="time-line.html" title="">{{comment.author.last_name}}{{comment.author.first_name}}</a></h5>
+    <h5><a [routerLink]="['/timeline',comment.author.id]" title="">{{comment.author.last_name}}{{comment.author.first_name}}</a></h5>
     <span>{{comment.created_date}}</span>
-    <a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
+    <a class="we-reply" (click)="opendetailcomment()" title="Reply"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
   </div>
   <p>
     {{comment.content}}

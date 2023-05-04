@@ -59,4 +59,9 @@
                 PageRequest pageRequest = PageRequest.of(pageInfo.getIndex(), pageInfo.getSize());
                 return postService.getNewsFeedUserId(profile.getId(),pageRequest);
             }
+            @GetMapping("/count/{id}")
+            public Long countPostByUserId(@PathVariable("id") Long id)
+            {
+                return postService.countPostByUserId((id));
+            }
         }

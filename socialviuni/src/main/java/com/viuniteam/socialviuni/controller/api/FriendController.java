@@ -30,10 +30,10 @@
         //    public List<FriendResponse> getAllFriend(@PathVariable("id") Long id){
         //        return friendService.getAll(id);
         //    }
-        //    @GetMapping("/getall/me")
-        //    public List<FriendResponse>getAllMyFriend(){
-        //        return friendService.getAll(profile.getId());
-        //    }
+            @GetMapping("/getall/my")
+            public List<FriendResponse>getAllMyFriend(){
+                return friendService.getAll(profile.getId());
+            }
             @PostMapping("/getall/{id}")
             public Page<FriendResponse> getAllFriend(@PathVariable("id") Long id, @RequestBody PageInfo pageInfo){
                 PageRequest pageRequest = PageRequest.of(pageInfo.getIndex(), pageInfo.getSize());
@@ -55,5 +55,9 @@
             @PostMapping("/suggest")
             public List<UserInfoResponse> getSuggestionFriend(){
                 return userService.suggestFriendByUserId(profile.getId());
+            }
+            @GetMapping("/myfriend")
+            public List<Long> getmyFriendId(){
+                return friendService.getFriendId(profile.getId());
             }
         }

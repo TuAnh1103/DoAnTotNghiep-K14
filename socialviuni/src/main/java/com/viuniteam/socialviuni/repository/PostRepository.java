@@ -14,6 +14,9 @@
         import java.util.List;
         import java.util.Optional;
         public interface PostRepository extends JpaRepository<Post,Long>{
+            @Query(value = "select count(*) from post where user_id=?1",
+                    nativeQuery = true)
+            Long countPostByUserId(Long id);
             Post findOneByAuthorAndId(User author, Long id);
             void deleteById(Long id);
             Post save(Post post);
@@ -29,7 +32,7 @@
                     "(post.user_id  in(select flw.user_id as userId from following flw join user_followings u_flw on flw.id=u_flw.followings_id join user u on u.id = u_flw.user_id and u_flw.user_id=?1))||" +
                     "(post.privacy=1)" +
                     "order by post.id desc",
-                    countQuery = "select * from post where (post.user_id=?1) || (post.user_id in(select fr.user_id as userId from friend fr join user_friends u_fr on fr.id=u_fr.friends_id join user u on u.id = u_fr.user_id and u_fr.user_id=?1))||" +
+                    countQuery = "select count(*) from post where (post.user_id=?1) || (post.user_id in(select fr.user_id as userId from friend fr join user_friends u_fr on fr.id=u_fr.friends_id join user u on u.id = u_fr.user_id and u_fr.user_id=?1))||" +
                             "(post.user_id  in(select flw.user_id as userId from following flw join user_followings u_flw on flw.id=u_flw.followings_id join user u on u.id = u_flw.user_id and u_flw.user_id=?1))||(post.privacy=1)",
                     nativeQuery = true)
             Page<Post> getPostNewsfeed(Long userId,Pageable pageable);

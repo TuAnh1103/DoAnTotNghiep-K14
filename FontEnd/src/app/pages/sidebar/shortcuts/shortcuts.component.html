@@ -3,7 +3,7 @@
     <ul class="naves">
         <li>
             <i class="ti-clipboard"></i>
-            <a href="newsfeed.html" title="">Bảng tin</a>
+            <a [routerLink]="['/home']" title="">Bảng tin</a>
         </li>
         <li>
             <i class="ti-files"></i>
@@ -11,18 +11,22 @@
         </li>
         <li>
             <i class="ti-user"></i>
-            <a href="timeline-friends.html" title="">Bạn bè</a>
+            <a [routerLink]="['/timeline',id,'friends']" title="">Bạn bè</a>
         </li>
         <li>
             <i class="ti-image"></i>
-            <a href="timeline-photos.html" title="">Hình ảnh</a>
+            <a [routerLink]="['/timeline',id,'photos']" title="">Hình ảnh</a>
         </li>
         <li>
+          <i class="ti-files"></i>
+          <a [routerLink]="['/timeline',id,'share']">Đã lưu</a>
+      </li>
+        <!-- <li>
             <i class="ti-bell"></i>
-            <a href="notifications.html" title="">Notifications</a>
-        </li>
+            <a [routerLink]="['/timeline',id,'/']" title="">Notifications</a>
+        </li> -->
         <li>
             <i class="ti-power-off"></i>
-            <a href="landing.html" title="">Đăng xuất</a>
+            <a [routerLink]="['/login']"  title="" (click)="logout()"  title="">Đăng xuất</a>
         </li>
     </ul>
